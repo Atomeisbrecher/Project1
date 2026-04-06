@@ -1,7 +1,7 @@
-
-
 from datetime import time
 import random
+
+from fastapi import HTTPException, Request, status
 
 
 class RateLimiter:
@@ -28,8 +28,32 @@ class RateLimiter:
 
             await pipe.zadd(key, mapping = {current_request: current_ms})
 
-            await pipe.expire(time_window_seconds)
+            await pipe.expire(key, time_window_seconds)
 
             result = await pipe.execute()
         _, current_count, _, _ = result
-        if current_count > max_requests: return True
+        return current_count > max_requests
+
+def rate_limiter_factory(
+        endpoint: str,
+        max_requests: int,
+        window_seconds: int,
+):
+    async def dependency(
+            request: Request,
+            rate_limiter: RateLimiter,
+    ):
+        ip_address = request.client.host
+
+        limited = await rate_limiter.is_limited(
+            ip_address=ip_address,
+            endpoint=endpoint,
+            max_requests=max_requests,
+            time_window_seconds=window_seconds,
+        )
+
+        if limited:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                )
+    return dependency

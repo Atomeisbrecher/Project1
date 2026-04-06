@@ -1,14 +1,16 @@
-from datetime import datetime, timedelta, timezone
-from uuid import uuid4
+import uuid6
+#import uuid4
+import jwt
 
 from fastapi import HTTPException, Request, Response
+from datetime import datetime, timedelta, timezone
 
 from api_auth.domain.interfaces import ITokenAuth, ITokenProvider, ITokenStorage
 from api_auth.domain.token_entity import TokenType, TokenData
 from auth_config import settings
 
 from api_auth.domain.entities import UserEntity
-import jwt
+
 
 TOKEN_TYPE_FIELD = "type:"
 
@@ -64,7 +66,7 @@ class TokenProvider(ITokenProvider):
             ) -> str:
         jwt_payload = {
             TOKEN_TYPE_FIELD: token_type,
-            "jti": str(uuid4())
+            "jti": str(uuid6.uuid6())
             }
         jwt_payload.update(token_data)
         return self._encode_jwt(
@@ -106,6 +108,13 @@ class TokenAuth(ITokenAuth):
         }
         access_token = self.token_provider.create_access_token(data)
         refresh_token = self.token_provider.create_refresh_token(data)
+
+        refresh_jti, refresh_expire_seconds = self.token_provider._decode_token(refresh_token).get("jti"), self.token_provider._decode_token(refresh_token).get("expire_minutes") * 60
+        self.token_storage.allowlist_token(user_id, refresh_jti, refresh_expire_seconds)
+
+        access_jti, access_expire_seconds = self.token_provider._decode_token(access_token).get("jti"), self.token_provider._decode_token(access_token).get("expire_minutes") * 60
+        self.token_storage.allowlist_token(user_id, access_jti, access_expire_seconds)
+
         result = TokenData(
             access_token=access_token,
             refresh_token=refresh_token,
@@ -115,9 +124,14 @@ class TokenAuth(ITokenAuth):
     async def set_token(self, token: str, token_type: TokenType):
         pass
 
-    async def revoke_tokens(self, user: UserEntity) -> None:
-        self.token_storage.blacklist_tokens_by_user()
+    async def revoke_all_tokens(self, user_id: int) -> None:
+        self.token_storage.revoke_all_tokens_by_user_id(user_id)
 
+    async def revoke_spicific_token(self, user_id: int, token: TokenData) -> None:
+        payload = self.token_provider._decode_jwt(token)
+        jti = payload.get("jti")
+
+        self.token_storage.revoke_specific_token_by_user_id(user_id, jti)
 
     def _get_access_token(self) -> str | None:
         if hasattr(self.request.state, "access_token"):
@@ -135,7 +149,7 @@ class TokenAuth(ITokenAuth):
 
             if token.token_storage:
                 client = self.token_storage.client()
-            if client.exists(f"blaclist:{jti}"):
+            if client.exists(f"allowlist:{jti}"):
                 raise HTTPException(status_code=401, detail="Token has been revoked")
                 
             return payload

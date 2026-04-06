@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "S:/Shop/shop/linux"
+    "cmake.sourceDirectory": "S:/Shop/shop/linux",
+    "python-envs.defaultEnvManager": "ms-python.python:system"
 }

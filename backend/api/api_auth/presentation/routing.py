@@ -7,11 +7,18 @@ from api_auth.application.interactors.get_login_page import get_login_page
 from api_auth.application.interactors.login import LoginUseCase
 from api_auth.application.dto.login import LoginInputDTO
 from fastapi import status
+import logging
 
-from api_auth.application.interactors.exchange_code_for_token import ExchangeCodeForToken
+from api_auth.infrastructure.db.postgres.session import DbManager
+from api_auth.infrastructure.db.postgres.unit_of_work import SQLAlchemyUnitOfWork
+from api_auth.domain.interfaces import IPasswordHasher
 from api_auth.domain.token_entity import TokenData
 from api_auth.application.interactors.register import RegisterUser, RegisterUserCommand
+from api_auth.domain.entities import UserCreate
+from api_auth.application.interactors.exchange_code_for_token import ExchangeCodeForToken
+
 router = APIRouter()
+logger = logging.getLogger(__name__)
 
 @router.get("/", response_class=HTMLResponse)
 async def authorize(
@@ -21,7 +28,7 @@ async def authorize(
     state: str,
     code_challenge: str,
     ):
-
+    logger.info(f"Received authorization request for client_id={client_id}")
     return await get_login_page(request, client_id, redirect_uri, state, code_challenge)
 
 @router.post('/login')
@@ -72,7 +79,6 @@ async def post_token(
         raise HTTPException(status_code=400, detail="Unsupported grant type")
     try:
         tokens = await use_case.execute(code, code_verifier)
-        print(tokens)
         return tokens
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -94,19 +100,29 @@ class RegisterRequest(BaseModel):
 @router.post("/register")
 @inject
 async def register(
-    # username: str = Form(...),
-    # password: str = Form(...),
-    # email: str = Form(...),
-    # phone: str | None = None,
-    data: RegisterRequest,
-    use_case: FromDishka[RegisterUser] = None,
+    data: RegisterRequest, 
+    # uow: FromDishka[SQLAlchemyUnitOfWork] = None,
+    # hasher: FromDishka[IPasswordHasher] = None,
+    use_case: FromDishka[RegisterUser] = None
 ):
-    return await use_case(RegisterUserCommand(
+    logger.info(f"Received registration request for username={data.username}, email={data.email}")
+    cmd = RegisterUserCommand(
         username=data.username,
         email=data.email,
         password=data.password,
         phone=data.phone,
-        )
     )
+    logger.debug("RegisterUserCommand created")
+    #case = RegisterUser(hasher=hasher, uow=uow)
+    logger.info(f"Calling use case for user registration")
 
-    
+    #result = await use_case(case(RegisterUserCommand))
+    result = await use_case(cmd)
+    logger.info(f"Registration successful, user id={result.id}")
+
+    return {
+        "id": result.id if result.id else None,
+        "username": result.username,
+        "email": result.email,
+        "phone": result.phone
+    }

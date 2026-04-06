@@ -3,15 +3,24 @@ import json
 
 @dataclass
 class UserEntity():
+    id: int
     email: str
     password_hash_bytes: bytes
     username: str
     phone: str | None = None
 
-class UserCreate():
-    pass
+@dataclass
+class UserCreate:
+    email: str
+    password_hash_bytes: bytes
+    username: str
+    phone: str | None = None
 
 class UserUpdate():
+    id: int
+    email: str | None = None
+    username: str | None = None
+    phone: str | None = None
     pass
 
 @dataclass

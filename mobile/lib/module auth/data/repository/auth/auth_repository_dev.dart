@@ -34,7 +34,7 @@ class OAuthRepositoryDev extends OAuthRepository {
   }
 
   @override
-  Future<Result<void>> signIn({required String email, required String password}) {
+  Future<Result<void>> signIn({required String username, required String email, required String password, String? phone}) {
     // TODO: implement local Sign In
     throw UnimplementedError();
   }

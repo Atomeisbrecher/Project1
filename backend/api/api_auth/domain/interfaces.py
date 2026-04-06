@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
+from datetime import time
+from typing import Protocol
 
 from api_auth.domain.entities import UserEntity, UserCreate, CodeData
+from api_auth.domain.token_entity import TokenData
 
 class IUserRepository(ABC):
     @abstractmethod
@@ -28,7 +31,7 @@ class IUserRepository(ABC):
     async def delete_user_by_id(self, user_id: str) -> None:
         pass
     
-class IUnitOfWork(ABC):
+class IUnitOfWork(Protocol):
     @abstractmethod
     async def commit(self): ...
 
@@ -67,6 +70,22 @@ class ITokenStorage(ABC):
 
     @abstractmethod
     async def delete_field_by_name(self, field_name: str) -> CodeData | None: pass
+    
+    @abstractmethod
+    async def allowlist_tokens(self, user_id: int, jti: str, expire_seconds: time):
+        pass
+    
+    @abstractmethod
+    async def is_session_valid(self, user_id: int, jti: str) -> bool:
+        pass
+
+    @abstractmethod
+    async def revoke_all_tokens_by_user_id(self, user_id: int) -> dict:
+        pass
+
+    @abstractmethod
+    async def revoke_specific_token_by_user_id(self, user_id: int, jti: str) -> dict:
+        pass
 
 class ITokenAuth(ABC):
     def __init__(self, token_storage: ITokenStorage, token_provider: ITokenProvider):

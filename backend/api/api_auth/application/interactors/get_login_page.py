@@ -12,8 +12,10 @@ async def get_login_page(
 
     if client_id != "my_flutter_app":
         raise HTTPException(status_code=400, detail="Invalid client_id")
-    response = Jinja2Templates(directory="templates").TemplateResponse("login.html", {
-        "request": request,
+    response = Jinja2Templates(directory="templates").TemplateResponse(
+        request = request,
+        name="login.html",
+        context={
         "state": state,
         "client_id": client_id,
         "redirect_uri": redirect_uri,

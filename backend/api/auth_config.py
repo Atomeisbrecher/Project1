@@ -21,7 +21,7 @@ class DbSettings(BaseSettings):
     
     @property
     def DB_URL(self) -> str:
-        return URL.create(
+        url = URL.create(
             drivername=self.DB_DRIVER,
             database=self.DB_NAME,
             host=self.DB_HOST,
@@ -29,7 +29,9 @@ class DbSettings(BaseSettings):
             username=self.DB_USER,
             password=self.DB_PASS,
         ).render_as_string(hide_password=False)
-    #f"postgresql+asyncpg://my_admin:super_secret_db_pass@localhost/app_db"
+        print(url)
+        return(url)
+    #f"postgresql+asyncpg://my_admin:secret@localhost/app_db"
 
 
 class RedisSettings(BaseSettings):
@@ -46,7 +48,7 @@ class RedisSettings(BaseSettings):
     @property
     def REDIS_URL(self) -> str:
         # Формат: redis://[:password]@host:port/db
-        return f"redis://:{self.REDIS_PASS}@{self.REDIS_HOST}:{self.REDIS_PORT}"
+        return f"redis://default:{self.REDIS_PASS}@{self.REDIS_HOST}:{self.REDIS_PORT}"
 
 class AuthJWT(BaseSettings):
     private_key_path: Path = BASE_DIR / "certs" / "jwt-private.pem"
