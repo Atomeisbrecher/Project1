@@ -2011,3 +2011,812 @@
 2026-04-07 01:34:42,104 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>, connection was closed in the middle of operation, <traceback object at 0x0000020FC4F92A40>
 2026-04-07 01:34:42,105 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
 2026-04-07 01:34:42,105 - api_auth.presentation.ioc - DEBUG - Session closed
+2026-04-09 13:30:44,171 - __main__ - INFO - Starting server...
+2026-04-09 13:30:45,127 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 13:30:45,153 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 13:30:45,153 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 13:30:45,153 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 13:30:45,276 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 13:30:45,276 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 13:31:04,894 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 13:31:04,895 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 13:31:25,286 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 13:31:25,306 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 13:31:25,312 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 13:31:25,312 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 13:31:25,356 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 13:31:25,356 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 13:31:27,081 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 13:31:27,081 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 14:16:53,787 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:16:53,807 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:16:53,807 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:16:53,808 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:16:53,851 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:16:53,851 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:17:02,357 - __main__ - INFO - Starting server...
+2026-04-09 14:17:03,177 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:17:03,199 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:17:03,199 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:17:03,199 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:17:03,242 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:17:03,242 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:28:13,204 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:28:13,225 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:28:13,225 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:28:13,225 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:28:13,269 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:28:13,269 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:28:22,348 - __main__ - INFO - Starting server...
+2026-04-09 14:28:23,246 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:28:23,266 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:28:23,266 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:28:23,266 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:28:23,312 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:28:23,312 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:30:57,717 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:30:57,740 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:30:57,740 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:30:57,741 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:30:57,785 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:30:57,785 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:31:47,550 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:31:47,581 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:31:47,581 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:31:47,582 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:31:47,640 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:31:47,640 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:32:00,022 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 14:32:00,023 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 14:32:20,210 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 14:32:20,234 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 14:32:20,235 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 14:32:20,235 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 14:32:20,277 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 14:32:20,277 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 14:32:26,143 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 14:32:26,143 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 15:02:09,232 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:02:09,256 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:02:09,257 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:02:09,257 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:02:09,301 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:02:09,302 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:02:45,946 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:02:45,968 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:02:45,969 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:02:45,969 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:02:46,012 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:02:46,013 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:03:27,674 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:03:27,706 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:03:27,707 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:03:27,707 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:03:27,756 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:03:27,756 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:03:43,347 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:03:43,390 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:03:43,390 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:03:43,390 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:03:43,452 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:03:43,452 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:04:05,983 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:04:06,007 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:04:06,007 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:04:06,008 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:04:06,050 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:04:06,050 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:09:26,809 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:09:26,835 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:09:26,835 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:09:26,835 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:09:26,885 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:09:26,885 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:09:51,599 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:09:51,621 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:09:51,621 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:09:51,621 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:09:51,665 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:09:51,665 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:10:05,434 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:10:05,457 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:10:05,458 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:10:05,458 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:10:05,501 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:10:05,501 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:11:13,288 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:11:37,665 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:11:42,907 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:20:51,809 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:20:51,832 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:20:51,834 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:20:51,834 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:20:51,881 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:20:51,881 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:21:18,167 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:21:18,189 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:21:18,189 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:21:18,189 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:21:18,234 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:21:18,235 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:21:35,836 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:21:35,857 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:21:35,857 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:21:35,858 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:21:35,901 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:21:35,901 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:21:46,157 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:21:46,177 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:21:46,178 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:21:46,178 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:21:46,219 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:21:46,219 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:22:07,965 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:22:07,989 - api_auth.presentation.ioc - DEBUG - Initializing AuthProvider...
+2026-04-09 15:22:07,989 - api_auth.presentation.ioc - DEBUG - Creating DbManager...
+2026-04-09 15:22:07,989 - api_auth.infrastructure.db.postgres.session - INFO - Creating async engine
+2026-04-09 15:22:08,031 - api_auth.infrastructure.db.postgres.session - INFO - Async engine created with dialect: postgresql
+2026-04-09 15:22:08,031 - api_auth.presentation.ioc - INFO - Database manager initialized successfully
+2026-04-09 15:29:36,791 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:29:36,815 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:29:47,422 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:29:47,445 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:29:57,465 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:29:57,488 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:32:19,222 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:32:19,244 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:32:29,203 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 15:32:29,203 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 15:33:03,643 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 15:38:33,183 - __main__ - INFO - Starting server...
+2026-04-09 15:38:34,226 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:38:34,250 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:38:44,536 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 15:38:44,536 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 15:39:28,248 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:39:28,269 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:39:34,840 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:39:34,866 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:39:56,741 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:39:56,764 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:40:07,908 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:40:07,935 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:40:13,954 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 15:40:13,955 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 15:40:13,955 - api_auth.presentation.ioc - DEBUG - Database session obtained
+2026-04-09 15:40:13,955 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 15:40:13,955 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 15:40:13,955 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 15:40:13,955 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 15:40:13,955 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 15:40:13,955 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 15:40:13,956 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 15:40:13,956 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 15:40:13,956 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 15:40:14,027 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>, connection was closed in the middle of operation, <traceback object at 0x000002B67DA3A1C0>
+2026-04-09 15:40:14,027 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 15:40:14,027 - api_auth.presentation.ioc - DEBUG - Session closed
+2026-04-09 15:44:41,727 - __main__ - INFO - Starting server...
+2026-04-09 15:44:42,680 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:44:42,702 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:54:55,560 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 15:54:55,585 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 15:55:10,281 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 15:55:10,281 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 16:00:59,503 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 16:00:59,528 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 16:01:16,150 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 16:01:16,174 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 16:01:18,860 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 16:01:18,860 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 16:01:18,860 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 16:01:18,860 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 16:01:18,860 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 16:01:18,860 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 16:01:18,860 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 16:01:18,861 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 16:01:18,861 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 16:01:18,861 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 16:01:18,861 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 16:01:18,927 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'asyncpg.exceptions.ConnectionDoesNotExistError'>, connection was closed in the middle of operation, <traceback object at 0x000001EDD4308380>
+2026-04-09 16:01:18,927 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 16:03:18,015 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 16:03:18,039 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 16:03:49,358 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 16:05:24,487 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:05:34,298 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:07:06,560 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:07:33,611 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:08:06,595 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:09:13,173 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:09:35,045 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:13:07,110 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:13:07,113 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 16:13:07,163 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 16:13:07,163 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 16:13:07,163 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 16:13:38,978 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 16:13:38,980 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 16:13:39,029 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 16:13:39,030 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 16:13:39,030 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 16:13:39,031 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 17:55:24,031 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 17:55:24,033 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 17:55:24,088 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 17:55:24,089 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 17:55:24,089 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 17:55:24,090 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 17:56:17,635 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 17:57:26,448 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 17:57:47,721 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 17:58:50,036 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 17:59:07,176 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 18:00:51,531 - asyncio - DEBUG - Using proactor: IocpProactor
+2026-04-09 18:01:21,324 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:02:20,768 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:06:22,289 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:06:33,630 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:07:26,165 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:08:02,131 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:08:14,475 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:09:17,533 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:09:25,116 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:09:55,494 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:10:01,849 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:10:13,967 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:10:21,042 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:10:26,308 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:12:06,641 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:12:14,624 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:12:42,742 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:12:48,347 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:12:56,666 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:17:56,509 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:20:54,444 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:28:40,364 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:29:24,323 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:29:43,960 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:30:37,303 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:30:47,182 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:31:30,819 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:31:36,487 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:31:43,773 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:31:59,163 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:32:04,466 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:32:39,194 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:33:55,973 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:34:18,800 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:34:50,292 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:35:05,388 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:35:23,732 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:36:48,890 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:38:26,635 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:39:22,177 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:57:35,960 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:59:08,260 - __main__ - INFO - Starting server...
+2026-04-09 18:59:09,178 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 18:59:09,202 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 18:59:22,074 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 18:59:22,074 - api_auth.presentation.ioc - DEBUG - Getting database session from pool...
+2026-04-09 18:59:22,074 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 18:59:22,074 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 18:59:22,074 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 18:59:22,074 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 18:59:22,074 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 18:59:22,074 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 18:59:22,074 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 18:59:22,074 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 18:59:22,079 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 18:59:22,113 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 18:59:22,114 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 18:59:22,119 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 18:59:22,119 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 18:59:22,123 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 18:59:22,123 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 18:59:22,126 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 18:59:22,129 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 18:59:22,129 - sqlalchemy.engine.Engine - INFO - [generated in 0.00047s] ('username',)
+2026-04-09 18:59:22,149 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x00000203561A3DD0>
+2026-04-09 18:59:22,149 - api_auth.application.interactors.register - INFO - Hashing password for user username
+2026-04-09 18:59:22,330 - api_auth.application.interactors.register - DEBUG - Password hashed successfully
+2026-04-09 18:59:22,330 - api_auth.application.interactors.register - DEBUG - UserCreate DTO created
+2026-04-09 18:59:22,330 - api_auth.infrastructure.db.postgres.user_repository - INFO - Creating user: email=user@example.com, username=username
+2026-04-09 18:59:22,330 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - UserORM instance created: <api_auth.infrastructure.db.postgres.orm.UserORM object at 0x00000203561E7530>
+2026-04-09 18:59:22,330 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - User added to session
+2026-04-09 18:59:22,330 - sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone, pwdhash, username) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR) RETURNING users.id
+2026-04-09 18:59:22,330 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] ('user@example.com', None, '$2b$12$O3InchfArIvFG7oYefd9o.UkoJuDEy5h2w5GwOBlNjuwFWRaFNavm', 'username')
+2026-04-09 18:59:22,340 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Session flushed successfully
+2026-04-09 18:59:22,340 - api_auth.infrastructure.db.postgres.user_repository - INFO - User created successfully: id=1, email=user@example.com
+2026-04-09 18:59:22,340 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Committing transaction
+2026-04-09 18:59:22,340 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-04-09 18:59:22,342 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, None, None, None
+2026-04-09 18:59:22,342 - api_auth.presentation.routing - INFO - Registration successful, user id=1
+2026-04-09 19:02:03,372 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:02:03,395 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:09:41,097 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:09:41,130 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:09:41,249 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:09:41,250 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:09:41,250 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:09:41,250 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:09:41,250 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:09:41,250 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:09:41,250 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:09:41,250 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:09:41,250 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:09:41,251 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:09:41,251 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:09:41,280 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:09:41,280 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:09:41,284 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:09:41,284 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:09:41,287 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:09:41,287 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:09:41,289 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:09:41,291 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:09:41,291 - sqlalchemy.engine.Engine - INFO - [generated in 0.00030s] ('username',)
+2026-04-09 19:09:41,297 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x00000231E63DC990>
+2026-04-09 19:09:41,297 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:09:41,297 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x00000231E63DC980>
+2026-04-09 19:09:41,297 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:09:41,297 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:09:49,047 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:09:49,073 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:09:57,548 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:09:57,570 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:10:09,752 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:10:09,779 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:10:13,564 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:10:13,565 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:10:13,565 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:10:13,565 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:10:13,566 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:10:13,566 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:10:13,566 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:10:13,568 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:10:13,568 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:10:13,569 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:10:13,569 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:10:13,599 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:10:13,600 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:10:13,603 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:10:13,603 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:10:13,605 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:10:13,606 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:10:13,608 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:10:13,610 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:10:13,610 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] ('username',)
+2026-04-09 19:10:13,617 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F3F38ECFD0>
+2026-04-09 19:10:13,617 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:10:13,617 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001F3F34C75C0>
+2026-04-09 19:10:13,617 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:10:13,617 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:10:15,917 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:10:15,917 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:10:15,917 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:10:15,917 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:10:15,917 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:10:15,917 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:10:15,917 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:10:15,917 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:10:15,917 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:10:15,924 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:10:15,925 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:10:15,925 - sqlalchemy.engine.Engine - INFO - [cached since 2.316s ago] ('username',)
+2026-04-09 19:10:15,928 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F3F39DA250>
+2026-04-09 19:10:15,928 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:10:15,928 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001F3F39DA240>
+2026-04-09 19:10:15,928 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:10:15,929 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:10:16,061 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:10:16,061 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:10:16,061 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:10:16,061 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:10:16,061 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:10:16,061 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:10:16,061 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:10:16,061 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:10:16,061 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:10:16,066 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:10:16,066 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:10:16,066 - sqlalchemy.engine.Engine - INFO - [cached since 2.456s ago] ('username',)
+2026-04-09 19:10:16,068 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F3F39DBA10>
+2026-04-09 19:10:16,068 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:10:16,068 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001F3F39DBA00>
+2026-04-09 19:10:16,068 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:10:16,069 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:10:16,217 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:10:16,217 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:10:16,217 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:10:16,217 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:10:16,217 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:10:16,217 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:10:16,217 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:10:16,218 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:10:16,218 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:10:16,221 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:10:16,221 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:10:16,221 - sqlalchemy.engine.Engine - INFO - [cached since 2.612s ago] ('username',)
+2026-04-09 19:10:16,223 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F3F39F1050>
+2026-04-09 19:10:16,223 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:10:16,223 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001F3F39F1040>
+2026-04-09 19:10:16,224 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:10:16,224 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:10:16,381 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:10:16,381 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:10:16,381 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:10:16,381 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:10:16,381 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:10:16,381 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:10:16,381 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:10:16,382 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:10:16,382 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:10:16,385 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:10:16,385 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:10:16,385 - sqlalchemy.engine.Engine - INFO - [cached since 2.776s ago] ('username',)
+2026-04-09 19:10:16,387 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F3F39F2550>
+2026-04-09 19:10:16,387 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:10:16,387 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001F3F39F2540>
+2026-04-09 19:10:16,387 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:10:16,387 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:10:16,539 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:10:16,540 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:10:16,540 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:10:16,541 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:10:16,542 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:10:16,542 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:10:16,542 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:10:16,542 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:10:16,543 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:10:16,545 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:10:16,546 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:10:16,546 - sqlalchemy.engine.Engine - INFO - [cached since 2.936s ago] ('username',)
+2026-04-09 19:10:16,548 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F3F39F3790>
+2026-04-09 19:10:16,548 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:10:16,548 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001F3F39F3780>
+2026-04-09 19:10:16,548 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:10:16,548 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:11:29,521 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:11:29,542 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:12:31,457 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:12:31,482 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:13:13,139 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:13:13,168 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:13:24,538 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:13:24,560 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:16:24,549 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:16:24,549 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:16:24,549 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:16:24,550 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:16:24,550 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:16:24,550 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:16:24,550 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:16:24,550 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:16:24,550 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:16:24,550 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:16:24,551 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:16:24,581 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:16:24,581 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:16:24,585 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:16:24,585 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:16:24,588 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:16:24,588 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:16:24,590 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:16:24,593 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:16:24,593 - sqlalchemy.engine.Engine - INFO - [generated in 0.00046s] ('username',)
+2026-04-09 19:16:24,599 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001A72C995050>
+2026-04-09 19:16:24,600 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:16:24,600 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000001A72C5FC480>
+2026-04-09 19:16:24,600 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:16:24,600 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:23:23,254 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:23:23,275 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:27:14,763 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:27:14,784 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:27:40,678 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:27:40,709 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:27:57,348 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:27:57,369 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:27:57,437 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:29:31,445 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:29:31,468 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:29:31,538 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:30:08,230 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:30:08,252 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:30:08,323 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:30:17,152 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:30:17,174 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:30:20,622 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:30:20,643 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:30:20,709 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:30:49,463 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:30:49,484 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:30:49,552 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:31:33,774 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:31:33,799 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:31:33,864 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:32:58,045 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:32:58,070 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:32:58,141 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:33:13,828 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:33:13,829 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:33:13,829 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:33:13,829 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:33:13,829 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:33:20,179 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:33:20,202 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:33:20,272 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:33:38,080 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:33:38,080 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:33:38,080 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:33:38,080 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:33:38,080 - api_auth.presentation.routing - INFO - Received registration request for username=username, email=user@example.com
+2026-04-09 19:33:38,080 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:33:38,081 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:33:38,081 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:33:38,081 - api_auth.application.interactors.register - INFO - Checking if user with username=username already exists
+2026-04-09 19:33:38,081 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:33:38,115 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:33:38,115 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:33:38,118 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:33:38,118 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:33:38,121 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:33:38,121 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:33:38,124 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:33:38,126 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:33:38,126 - sqlalchemy.engine.Engine - INFO - [generated in 0.00027s] ('username',)
+2026-04-09 19:33:38,132 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000002B680101290>
+2026-04-09 19:33:38,132 - api_auth.application.interactors.register - ERROR - User with this username already exists
+2026-04-09 19:33:38,132 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'ValueError'>, User with this username already exists, <traceback object at 0x000002B6FFC6D080>
+2026-04-09 19:33:38,132 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:33:38,133 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:33:45,706 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:33:45,706 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:33:45,706 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:33:45,706 - api_auth.presentation.routing - INFO - Received registration request for username=username2, email=user@example.com
+2026-04-09 19:33:45,706 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:33:45,706 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:33:45,706 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:33:45,708 - api_auth.application.interactors.register - INFO - Checking if user with username=username2 already exists
+2026-04-09 19:33:45,708 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:33:45,712 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:33:45,712 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:33:45,713 - sqlalchemy.engine.Engine - INFO - [cached since 7.587s ago] ('username2',)
+2026-04-09 19:33:45,714 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000002B6802202D0>
+2026-04-09 19:33:45,715 - api_auth.application.interactors.register - INFO - Hashing password for user username2
+2026-04-09 19:33:45,892 - api_auth.application.interactors.register - DEBUG - Password hashed successfully
+2026-04-09 19:33:45,892 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'TypeError'>, UserCreate.__init__() got an unexpected keyword argument 'password_hash_bytes', <traceback object at 0x000002B680203C40>
+2026-04-09 19:33:45,892 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:33:45,892 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:36:00,320 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:36:00,342 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:36:00,409 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:36:00,692 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:36:00,692 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:36:00,693 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:36:00,693 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:36:00,693 - api_auth.presentation.routing - INFO - Received registration request for username=username2, email=user@example.com
+2026-04-09 19:36:00,693 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:36:00,693 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:36:00,693 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:36:00,693 - api_auth.application.interactors.register - INFO - Checking if user with username=username2 already exists
+2026-04-09 19:36:00,694 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:36:00,722 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:36:00,722 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:36:00,726 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:36:00,726 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:36:00,729 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:36:00,730 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:36:00,732 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:36:00,733 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:36:00,733 - sqlalchemy.engine.Engine - INFO - [generated in 0.00026s] ('username2',)
+2026-04-09 19:36:00,739 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x00000134D5FB9110>
+2026-04-09 19:36:00,739 - api_auth.application.interactors.register - INFO - Hashing password for user username2
+2026-04-09 19:36:00,945 - api_auth.application.interactors.register - DEBUG - Password hashed successfully
+2026-04-09 19:36:00,945 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'TypeError'>, UserCreate.__init__() got an unexpected keyword argument 'password_hash_bytes', <traceback object at 0x00000134D5BF7240>
+2026-04-09 19:36:00,945 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:36:00,945 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:37:06,010 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:37:06,032 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:37:06,094 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:37:27,631 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:37:27,660 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:37:27,727 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:39:05,123 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:39:05,152 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:39:05,217 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:39:17,035 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:39:17,053 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:39:17,125 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:39:36,187 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:39:36,217 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:39:36,287 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:39:52,948 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:39:52,970 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:39:53,035 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:39:57,749 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:39:57,750 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:39:57,750 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:39:57,750 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:39:57,750 - api_auth.presentation.routing - INFO - Received registration request for username=username2, email=user@example.com
+2026-04-09 19:39:57,750 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:39:57,750 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:39:57,750 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:39:57,750 - api_auth.application.interactors.register - INFO - Checking if user with username=username2 already exists
+2026-04-09 19:39:57,751 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:39:57,787 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:39:57,787 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:39:57,792 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:39:57,792 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:39:57,795 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:39:57,795 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:39:57,798 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:39:57,802 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:39:57,802 - sqlalchemy.engine.Engine - INFO - [generated in 0.00032s] ('username2',)
+2026-04-09 19:39:57,809 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001E060C99450>
+2026-04-09 19:39:57,809 - api_auth.application.interactors.register - INFO - Hashing password for user username2
+2026-04-09 19:39:57,990 - api_auth.application.interactors.register - DEBUG - Password hashed successfully
+2026-04-09 19:39:57,991 - api_auth.application.interactors.register - DEBUG - UserCreate DTO created
+2026-04-09 19:39:57,991 - api_auth.infrastructure.db.postgres.user_repository - INFO - Creating user: email=user@example.com, username=username2
+2026-04-09 19:39:57,991 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - UserORM instance created: <api_auth.infrastructure.db.postgres.orm.UserORM object at 0x000001E06093C200>
+2026-04-09 19:39:57,991 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - User added to session
+2026-04-09 19:39:57,992 - sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone, pwdhash, username) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR) RETURNING users.id
+2026-04-09 19:39:57,992 - sqlalchemy.engine.Engine - INFO - [generated in 0.00029s] ('user@example.com', None, '$2b$12$paD.YX1pEJ98CHfPHRqPjeveJXLKoavn3nEX/TkCPfYQuaMOZ012K', 'username2')
+2026-04-09 19:39:58,003 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:39:58,004 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'sqlalchemy.exc.IntegrityError'>, (sqlalchemy.dialects.postgresql.asyncpg.IntegrityError) <class 'asyncpg.exceptions.UniqueViolationError'>: duplicate key value violates unique constraint "users_email_key"
+DETAIL:  Key (email)=(user@example.com) already exists.
+[SQL: INSERT INTO users (email, phone, pwdhash, username) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR) RETURNING users.id]
+[parameters: ('user@example.com', None, '$2b$12$paD.YX1pEJ98CHfPHRqPjeveJXLKoavn3nEX/TkCPfYQuaMOZ012K', 'username2')]
+(Background on this error at: https://sqlalche.me/e/20/gkpj), <traceback object at 0x000001E060C98A40>
+2026-04-09 19:39:58,004 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:40:25,332 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:40:25,332 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:40:25,332 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:40:25,332 - api_auth.presentation.routing - INFO - Received registration request for username=username2, email=user2@example.com
+2026-04-09 19:40:25,332 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:40:25,332 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:40:25,332 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:40:25,332 - api_auth.application.interactors.register - INFO - Checking if user with username=username2 already exists
+2026-04-09 19:40:25,332 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:40:25,337 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:40:25,337 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:40:25,338 - sqlalchemy.engine.Engine - INFO - [cached since 27.54s ago] ('username2',)
+2026-04-09 19:40:25,340 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001E060F6FB90>
+2026-04-09 19:40:25,340 - api_auth.application.interactors.register - INFO - Hashing password for user username2
+2026-04-09 19:40:25,516 - api_auth.application.interactors.register - DEBUG - Password hashed successfully
+2026-04-09 19:40:25,517 - api_auth.application.interactors.register - DEBUG - UserCreate DTO created
+2026-04-09 19:40:25,517 - api_auth.infrastructure.db.postgres.user_repository - INFO - Creating user: email=user2@example.com, username=username2
+2026-04-09 19:40:25,517 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - UserORM instance created: <api_auth.infrastructure.db.postgres.orm.UserORM object at 0x000001E060CB10D0>
+2026-04-09 19:40:25,517 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - User added to session
+2026-04-09 19:40:25,518 - sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone, pwdhash, username) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR) RETURNING users.id
+2026-04-09 19:40:25,518 - sqlalchemy.engine.Engine - INFO - [cached since 27.53s ago] ('user2@example.com', None, '$2b$12$LH27iz2/UhB7B874kcfNVOwHsi/55zDfwxKjbxarsBcDZGFiFM8FS', 'username2')
+2026-04-09 19:40:25,519 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Session flushed successfully
+2026-04-09 19:40:25,520 - api_auth.infrastructure.db.postgres.user_repository - INFO - User created successfully: id=3, email=user2@example.com
+2026-04-09 19:40:25,520 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Committing transaction
+2026-04-09 19:40:25,520 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-04-09 19:40:25,529 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, None, None, None
+2026-04-09 19:40:25,529 - api_auth.presentation.routing - INFO - Registration successful, user id=3
+2026-04-09 19:40:30,268 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:40:30,292 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:40:30,357 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:41:36,780 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:41:36,806 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:41:36,882 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:41:39,827 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:41:39,827 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:41:39,827 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:41:39,827 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:41:39,827 - api_auth.presentation.routing - INFO - Received registration request for username=username3, email=user3@example.com
+2026-04-09 19:41:39,828 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:41:39,828 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:41:39,828 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:41:39,828 - api_auth.application.interactors.register - INFO - Checking if user with username=username3 already exists
+2026-04-09 19:41:39,828 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:41:39,858 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:41:39,858 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:41:39,862 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:41:39,862 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:41:39,865 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:41:39,865 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:41:39,867 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:41:39,870 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:41:39,870 - sqlalchemy.engine.Engine - INFO - [generated in 0.00031s] ('username3',)
+2026-04-09 19:41:39,876 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x00000216AB459490>
+2026-04-09 19:41:39,876 - api_auth.application.interactors.register - INFO - Hashing password for user username3
+2026-04-09 19:41:40,059 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, <class 'AttributeError'>, 'str' object has no attribute 'decode', <traceback object at 0x00000216AB206CC0>
+2026-04-09 19:41:40,059 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Rolling back transaction
+2026-04-09 19:41:40,059 - sqlalchemy.engine.Engine - INFO - ROLLBACK
+2026-04-09 19:42:07,166 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:42:07,191 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:42:07,264 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:42:08,005 - api_auth.presentation.ioc - DEBUG - Creating Password Hasher...
+2026-04-09 19:42:08,005 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-09 19:42:08,005 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-09 19:42:08,005 - api_auth.presentation.ioc - DEBUG - Creating Register Use Case...
+2026-04-09 19:42:08,005 - api_auth.presentation.routing - INFO - Received registration request for username=username3, email=user3@example.com
+2026-04-09 19:42:08,005 - api_auth.presentation.routing - DEBUG - RegisterUserCommand created
+2026-04-09 19:42:08,005 - api_auth.presentation.routing - INFO - Calling use case for user registration
+2026-04-09 19:42:08,005 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-09 19:42:08,005 - api_auth.application.interactors.register - INFO - Checking if user with username=username3 already exists
+2026-04-09 19:42:08,006 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-09 19:42:08,034 - sqlalchemy.engine.Engine - INFO - select pg_catalog.version()
+2026-04-09 19:42:08,034 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:42:08,037 - sqlalchemy.engine.Engine - INFO - select current_schema()
+2026-04-09 19:42:08,037 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:42:08,040 - sqlalchemy.engine.Engine - INFO - show standard_conforming_strings
+2026-04-09 19:42:08,040 - sqlalchemy.engine.Engine - INFO - [raw sql] ()
+2026-04-09 19:42:08,043 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-09 19:42:08,045 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-09 19:42:08,045 - sqlalchemy.engine.Engine - INFO - [generated in 0.00023s] ('username3',)
+2026-04-09 19:42:08,050 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x000001F385F4CDD0>
+2026-04-09 19:42:08,050 - api_auth.application.interactors.register - INFO - Hashing password for user username3
+2026-04-09 19:42:08,233 - api_auth.application.interactors.register - DEBUG - Password hashed successfully
+2026-04-09 19:42:08,233 - api_auth.application.interactors.register - DEBUG - UserCreate DTO created
+2026-04-09 19:42:08,234 - api_auth.infrastructure.db.postgres.user_repository - INFO - Creating user: email=user3@example.com, username=username3
+2026-04-09 19:42:08,234 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - UserORM instance created: <api_auth.infrastructure.db.postgres.orm.UserORM object at 0x000001F3858E0C20>
+2026-04-09 19:42:08,234 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - User added to session
+2026-04-09 19:42:08,235 - sqlalchemy.engine.Engine - INFO - INSERT INTO users (email, phone, pwdhash, username) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR) RETURNING users.id
+2026-04-09 19:42:08,236 - sqlalchemy.engine.Engine - INFO - [generated in 0.00055s] ('user3@example.com', None, '$2b$12$O6KNj4JPs0eYJz2aGyog3Ob/bWHgY1xlLlOb06g2g8uV/e9beLga2', 'username3')
+2026-04-09 19:42:08,240 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Session flushed successfully
+2026-04-09 19:42:08,240 - api_auth.infrastructure.db.postgres.user_repository - INFO - User created successfully: id=4, email=user3@example.com
+2026-04-09 19:42:08,240 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Committing transaction
+2026-04-09 19:42:08,240 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-04-09 19:42:08,250 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, None, None, None
+2026-04-09 19:42:08,250 - api_auth.presentation.routing - INFO - Registration successful, user id=4
+2026-04-09 19:42:49,983 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:42:50,005 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:42:50,075 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:44:17,112 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:44:17,137 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:44:17,212 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:44:21,101 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:44:21,123 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:44:21,197 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:45:23,511 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:45:23,539 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:45:23,616 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:45:54,154 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:45:54,180 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:45:54,263 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:46:02,029 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:46:02,053 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:46:02,124 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:46:13,276 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:46:13,301 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:46:13,376 - api_auth.presentation.ioc - DEBUG - Creating session factory...
+2026-04-09 19:46:37,991 - asyncio - DEBUG - Using selector: SelectSelector
+2026-04-09 19:46:38,016 - api_auth.presentation.ioc - DEBUG - Creating async engine for database...
+2026-04-09 19:46:38,087 - api_auth.presentation.ioc - DEBUG - Creating session factory...

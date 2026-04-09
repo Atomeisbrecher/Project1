@@ -21,7 +21,7 @@ services:
     #   -c log_line_prefix='%m [%p] %q%u@%d
     #   -c log_destination=stderr
     #   '
-    command: postgres -c log_connections=on -c log_disconnections=on -c log_statement=all -c log_duration=on -c log_line_prefix='%m [%p] %q%u@%d -c log_destination=stderr
+    command: postgres -c log_connections=on -c log_disconnections=on -c log_statement=all -c log_duration=on -c log_line_prefix='%m [%p] %q%u@%d' -c log_destination=stderr
   redis:
     image: redis:7-alpine
     container_name: redis

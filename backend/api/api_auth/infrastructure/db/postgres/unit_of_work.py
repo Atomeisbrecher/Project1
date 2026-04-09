@@ -12,17 +12,13 @@ from api_auth.infrastructure.db.postgres.orm import UserORM
 
 logger = logging.getLogger(__name__)
 class SQLAlchemyUnitOfWork(IUnitOfWork):
-    def __init__(self, session: AsyncGenerator[AsyncSession, None], users: PGUserRepository = None):
+    def __init__(self, session: AsyncSession):
         logger.debug("Initializing SQLAlchemyUnitOfWork")
         self.session = session
-        self.users = PGUserRepository(self.session)
+        self.users = PGUserRepository(session)
 
     async def __aenter__(self):
         logger.debug("Entering Unit of Work context")
-        #if not self.session.in_transaction():
-            #await self.session.begin()
-        #self.session: AsyncSession = self.session_factory()
-        #self.users = PGUserRepository(self.session)
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb):
@@ -31,7 +27,6 @@ class SQLAlchemyUnitOfWork(IUnitOfWork):
             await self.rollback()
         else:
             pass
-        #logger.debug(f"UOW Exit. Transaction state: {self.session.in_transaction()}")
 
 
     async def commit(self):
@@ -40,6 +35,3 @@ class SQLAlchemyUnitOfWork(IUnitOfWork):
 
     async def rollback(self):
         logger.debug("Rolling back transaction")
-        #if self.session.is_active:
-            #await self.session.rollback()
-        #await self.session.rollback()

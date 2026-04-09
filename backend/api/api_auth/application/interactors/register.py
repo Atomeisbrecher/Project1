@@ -21,21 +21,20 @@ class RegisterUser:
     async def __call__(self, cmd: RegisterUserCommand) -> UserEntity:
         async with self.uow as uow:
             logger.info(f"Checking if user with username={cmd.username} already exists")
-            existing_user = await uow.users.get_by_username(cmd.username)
-            if existing_user:
+            user_exists = await uow.users.get_by_username(cmd.username)
+            if user_exists:
                 logger.error("User with this username already exists")
                 raise ValueError("User with this username already exists")
             
             logger.info(f"Hashing password for user {cmd.username}")
-            password_hash_bytes = self.hasher.hash_password(cmd.password)
-            password_hash_str = password_hash_bytes.decode('utf-8')
+            password_hash_str = self.hasher.hash_password(cmd.password)
             logger.debug(f"Password hashed successfully")
             
             user_dto = UserCreate(
                 email=cmd.email,
                 phone=cmd.phone,
                 username=cmd.username,
-                password_hash_bytes=password_hash_str
+                password=password_hash_str
             )
             logger.debug(f"UserCreate DTO created")
 

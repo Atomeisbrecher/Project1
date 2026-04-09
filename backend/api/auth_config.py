@@ -29,8 +29,25 @@ class DbSettings(BaseSettings):
             username=self.DB_USER,
             password=self.DB_PASS,
         ).render_as_string(hide_password=False)
-        print(url)
         return(url)
+    
+    @property
+    def ECHO(self) -> bool:
+        return True
+    
+    @property
+    def ECHO_POOL(self) -> bool:
+        return True
+    
+    @property
+    def POOL_PRE_PING(self) -> bool:
+        return True
+    
+    @property
+    def POOL_SIZE(self) -> int:
+        return 10
+    
+    
     #f"postgresql+asyncpg://my_admin:secret@localhost/app_db"
 
 

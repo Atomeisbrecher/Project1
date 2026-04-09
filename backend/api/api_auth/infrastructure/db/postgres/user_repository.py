@@ -34,7 +34,7 @@ class PGUserRepository(IUserRepository):
         user_orm = UserORM(
             email=user.email,
             phone=user.phone,
-            pwdhash=user.password_hash_bytes,
+            pwdhash=user.password,
             username=user.username
         )
         logger.debug(f"UserORM instance created: {user_orm}")

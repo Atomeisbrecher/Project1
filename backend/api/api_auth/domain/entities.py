@@ -1,27 +1,29 @@
 from dataclasses import dataclass
 import json
 
+from pydantic import EmailStr
+
 @dataclass
 class UserEntity():
     id: int
+    username: str
     email: str
     password_hash_bytes: bytes
-    username: str
     phone: str | None = None
 
 @dataclass
 class UserCreate:
-    email: str
-    password_hash_bytes: bytes
     username: str
+    email: EmailStr
+    password: str
     phone: str | None = None
 
+@dataclass
 class UserUpdate():
     id: int
     email: str | None = None
     username: str | None = None
     phone: str | None = None
-    pass
 
 @dataclass
 class CodeData:

@@ -45,7 +45,7 @@ class IUnitOfWork(Protocol):
     async def __aexit__(self, *args): ...
 
 
-class ITokenProvider(ABC):
+class ITokenProvider(Protocol):
 
     @abstractmethod
     def create_access_token() -> str:
