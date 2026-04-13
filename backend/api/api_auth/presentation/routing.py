@@ -1,7 +1,10 @@
+from typing_extensions import Annotated
 
-from fastapi import APIRouter, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Request
 from fastapi.responses import RedirectResponse, HTMLResponse
 from dishka.integrations.fastapi import FromDishka, inject
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+
 from api_auth.application.interactors.get_login_page import get_login_page
 from api_auth.application.interactors.login import LoginUseCase
 from api_auth.application.dto.login import LoginInputDTO
@@ -12,9 +15,33 @@ from api_auth.domain.token_entity import TokenData
 from api_auth.application.interactors.register import RegisterUser, RegisterUserCommand
 from api_auth.domain.entities import UserCreate
 from api_auth.application.interactors.exchange_code_for_token import ExchangeCodeForToken
+from api_auth.domain.interfaces import ITokenAuth
+from api_auth.presentation.dtos import RefreshRequest, TokenResponse
 
 router = APIRouter()
 logger = logging.getLogger(__name__)
+security_bearer = HTTPBearer()
+
+
+@inject
+async def get_current_user_payload(
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
+    auth_service: FromDishka[ITokenAuth]
+) -> dict:
+    try:
+        # validate_token выбросит HTTPException(401), если токен невалиден или отозван
+        payload = await auth_service.validate_token(credentials.credentials)
+        return payload
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+        )
+
+# Алиас для удобства
+CurrentUserPayload = Annotated[dict, Depends(get_current_user_payload)]
 
 @router.get("/", response_class=HTMLResponse)
 async def authorize(
@@ -62,7 +89,7 @@ async def login(
         )
 
 
-@router.post("/token", response_model=TokenData)
+@router.post("/token", response_model=TokenResponse)
 @inject
 async def post_token(
     code: str = Form(...),
@@ -78,14 +105,29 @@ async def post_token(
         return tokens
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
-    
-@router.post("/refresh")
-async def refresh():
-    pass
 
-@router.post("/logout")
-async def logout():
-    pass
+@router.post("/refresh", response_model=TokenResponse)
+@inject
+async def refresh_tokens(
+    request_data: RefreshRequest,
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
+    auth_service: FromDishka[ITokenAuth],
+):
+    """Юз-кейс ротации: меняет старую пару токенов на новую."""
+    old_access = credentials.credentials
+    old_refresh = request_data.refresh_token
+    try:
+        old_payload = auth_service.token_provider.extract_payload(old_access)
+        user_id = int(old_payload["sub"])
+        
+        new_tokens = await auth_service.rotate_tokens(user_id, old_access, old_refresh)
+        return TokenResponse(
+            access_token=new_tokens.access_token,
+            refresh_token=new_tokens.refresh_token
+        )
+    except Exception as e:
+        raise HTTPException(status_code=401, detail=f"Refresh failed: {str(e)}")
+
 
 @router.post("/register")
 @inject
@@ -112,3 +154,73 @@ async def register(
         "access_token": None,
         "refresh_token": None,
     }
+
+@router.post("/logout")
+@inject
+async def logout(
+    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
+    auth_service: FromDishka[ITokenAuth]
+):
+    access_token = credentials.credentials
+    await auth_service.revoke_specific_session(access_token)
+    return {"detail": "Successfully logged out from current device"}
+
+@router.post("/logout-all")
+@inject
+async def logout_all(
+    payload: CurrentUserPayload,
+    auth_service: FromDishka[ITokenAuth]
+):
+    user_id = int(payload["sub"])
+    await auth_service.revoke_all_sessions(user_id)
+    return {"detail": "Successfully logged out from all devices"}
+
+@router.post("/change-password")
+async def change_password():
+    #TODO реализовать эндпоинт для изменения пароля, который будет требовать текущий пароль и новый пароль,
+    # а также проверять аутентификацию и права доступа.
+    # Необходимо реализовать смену пароля с инвалидацией всех сессий. Подтверждение через email или OTP.
+    pass
+
+@router.patch("/update")
+async def update_user():
+    #TODO реализовать эндпоинт для обновления данных пользователя (кроме пароля)
+    pass
+
+@router.get("/me")
+async def get_current_user_profile(
+    payload: CurrentUserPayload
+):
+    user_id = payload.get("sub")
+
+    user = await user_repo.get_by_id(int(user_id))
+    
+    return {"user_id": user_id, "status": "active"}
+
+@router.get("/users/{user_id}")
+async def get_user(user_id: str):
+    #TODO реализовать эндпоинт для получения информации о конкретном пользователе
+    pass
+
+@router.delete("/users/{user_id}")
+async def delete_user(user_id: str):
+    #TODO реализовать эндпоинт для удаления пользователя по id, который будет требовать аутентификацию и проверку прав доступа.
+    pass
+
+
+@router.post('token-test')
+@inject
+async def token_test(
+    user_id: int,
+    auth_service: FromDishka[ITokenAuth],
+    ):
+    tokens = await auth_service.set_tokens(user_id)
+    return tokens
+    
+
+
+#TODO добавить валидацию данных при регистрации и обновлении (например, проверку формата email)
+#TODO добавить обработку ошибок при регистрации (например, если пользователь с таким email уже существует)
+# и возвращать понятные сообщения об ошибках клиенту.
+#TODO добавить логирование важных событий, таких как успешная регистрация,
+# неудачные попытки входа и т.д. для мониторинга и отладки.

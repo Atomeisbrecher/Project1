@@ -6,30 +6,31 @@ from typing import Protocol
 from api_auth.domain.entities import UserEntity, UserCreate, CodeData
 from api_auth.domain.token_entity import TokenData
 
-class IUserRepository(ABC):
-    @abstractmethod
-    async def get_by_email(self, email: str) -> UserEntity | None:
-        pass
+class IUserRepository(Protocol):
+    ...
+    # @abstractmethod
+    # async def get_by_email(self, email: str) -> UserEntity | None:
+    #     pass
     
-    @abstractmethod
-    async def get_by_user_id(self, user_id: str) -> UserEntity | None:
-        pass
+    # @abstractmethod
+    # async def get_by_user_id(self, user_id: str) -> UserEntity | None:
+    #     pass
 
-    @abstractmethod
-    async def get_by_username(self, username: str) -> UserEntity | None:
-        pass
+    # @abstractmethod
+    # async def get_by_username(self, username: str) -> UserEntity | None:
+    #     pass
     
-    @abstractmethod
-    async def create_user(self, user: UserCreate) -> UserEntity:
-        pass
+    # @abstractmethod
+    # async def create_user(self, user: UserCreate) -> UserEntity:
+    #     pass
 
-    @abstractmethod
-    async def update_user_by_id(self, user_id: str) -> UserEntity:
-        pass
+    # @abstractmethod
+    # async def update_user_by_id(self, user_id: str) -> UserEntity:
+    #     pass
 
-    @abstractmethod
-    async def delete_user_by_id(self, user_id: str) -> None:
-        pass
+    # @abstractmethod
+    # async def delete_user_by_id(self, user_id: str) -> None:
+    #     pass
     
 class IUnitOfWork(Protocol):
     @abstractmethod
@@ -55,48 +56,43 @@ class ITokenProvider(Protocol):
     def create_refresh_token() -> str:
         pass
 
-class ITokenStorage(ABC):
-    def __init__():
-        pass
-
-    @abstractmethod
-    async def save_code(self, code: str, data: CodeData, ttl: int): pass
+class ITokenStorage(Protocol):
+    ...
+    # def __init__():
+    #     pass
+    # @abstractmethod
+    # async def save_code(self, code: str, data: CodeData, ttl: int): pass
     
-    @abstractmethod
-    async def get_and_delete_code(self, code: str) -> CodeData | None: pass
-
-    @abstractmethod
-    async def get_field_by_name(self, field_name: str) -> CodeData | None: pass
-
-    @abstractmethod
-    async def delete_field_by_name(self, field_name: str) -> CodeData | None: pass
+    # @abstractmethod
+    # async def get_and_delete_code(self, code: str) -> CodeData | None: pass
     
-    @abstractmethod
-    async def allowlist_tokens(self, user_id: int, jti: str, expire_seconds: time):
-        pass
+    # @abstractmethod
+    # async def allowlist_token(self, user_id: int, jti: str, expire_seconds: time):
+    #     pass
     
-    @abstractmethod
-    async def is_session_valid(self, user_id: int, jti: str) -> bool:
-        pass
+    # @abstractmethod
+    # async def is_session_valid(self, user_id: int, jti: str) -> bool:
+    #     pass
 
-    @abstractmethod
-    async def revoke_all_tokens_by_user_id(self, user_id: int) -> dict:
-        pass
+    # @abstractmethod
+    # async def revoke_all_tokens_by_user_id(self, user_id: int) -> dict:
+    #     pass
 
-    @abstractmethod
-    async def revoke_specific_token_by_user_id(self, user_id: int, jti: str) -> dict:
-        pass
+    # @abstractmethod
+    # async def revoke_specific_token_by_user_id(self, user_id: int, jti: str) -> dict:
+    #     pass
 
-class ITokenAuth(ABC):
-    def __init__(self, token_storage: ITokenStorage, token_provider: ITokenProvider):
-        self.token_provider = token_provider
-        self.token_storage = token_storage
+class ITokenAuth(Protocol):
+    ...
+    # def __init__(self, token_storage: ITokenStorage, token_provider: ITokenProvider):
+    #     self.token_provider = token_provider
+    #     self.token_storage = token_storage
 
-    @abstractmethod
-    async def set_tokens(self, user: UserEntity) -> None: pass
+    # @abstractmethod
+    # async def set_tokens(self, user: UserEntity) -> None: pass
 
-    @abstractmethod
-    async def revoke_tokens(self, user: UserEntity) -> None: pass
+    # @abstractmethod
+    # async def revoke_all_tokens(self, user: UserEntity) -> None: pass
 
 
 

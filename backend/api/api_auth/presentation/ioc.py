@@ -4,8 +4,7 @@ import logging
 from dishka import Provider, Scope, provide
 from opentelemetry import trace
 from api_auth.domain.interfaces import IPasswordHasher, ITokenAuth, ITokenProvider, ITokenStorage, IUnitOfWork, IUserRepository
-from api_auth.infrastructure.db.postgres.session import DbManager
-from api_auth.infrastructure.db.cache_redis.cache_redis import RedisTokenStorage
+from api_auth.infrastructure.db.cache_redis.redis_token_storage import RedisTokenStorage
 from api_auth.infrastructure.db.postgres.unit_of_work import SQLAlchemyUnitOfWork
 from api_auth.application.interactors.login import LoginUseCase
 from api_auth.infrastructure.services.password_hasher.password_hasher import BCryptPasswordHash
@@ -77,8 +76,8 @@ class AuthProvider(Provider):
             logger.debug("Session closed")
 
     @provide(scope=Scope.REQUEST)
-    def user_repo(self, session: AsyncSession) -> IUserRepository:
-        return PGUserRepository(session)
+    async def user_repo(self, session: AsyncSession) -> AsyncIterable[IUserRepository]:
+        yield PGUserRepository(session)
     
     @provide(scope=Scope.REQUEST)
     async def uow(self, session: async_sessionmaker) -> AsyncIterable[IUnitOfWork]:
@@ -88,9 +87,9 @@ class AuthProvider(Provider):
 
 
     @provide(scope=Scope.REQUEST)
-    def redis_storage(self, r: redis.Redis) -> ITokenStorage:
+    def redis_storage(self, r: redis.Redis, token_provider: ITokenProvider) -> ITokenStorage:
         logger.debug("Creating Redis Token Storage...")
-        return RedisTokenStorage(r)
+        return RedisTokenStorage(r, token_provider)
 
     @provide(scope=Scope.REQUEST)
     def login_uc(self, uow: IUnitOfWork, s: ITokenStorage, hasher: IPasswordHasher) -> LoginUseCase:

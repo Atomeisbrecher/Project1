@@ -12,7 +12,7 @@ from auth_config import settings
 from api_auth.domain.entities import UserEntity
 
 
-TOKEN_TYPE_FIELD = "type:"
+TOKEN_TYPE_FIELD = "type"
 
 class TokenProvider(ITokenProvider):   
 
@@ -75,14 +75,23 @@ class TokenProvider(ITokenProvider):
             expire_timedelta=expire_timedelta,
             )         
 
-    def create_access_token(self, data: dict) -> str:
+    def extract_payload(self, token: str) -> dict | None:
+        """Публичный метод для безопасного извлечения данных из токена"""
+        try:
+            return self._decode_jwt(token)
+        except jwt.PyJWTError:
+            return None
+
+    def create_access_token(self, data: dict, jti: str) -> str:
+        data["jti"] = jti
         return self._create_jwt(
             token_type=TokenType.ACCESS.value,
             token_data=data,
             expire_minutes=settings.auth_jwt.access_token_expire_minutes,
-            )
+        )
 
-    def create_refresh_token(self, data: dict) -> str:
+    def create_refresh_token(self, data: dict, jti: str) -> str:
+        data["jti"] = jti
         return self._create_jwt(
             token_type=TokenType.REFRESH.value,
             token_data=data,
@@ -103,17 +112,32 @@ class TokenAuth(ITokenAuth):
         self.response = response
 
     async def set_tokens(self, user_id: int | None = None) -> TokenData:
+        access_jti = str(uuid6.uuid6())
+        refresh_jti = str(uuid6.uuid6())
+        
         data = {
             "sub": str(user_id),
         }
-        access_token = self.token_provider.create_access_token(data)
-        refresh_token = self.token_provider.create_refresh_token(data)
 
-        refresh_jti, refresh_expire_seconds = self.token_provider._decode_token(refresh_token).get("jti"), self.token_provider._decode_token(refresh_token).get("expire_minutes") * 60
-        self.token_storage.allowlist_token(user_id, refresh_jti, refresh_expire_seconds)
+        access_token = self.token_provider.create_access_token(
+            data,
+            jti=access_jti
+            )
+        refresh_token = self.token_provider.create_refresh_token(
+            data,
+            jti=refresh_jti
+            )
+        
+        payload = self.token_provider.extract_payload(refresh_token)
+        expire_seconds = int(payload["exp"] - payload["iat"])
 
-        access_jti, access_expire_seconds = self.token_provider._decode_token(access_token).get("jti"), self.token_provider._decode_token(access_token).get("expire_minutes") * 60
-        self.token_storage.allowlist_token(user_id, access_jti, access_expire_seconds)
+        await self.token_storage.add_session(
+            user_id=user_id,
+            access_jti=access_jti,
+            refresh_jti=refresh_jti,
+            expire_seconds=expire_seconds
+            )
+        
 
         result = TokenData(
             access_token=access_token,
@@ -123,16 +147,74 @@ class TokenAuth(ITokenAuth):
 
     async def set_token(self, token: str, token_type: TokenType):
         pass
+    
+    async def rotate_tokens(self, user_id: int, old_access_token: str, old_refresh_token: str) -> TokenData:
+        old_access_payload = self.token_provider.extract_payload(old_access_token)
+        old_refresh_payload = self.token_provider.extract_payload(old_refresh_token)
 
-    async def revoke_all_tokens(self, user_id: int) -> None:
-        self.token_storage.revoke_all_tokens_by_user_id(user_id)
+        if not old_access_payload or not old_refresh_payload:
+            raise HTTPException(status_code=401, detail="Invalid token")
 
-    async def revoke_spicific_token(self, user_id: int, token: TokenData) -> None:
-        payload = self.token_provider._decode_jwt(token)
+        old_storage_value = f"{old_access_payload['jti']}:{old_refresh_payload['jti']}"
+
+        new_access_jti = str(uuid6.uuid6())
+        new_refresh_jti = str(uuid6.uuid6())
+
+        new_access_token = self.token_provider.create_access_token({"sub": str(user_id), "jti": new_access_jti})
+        new_refresh_token = self.token_provider.create_refresh_token({"sub": str(user_id), "jti": new_refresh_jti})
+
+        new_storage_value = f"{new_access_jti}:{new_refresh_jti}"
+
+        expire_seconds = self.get_expire_seconds(new_refresh_token)
+
+        await self.token_storage.rotate_session(user_id, old_storage_value, new_storage_value, expire_seconds)
+
+        return TokenData(
+            access_token=new_access_token,
+            refresh_token=new_refresh_token
+        )
+
+    #TODO Переделать код, т.к. не должна быть лютая логика в хранилище токенов, а должна быть в сервисе аутентификации, а хранилище должно просто хранить токены и проверять их наличие
+    async def revoke_specific_session(self, access_token: str):
+        payload = self.token_provider.extract_payload(access_token)
+        if payload:
+            user_id = int(payload["sub"])
+            await self.token_storage.remove_session(
+                user_id=user_id, 
+                a_jti=payload["jti"], 
+                r_jti=payload.get("r_jti")
+            )
+
+    async def revoke_all_sessions(self, user_id: int) -> None:
+        await self.token_storage.remove_all_sessions(user_id)
+
+    async def validate_token(self, token: str) -> dict:
+        payload = self.token_provider.extract_payload(token)
+        if not payload:
+            raise HTTPException(status_code=401, detail="Invalid token signature or expired")
+
+        user_id = int(payload.get("sub"))
         jti = payload.get("jti")
 
-        self.token_storage.revoke_specific_token_by_user_id(user_id, jti)
+        # Проверка Stateful (есть ли токен в белом списке Redis)
+        is_valid = await self.token_storage.is_session_valid(user_id, jti)
+        if not is_valid:
+            raise HTTPException(status_code=401, detail="Session revoked or expired")
+            
+        return payload
 
+    async def revoke_specific_token_by_user_id(self, user_id: int, token: TokenData) -> None:
+        await self.token_storage.revoke_specific_token_by_user_id(user_id, token)
+
+    def get_expire_seconds(self, token: TokenData) -> int | None:
+        payload = self.token_provider.extract_payload(token.access_token)
+        if payload:
+            exp = payload.get("exp")
+            iat = payload.get("iat")
+            if exp and iat:
+                return int(exp - iat)
+        return None
+    
     def _get_access_token(self) -> str | None:
         if hasattr(self.request.state, "access_token"):
             return self.request.state.access_token
@@ -155,8 +237,3 @@ class TokenAuth(ITokenAuth):
             return payload
         except Exception:
             raise HTTPException(status_code=401, detail="Invalid token")
-
-
-class TokenStorage():
-    #хранилище токенов
-    pass

@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from fastapi.concurrency import asynccontextmanager
 from sqlalchemy import NullPool, text
 from api_auth.presentation.routing import router as auth_router
+from api_chat.presentation.chat_api import router as chat_router
 import uvicorn
 from dishka.integrations.fastapi import setup_dishka
 from api_auth.presentation.ioc import AuthProvider
@@ -48,6 +49,7 @@ container = make_async_container(AuthProvider())
 setup_dishka(container, app)
 
 app.include_router(router=auth_router, prefix="/auth", tags=["auth"])
+app.include_router(router=chat_router, prefix="/chats", tags=["chats"])
 
 if __name__ == "__main__":
 

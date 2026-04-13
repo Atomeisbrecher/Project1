@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import logging
 
-from api_auth.domain.interfaces import IPasswordHasher, IUnitOfWork, IUserRepository
+from api_auth.domain.interfaces import IPasswordHasher, IUnitOfWork
 from api_auth.domain.entities import UserCreate, UserEntity
 
 logger = logging.getLogger(__name__)
