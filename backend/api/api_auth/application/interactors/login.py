@@ -40,4 +40,4 @@ class LoginUseCase:
                         )
                 except Exception as e:
                     await self.uow.rollback()
-                    raise f"Exception during login: {str(e)}"
+                    raise Exception(f"Exception during login: {str(e)}")

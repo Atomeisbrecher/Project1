@@ -13,10 +13,9 @@ import 'package:shop/module%20products/ui/pages/home%20page/home_screen.dart';
 import 'package:shop/routing/routes.dart';
 
 GoRouter router(OAuthRepository oAuthRepository) => GoRouter(
-      initialLocation: Routes.welcomeScreen,
+      initialLocation: Routes.homeScreen,
       debugLogDiagnostics: true,
-      //redirect: _redirect,
-      redirect: (context, state) => _redirect(context, state, oAuthRepository),
+      redirect: _redirect,
       refreshListenable: oAuthRepository,
       routes: [
         GoRoute(
@@ -48,35 +47,25 @@ GoRouter router(OAuthRepository oAuthRepository) => GoRouter(
       ],
     );
 
-Future<String?> _redirect(BuildContext context, GoRouterState state,
-    OAuthRepository authRepository) async {
-  // //final loggedIn = await context.read<OAuthRepository>().isAuthenticated;
-  // final loggedIn = await authRepository.isAuthenticated;
-  // final loggingIn = state.matchedLocation == Routes.loginScreen;
-  // if (!loggedIn) {
-  //   return Routes.welcomeScreen;
-  // }
+Future<String?> _redirect(BuildContext context, GoRouterState state) async {
+  final isAuthenticated = await context.read<OAuthRepository>().isAuthenticated;
+  final location = state.matchedLocation;
 
-  // if (loggingIn) {
-  //   return Routes.homeScreen;
-  // }
+  final authRoutes = [
+    Routes.welcomeScreen,
+    Routes.loginScreen,
+    Routes.restoreScreen,
+    Routes.signInScreen,
+    Routes.createPassword,
+    Routes.emailAndPasswordScreen,
+  ];
 
-  // return null;
 
-  final loggedIn = await authRepository.isAuthenticated;
-
-  final isLoggingIn = state.matchedLocation == Routes.loginScreen;
-  final isSigningIn = state.matchedLocation == Routes.signInScreen;
-  final isWelcome = state.matchedLocation == Routes.welcomeScreen;
-
-  // 4. Защита от бесконечного цикла:
-  // Если не авторизован И пытается зайти на закрытый экран -> отправляем на welcome
-  if (!loggedIn && !isLoggingIn && !isSigningIn && !isWelcome) {
+  if (!isAuthenticated && !authRoutes.contains(location)) {
     return Routes.welcomeScreen;
   }
 
-  // Если авторизован И находится на экране входа -> отправляем на главную
-  if (loggedIn && (isLoggingIn || isWelcome || isSigningIn)) {
+  if (isAuthenticated && authRoutes.contains(location)) {
     return Routes.homeScreen;
   }
 

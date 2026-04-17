@@ -7,6 +7,7 @@ class SecureStorageService {
 
   Future<Result<String?>> fetchAuthState() async {
     _log.info('Fetching Auth state');
+    
     throw UnimplementedError();
   }
 
