@@ -4741,3 +4741,204 @@ WHERE users.username = $1::VARCHAR
 2026-04-17 14:01:14,851 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
 2026-04-17 14:01:14,851 - api_auth.presentation.ioc - DEBUG - Creating Token Auth...
 2026-04-17 14:01:14,851 - api_auth.presentation.ioc - DEBUG - Creating Exchange Code For Token Use Case...
+2026-04-17 14:07:16,630 - api_auth.presentation.routing - INFO - Received authorization request for client_id=my_flutter_app
+2026-04-17 14:07:21,330 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_data with data[9:17]
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_name with data[18:26]
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_data with data[27:35]
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,331 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_name with data[36:45]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_data with data[46:60]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_name with data[61:73]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_data with data[74:102]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_name with data[103:117]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_data with data[118:161]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_name with data[162:167]
+2026-04-17 14:07:21,332 - python_multipart.multipart - DEBUG - Calling on_field_data with data[168:190]
+2026-04-17 14:07:21,333 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,333 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-04-17 14:07:21,333 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-17 14:07:21,333 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-17 14:07:21,333 - api_auth.presentation.ioc - DEBUG - Creating Token Provider...
+2026-04-17 14:07:21,333 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
+2026-04-17 14:07:21,333 - api_auth.presentation.ioc - DEBUG - Creating Login Use Case...
+2026-04-17 14:07:21,333 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-17 14:07:21,334 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-17 14:07:21,345 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-17 14:07:21,345 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-17 14:07:21,345 - sqlalchemy.engine.Engine - INFO - [cached since 807s ago] ('username',)
+2026-04-17 14:07:21,347 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x0000023839CC2B50>
+2026-04-17 14:07:21,536 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Committing transaction
+2026-04-17 14:07:21,537 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-04-17 14:07:21,538 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, None, None, None
+2026-04-17 14:07:21,740 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:4]
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_data with data[5:41]
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_name with data[42:52]
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_data with data[53:71]
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,741 - python_multipart.multipart - DEBUG - Calling on_field_name with data[72:84]
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_data with data[85:113]
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_name with data[114:127]
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_data with data[128:214]
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_name with data[215:224]
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_data with data[225:239]
+2026-04-17 14:07:21,742 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:07:21,743 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-04-17 14:07:21,743 - api_auth.presentation.ioc - DEBUG - Creating Token Provider...
+2026-04-17 14:07:21,743 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
+2026-04-17 14:07:21,743 - api_auth.presentation.ioc - DEBUG - Creating Token Auth...
+2026-04-17 14:07:21,743 - api_auth.presentation.ioc - DEBUG - Creating Exchange Code For Token Use Case...
+2026-04-17 14:11:03,121 - api_auth.presentation.routing - INFO - Received authorization request for client_id=my_flutter_app
+2026-04-17 14:11:09,114 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,114 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_data with data[9:17]
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_name with data[18:26]
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_data with data[27:35]
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,115 - python_multipart.multipart - DEBUG - Calling on_field_name with data[36:45]
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_data with data[46:60]
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_name with data[61:73]
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_data with data[74:102]
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_name with data[103:117]
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_data with data[118:161]
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,116 - python_multipart.multipart - DEBUG - Calling on_field_name with data[162:167]
+2026-04-17 14:11:09,117 - python_multipart.multipart - DEBUG - Calling on_field_data with data[168:190]
+2026-04-17 14:11:09,117 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,117 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-04-17 14:11:09,118 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-17 14:11:09,118 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-17 14:11:09,118 - api_auth.presentation.ioc - DEBUG - Creating Token Provider...
+2026-04-17 14:11:09,118 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
+2026-04-17 14:11:09,118 - api_auth.presentation.ioc - DEBUG - Creating Login Use Case...
+2026-04-17 14:11:09,118 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-17 14:11:09,118 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-17 14:11:09,122 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-17 14:11:09,122 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-17 14:11:09,122 - sqlalchemy.engine.Engine - INFO - [cached since 1035s ago] ('username',)
+2026-04-17 14:11:09,124 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x0000023839CD9650>
+2026-04-17 14:11:09,311 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Committing transaction
+2026-04-17 14:11:09,312 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-04-17 14:11:09,313 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, None, None, None
+2026-04-17 14:11:09,621 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,621 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:4]
+2026-04-17 14:11:09,621 - python_multipart.multipart - DEBUG - Calling on_field_data with data[5:41]
+2026-04-17 14:11:09,621 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_name with data[42:52]
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_data with data[53:71]
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_name with data[72:84]
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_data with data[85:113]
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,622 - python_multipart.multipart - DEBUG - Calling on_field_name with data[114:127]
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_field_data with data[128:214]
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_field_name with data[215:224]
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_field_data with data[225:239]
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:09,623 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-04-17 14:11:09,623 - api_auth.presentation.ioc - DEBUG - Creating Token Provider...
+2026-04-17 14:11:09,624 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
+2026-04-17 14:11:09,624 - api_auth.presentation.ioc - DEBUG - Creating Token Auth...
+2026-04-17 14:11:09,624 - api_auth.presentation.ioc - DEBUG - Creating Exchange Code For Token Use Case...
+2026-04-17 14:11:43,586 - api_auth.presentation.routing - INFO - Received authorization request for client_id=my_flutter_app
+2026-04-17 14:11:48,024 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,024 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:8]
+2026-04-17 14:11:48,024 - python_multipart.multipart - DEBUG - Calling on_field_data with data[9:17]
+2026-04-17 14:11:48,024 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,024 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_name with data[18:26]
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_data with data[27:35]
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_name with data[36:45]
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_data with data[46:60]
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,025 - python_multipart.multipart - DEBUG - Calling on_field_name with data[61:73]
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_data with data[74:102]
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_name with data[103:117]
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_data with data[118:161]
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_name with data[162:167]
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_data with data[168:190]
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,026 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-04-17 14:11:48,026 - api_auth.presentation.ioc - DEBUG - Creating Unit of Work...
+2026-04-17 14:11:48,028 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Initializing SQLAlchemyUnitOfWork
+2026-04-17 14:11:48,028 - api_auth.presentation.ioc - DEBUG - Creating Token Provider...
+2026-04-17 14:11:48,028 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
+2026-04-17 14:11:48,028 - api_auth.presentation.ioc - DEBUG - Creating Login Use Case...
+2026-04-17 14:11:48,028 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Entering Unit of Work context
+2026-04-17 14:11:48,028 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Looking for username match
+2026-04-17 14:11:48,031 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
+2026-04-17 14:11:48,031 - sqlalchemy.engine.Engine - INFO - SELECT users.id, users.email, users.phone, users.pwdhash, users.username 
+FROM users 
+WHERE users.username = $1::VARCHAR
+2026-04-17 14:11:48,032 - sqlalchemy.engine.Engine - INFO - [cached since 1074s ago] ('username',)
+2026-04-17 14:11:48,034 - api_auth.infrastructure.db.postgres.user_repository - DEBUG - Found: <sqlalchemy.engine.result.ChunkedIteratorResult object at 0x0000023839CD8E90>
+2026-04-17 14:11:48,217 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Committing transaction
+2026-04-17 14:11:48,218 - sqlalchemy.engine.Engine - INFO - COMMIT
+2026-04-17 14:11:48,219 - api_auth.infrastructure.db.postgres.unit_of_work - DEBUG - Exiting Unit of Work context, None, None, None
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_name with data[0:4]
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_data with data[5:41]
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_name with data[42:52]
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_data with data[53:71]
+2026-04-17 14:11:48,618 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_name with data[72:84]
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_data with data[85:113]
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_name with data[114:127]
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_data with data[128:214]
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,619 - python_multipart.multipart - DEBUG - Calling on_field_start with no data
+2026-04-17 14:11:48,620 - python_multipart.multipart - DEBUG - Calling on_field_name with data[215:224]
+2026-04-17 14:11:48,620 - python_multipart.multipart - DEBUG - Calling on_field_data with data[225:239]
+2026-04-17 14:11:48,620 - python_multipart.multipart - DEBUG - Calling on_field_end with no data
+2026-04-17 14:11:48,620 - python_multipart.multipart - DEBUG - Calling on_end with no data
+2026-04-17 14:11:48,620 - api_auth.presentation.ioc - DEBUG - Creating Token Provider...
+2026-04-17 14:11:48,620 - api_auth.presentation.ioc - DEBUG - Creating Redis Token Storage...
+2026-04-17 14:11:48,621 - api_auth.presentation.ioc - DEBUG - Creating Token Auth...
+2026-04-17 14:11:48,621 - api_auth.presentation.ioc - DEBUG - Creating Exchange Code For Token Use Case...
