@@ -79,8 +79,8 @@ class TokenProvider(ITokenProvider):
         """Публичный метод для безопасного извлечения данных из токена"""
         try:
             return self._decode_jwt(token)
-        except jwt.PyJWTError:
-            return None
+        except jwt.PyJWTError as e:
+            raise HTTPException(status_code=401, detail="Invalid token")
 
     def create_access_token(self, data: dict, jti: str) -> str:
         data["jti"] = jti

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop/firebase_options.dart';
+import 'package:shop/module%20chat/data/services/websocket%20service/websocket_service_remote.dart';
 import 'package:shop/routing/router.dart';
 import 'package:provider/provider.dart';
 import 'main_development.dart' as development;
@@ -21,6 +22,7 @@ Future<void> preloadSVGs(List<String> paths) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await WebSocketServiceRemote().connect();
   await Future.wait([
     Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
@@ -46,7 +48,7 @@ class MainApp extends StatelessWidget {
           darkTheme: ThemeData.dark(),
           themeMode: ThemeMode.system,
           debugShowCheckedModeBanner: false,
-          routerConfig: router(context.read()),
+          routerConfig: router(context.read(), context.read()),
         );
       },
     );

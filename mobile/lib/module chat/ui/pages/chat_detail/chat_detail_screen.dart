@@ -33,6 +33,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     super.initState();
     _messageController = TextEditingController();
     _loadMessages();
+    _initializeFakeMessages();
   }
 
   @override
@@ -42,17 +43,71 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   }
 
   void _loadMessages() {
-    widget.viewModel.loadMessages.execute(widget.chat.id);
-    widget.viewModel.loadMessages.addListener(_onMessagesLoaded);
+    // widget.viewModel.loadMessages.execute(widget.chat.id);
+    // widget.viewModel.loadMessages.addListener(_onMessagesLoaded);
+    _initializeFakeMessages();
   }
 
   void _onMessagesLoaded() {
-    final result = widget.viewModel.loadMessages.result;
-    if (result != null && result is Ok) {
-      setState(() {
-        _messages = result.value;
-      });
-    }
+    // final result = widget.viewModel.loadMessages.result;
+    // if (result != null && result is Ok) {
+    //   setState(() {
+    //     _messages = result.value;
+    //   });
+    // }
+    
+  }
+
+  void _initializeFakeMessages() {
+    setState(() {
+      _messages = [
+        Message(
+          id: '1',
+          chatId: widget.chat.id,
+          senderId: 'user_1',
+          text: 'Hey! How are you doing?',
+          timestamp: DateTime.now().subtract(const Duration(hours: 1)),
+          status: MessageStatus.read,
+          messageNumber: 1,
+        ),
+        Message(
+          id: '2',
+          chatId: widget.chat.id,
+          senderId: 'current_user',
+          text: 'Hi! I\'m doing great, thanks for asking!',
+          timestamp: DateTime.now().subtract(const Duration(minutes: 50)),
+          status: MessageStatus.read,
+          messageNumber: 2,
+        ),
+        Message(
+          id: '3',
+          chatId: widget.chat.id,
+          senderId: 'user_1',
+          text: 'That\'s awesome! Want to grab coffee later?',
+          timestamp: DateTime.now().subtract(const Duration(minutes: 40)),
+          status: MessageStatus.read,
+          messageNumber: 3,
+        ),
+        Message(
+          id: '4',
+          chatId: widget.chat.id,
+          senderId: 'current_user',
+          text: 'Sure! What time works for you?',
+          timestamp: DateTime.now().subtract(const Duration(minutes: 30)),
+          status: MessageStatus.read,
+          messageNumber: 4,
+        ),
+        Message(
+          id: '5',
+          chatId: widget.chat.id,
+          senderId: 'user_1',
+          text: 'How about 3 PM at the coffee shop downtown?',
+          timestamp: DateTime.now().subtract(const Duration(minutes: 20)),
+          status: MessageStatus.read,
+          messageNumber: 5,
+        ),
+      ];
+    });
   }
 
   void _sendMessage() {
@@ -61,8 +116,23 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     final text = _messageController.text;
     _messageController.clear();
 
-    widget.viewModel.sendMessage.execute(widget.chat.id, text);
-    widget.viewModel.sendMessage.addListener(_onMessageSent);
+    // widget.viewModel.sendMessage.execute(widget.chat.id, text);
+    // widget.viewModel.sendMessage.addListener(_onMessageSent);
+        // Create a local message
+    final newMessage = Message(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      chatId: widget.chat.id,
+      senderId: 'current_user',
+      text: text,
+      timestamp: DateTime.now(),
+      status: MessageStatus.sent,
+      messageNumber: _messages.length + 1,
+    );
+
+    setState(() {
+      _messages.add(newMessage);
+      _replyingToMessageId = null;
+    });
   }
 
   void _onMessageSent() {

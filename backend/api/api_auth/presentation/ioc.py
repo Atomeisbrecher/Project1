@@ -29,7 +29,7 @@ class AuthProvider(Provider):
         return settings
 
     @provide(scope=Scope.APP)
-    def get_redis(self, cfg: Settings) -> redis.Redis:
+    async def get_redis(self, cfg: Settings) -> redis.Redis:
         logger.debug("Initializing Redis connection...")
         return redis.from_url(cfg.redis.REDIS_URL, decode_responses=True)
 
@@ -101,7 +101,7 @@ class AuthProvider(Provider):
         logger.debug("Creating Register Use Case...")
         return RegisterUser(hasher, uow)
     
-    @provide(scope=Scope.REQUEST)
+    @provide(scope=Scope.SESSION)
     def token_provider(self) -> ITokenProvider:
         logger.debug("Creating Token Provider...")
         return TokenProvider()

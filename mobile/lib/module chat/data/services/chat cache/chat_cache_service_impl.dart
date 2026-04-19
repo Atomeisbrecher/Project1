@@ -1,4 +1,4 @@
-import 'package:shop/module%20chat/data/services/chat_cache_service.dart';
+import 'package:shop/module%20chat/data/services/chat%20cache/chat_cache_service.dart';
 import 'package:shop/module%20chat/domain/chat/chat.dart';
 import 'package:logging/logging.dart';
 

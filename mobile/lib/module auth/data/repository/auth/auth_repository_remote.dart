@@ -2,126 +2,24 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:logging/logging.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:shop/module%20auth/data/services/api/api_client.dart';
+import 'package:shop/module%20auth/data/repository/auth/token_storage.dart';
 import 'package:shop/utils/result.dart';
 
 
 import '../../services/api/auth_api_client.dart';
 import 'auth_repository.dart';
 
-// class AuthRepositoryRemote extends AuthRepository {
-//   AuthRepositoryRemote({
-//     required ApiClient apiClient,
-//     required AuthApiClient authApiClient,
-//     required FlutterSecureStorage SecureStorage,
-//   }) : _apiClient = apiClient,
-//        _authApiClient = authApiClient,
-//        _SecureStorage = SecureStorage {
-//     _apiClient.authHeaderProvider = _authHeaderProvider;
-//   }
-//
-//   final AuthApiClient _authApiClient;
-//   final ApiClient _apiClient;
-//   final FlutterSecureStorage _SecureStorage;
-//
-//   bool? _isAuthenticated;
-//   String? _authToken;
-//   final _log = Logger('AuthRepositoryRemote');
-//
-//   /// Fetch token from shared preferences
-//   Future<void> _fetch() async {
-//     final result = await _SecureStorage.fetchToken();
-//     switch (result) {
-//       case Ok<String?>():
-//         _authToken = result.value;
-//         _isAuthenticated = result.value != null;
-//       case Error<String?>():
-//         _log.severe(
-//           'Failed to fech Token from SharedPreferences',
-//           result.error,
-//         );
-//     }
-//   }
-//
-//   @override
-//   Future<bool> get isAuthenticated async {
-//     // Status is cached
-//     if (_isAuthenticated != null) {
-//       return _isAuthenticated!;
-//     }
-//     // No status cached, fetch from storage
-//     await _fetch();
-//     return _isAuthenticated ?? false;
-//   }
-//
-//   @override
-//   Future<Result<void>> login({
-//     required String email,
-//     required String password,
-//   }) async {
-//     try {
-//       final result = await _authApiClient.login(
-//         LoginRequest(email: email, password: password),
-//       );
-//       switch (result) {
-//         case Ok<LoginResponse>():
-//           _log.info('User logged int');
-//           // Set auth status
-//           _isAuthenticated = true;
-//           _authToken = result.value.token;
-//           // Store in Shared preferences
-//           return await _SecureStorage.saveToken(result.value.token);
-//         case Error<LoginResponse>():
-//           _log.warning('Error logging in: ${result.error}');
-//           return Result.error(result.error);
-//       }
-//     } finally {
-//       notifyListeners();
-//     }
-//   }
-//
-//   @override
-//   Future<Result<void>> logout() async {
-//     _log.info('User logged out');
-//     try {
-//       // Clear stored auth token
-//       final result = await _SecureStorage.saveToken(null);
-//       if (result is Error<void>) {
-//         _log.severe('Failed to clear stored auth token');
-//       }
-//
-//       // Clear token in ApiClient
-//       _authToken = null;
-//
-//       // Clear authenticated status
-//       _isAuthenticated = false;
-//       return result;
-//     } finally {
-//       notifyListeners();
-//     }
-//   }
-//
-//   String? _authHeaderProvider() =>
-//       _authToken != null ? 'Bearer $_authToken' : null;
-// }
-
-
-
 class OAuthRepositoryRemote extends OAuthRepository {
   OAuthRepositoryRemote({
     required AuthService authService,
-    required ApiClient apiClient,
-    required FlutterSecureStorage secureStorage,
+    required TokenStorage secureStorage,
   }):
   _authService = authService,
-  _apiClient = apiClient,
   _secureStorage = secureStorage;
 
 
   final AuthService _authService;
-  final ApiClient _apiClient; //похуй потом убрать мб
-  final FlutterSecureStorage _secureStorage;
+  final TokenStorage _secureStorage;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _log = Logger('OAuthRepositoryRemote');
   bool? _isAuthenticated = false;
@@ -132,7 +30,7 @@ class OAuthRepositoryRemote extends OAuthRepository {
   Future<void> _fetch() async {
     try {
       _log.info('Fetching auth state from secure storage...');
-      final isAuth = await _secureStorage.containsKey(key: _refreshTokenKey);
+      final isAuth = await FlutterSecureStorage().containsKey(key: _refreshTokenKey);
       _isAuthenticated = isAuth;
       _log.info('Auth state fetched successfully: $_isAuthenticated');
     } catch (e) {
@@ -190,10 +88,8 @@ class OAuthRepositoryRemote extends OAuthRepository {
       switch (token) {
         case Ok():
           _log.info('SignIn successful, storing tokens to secure storage');
-
-          await _secureStorage.deleteAll();
-          await _secureStorage.write(key: 'access_token', value: token.value.accessToken);
-          await _secureStorage.write(key: 'refresh_token', value: token.value.refreshToken);
+          await TokenStorage.clear();
+          await TokenStorage.saveTokens(token.value.accessToken, token.value.refreshToken);
           _isAuthenticated = true;
           _log.info('User authenticated, setting _isAuthenticated = true');
           
@@ -204,11 +100,10 @@ class OAuthRepositoryRemote extends OAuthRepository {
           _log.warning('Setting _isAuthenticated = false due to login error');
           return Result.error(token.error);
       }
-
-      } finally {
-        _log.fine('Login process completed, notifying listeners');
-        notifyListeners();
-      }
+    } finally {
+      _log.fine('Login process completed, notifying listeners');
+      notifyListeners();
+    }
   }
 
   @override
@@ -239,11 +134,11 @@ class OAuthRepositoryRemote extends OAuthRepository {
       
       _isAuthenticated = true;
       _log.info('Firebase authentication successful for user: ${user.email}, setting _isAuthenticated = true');
-      await _secureStorage.deleteAll();
+      await FlutterSecureStorage().deleteAll();
       
       // Save auth state to secure storage
       if (googleAuth.idToken != null) {
-        await _secureStorage.write(key: _accessTokenKey, value: googleAuth.idToken!);
+        await FlutterSecureStorage().write(key: _accessTokenKey, value: googleAuth.idToken!);
       }
       
       return Result.ok(user);
@@ -273,7 +168,7 @@ class OAuthRepositoryRemote extends OAuthRepository {
       await _authService.logout();
       
       _log.fine('Clearing all tokens from secure storage...');
-      await _secureStorage.deleteAll();
+      await TokenStorage.clear();
       
       _isAuthenticated = false;
       _log.info('User logged out successfully, setting _isAuthenticated = false');

@@ -6,11 +6,13 @@ import 'package:shop/module%20chat/domain/chat/chat.dart';
 class ChatListItem extends StatelessWidget {
   final Chat chat;
   final VoidCallback onDismissed;
+  final VoidCallback? onTap;
 
   const ChatListItem({
     super.key,
     required this.chat,
     required this.onDismissed,
+    this.onTap,
   });
 
   @override
@@ -34,6 +36,7 @@ class ChatListItem extends StatelessWidget {
       ),
       child: ListTile(
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        onTap: onTap,
         leading: CircleAvatar(
           radius: 28.r,
           backgroundImage: NetworkImage(chat.avatar),

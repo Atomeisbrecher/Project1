@@ -1,8 +1,8 @@
 import 'package:shop/module%20chat/domain/chat/chat.dart';
 import 'package:shop/module%20chat/domain/chat/chat_repository.dart';
-import 'package:shop/module%20chat/data/services/chat_api_service.dart';
-import 'package:shop/module%20chat/data/services/chat_cache_service.dart';
-import 'package:shop/module%20chat/data/services/websocket_service.dart';
+import 'package:shop/module%20chat/data/services/chat%20client/chat_api_service.dart';
+import 'package:shop/module%20chat/data/services/chat%20cache/chat_cache_service.dart';
+import 'package:shop/module%20chat/data/services/websocket%20service/websocket_service.dart';
 import 'package:shop/utils/result.dart';
 import 'package:logging/logging.dart';
 

@@ -17,6 +17,7 @@ abstract class WebSocketService {
   // Listen to chat updates
   Stream<dynamic> onChatUpdate();
 
+  void reconnect();
   // Send ping to keep connection alive
   void ping();
 }

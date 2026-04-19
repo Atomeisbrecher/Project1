@@ -1,28 +1,40 @@
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:shop/module auth/data/services/api/model/user/user_api_model.dart';
+import 'package:shop/module auth/data/services/api/api_interceptors.dart';
 import 'package:shop/utils/result.dart';
 import 'package:dio/dio.dart';
 
 class AuthService {
+  late final Dio _dio;
+
   AuthService({
     String? authorizationEndpoint,
     String? tokenEndpoint,
     String? endSessionEndpoint,
     String? redirectUrl,
     String? clientID,
-  })  : _authorizationEndpoint = authorizationEndpoint ?? "http://10.0.2.2:8000/auth",
-        _tokenEndpoint = tokenEndpoint ?? "http://10.0.2.2:8000/auth/token",
-        _endSessionEndpoint = endSessionEndpoint ?? "http://10.0.2.2:8000/auth/logout",
-        _redirectUrl = redirectUrl ?? "com.myapp.auth://oauth",
-        _clientID = clientID ?? "my_flutter_app";
+  }) : 
+  _authorizationEndpoint = authorizationEndpoint ?? "http://10.0.2.2:8000/auth",
+  _tokenEndpoint = tokenEndpoint ?? "http://10.0.2.2:8000/auth/token",
+  _endSessionEndpoint = endSessionEndpoint ?? "http://10.0.2.2:8000/auth/logout",
+  _redirectUrl = redirectUrl ?? "com.myapp.auth://oauth",
+  _clientID = clientID ?? "my_flutter_app" {
+    _dio = Dio(BaseOptions(
+      baseUrl: 'http://10.0.2.2:8000/',
+      connectTimeout: const Duration(seconds: 5),
+      receiveTimeout: const Duration(seconds: 3),
+    ));
+    _dio.interceptors.add(AuthInterceptor(_dio));
+  }
+
 
   final String _authorizationEndpoint;
   final String _tokenEndpoint;
   final String _endSessionEndpoint;
   final String _redirectUrl;
   final String _clientID;
-  
-  final Dio _dio = Dio();
+
+
   final FlutterAppAuth _appAuth = const FlutterAppAuth();
 
   late final AuthorizationServiceConfiguration _serviceConfig =

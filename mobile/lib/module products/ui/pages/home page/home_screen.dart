@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shop/module%20auth/ui/pages/login/login_screen.dart';
 import 'package:shop/module%20auth/ui/pages/login/view_models/login_viewmodel.dart';
 import 'package:shop/module%20auth/ui/pages/logout/view_models/logout_viewmodel.dart';
@@ -9,6 +10,7 @@ import 'package:shop/module%20auth/ui/pages/logout/widgets/logout_button.dart';
 
 import 'package:shop/core/widgets/no_internet.dart';
 import 'package:shop/module%20products/ui/pages/product/product.dart';
+import 'package:shop/routing/routes.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -43,6 +45,22 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _selectedIndex = index;
     });
+    
+    // Navigate based on selected index
+    switch (index) {
+      case 0:
+        context.go(UserRoutes.homeScreen);
+        break;
+      case 1:
+        context.go(UserRoutes.chatsScreen);
+        break;
+      case 2:
+        context.go(UserRoutes.profileScreen);
+        break;
+      case 3:
+        context.go(UserRoutes.settingsScreen);
+        break;
+    }
   }
 
   @override

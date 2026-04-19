@@ -1,7 +1,7 @@
 import 'package:shop/module%20chat/domain/message/message.dart';
 import 'package:shop/module%20chat/domain/message/message_repository.dart';
-import 'package:shop/module%20chat/data/services/message_api_service.dart';
-import 'package:shop/module%20chat/data/services/websocket_service.dart';
+import 'package:shop/module%20chat/data/services/message%20service/message_api_service.dart';
+import 'package:shop/module%20chat/data/services/websocket%20service/websocket_service.dart';
 import 'package:shop/utils/result.dart';
 import 'package:logging/logging.dart';
 
