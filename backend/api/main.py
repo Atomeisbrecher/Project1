@@ -1,7 +1,7 @@
 from dishka import make_async_container
 from fastapi import FastAPI
 from fastapi.concurrency import asynccontextmanager
-from api_auth.presentation.routing import router as auth_router
+from api_auth.presentation.auth_api import router as auth_router
 from api_chat.presentation.chat_api import router as chat_router
 import uvicorn
 from dishka.integrations.fastapi import setup_dishka

@@ -173,14 +173,18 @@ class TokenAuth(ITokenAuth):
         )
 
     #TODO Переделать код, т.к. не должна быть лютая логика в хранилище токенов, а должна быть в сервисе аутентификации, а хранилище должно просто хранить токены и проверять их наличие
-    async def revoke_specific_session(self, access_token: str):
-        payload = self.token_provider.extract_payload(access_token)
-        if payload:
-            user_id = int(payload["sub"])
+    async def revoke_specific_session(self, access_token: str, refresh_token: str):
+        access_payload = self.token_provider.extract_payload(access_token, verify_exp = False)
+        refresh_payload = self.token_provider.extract_payload(refresh_token)
+        a_jti = access_payload["jti"]
+        r_jti = refresh_payload["jti"]
+        print(access_payload, refresh_payload)
+        if a_jti and r_jti:
+            user_id = int(refresh_payload["sub"])
             await self.token_storage.remove_session(
                 user_id=user_id, 
-                a_jti=payload["jti"], 
-                r_jti=payload.get("r_jti")
+                a_jti=a_jti, 
+                r_jti=r_jti
             )
 
     async def revoke_all_sessions(self, user_id: int) -> None:

@@ -25,11 +25,10 @@ security_bearer = HTTPBearer()
 @inject
 async def get_current_user_payload(
     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
-    auth_service: FromDishka[ITokenProvider]
+    auth_service: FromDishka[ITokenProvider],
 ) -> dict:
     try:
-        # validate_token выбросит HTTPException(401), если токен невалиден или отозван
-        #payload = await auth_service.validate_token(credentials.credentials)
+        # validate_token выбросит HTTPException(401), если токен отозван
         payload = auth_service.extract_payload(credentials.credentials)
         return payload
     except HTTPException:
@@ -110,12 +109,14 @@ async def post_token(
 @inject
 async def refresh_tokens(
     auth_header: Annotated[str | None, Header(alias="Authorization")] = None,
-    x_refresh_token: Annotated[str | None, Header()] = None,
+    x_refresh_token: Annotated[str | None, Header(alias="X-Refresh-Token")] = None,
     auth_service: FromDishka[ITokenAuth] = None,
-    #token_provider: FromDishka[ITokenProvider] = None,
 ):
     if not auth_header or not x_refresh_token:
         raise HTTPException(status_code=401, detail="Missing tokens in headers")
+
+    auth_header = auth_header.replace('Bearer ','')
+
     old_access = auth_header
     old_refresh = x_refresh_token
     old_payload = auth_service.token_provider.extract_payload(old_refresh)
@@ -178,25 +179,28 @@ async def register(
         "refresh_token": None,
     }
 
-@router.get("/logout")
-@inject
-async def logout_oidc(
-    id_token_hint: str,
-    post_logout_redirect_uri: str,
-    auth_service: FromDishka[ITokenAuth]
-):
-    await auth_service.revoke_by_id_token(id_token_hint)
-    return RedirectResponse(url=post_logout_redirect_uri)
+# @router.get("/logout")
+# @inject
+# async def logout_oidc(
+#     id_token_hint: str,
+#     post_logout_redirect_uri: str,
+#     auth_service: FromDishka[ITokenAuth]
+# ):
+#     await auth_service.revoke_by_id_token(id_token_hint)
+#     return RedirectResponse(url=post_logout_redirect_uri)
 
 
 @router.post("/logout")
 @inject
 async def logout(
-    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
-    auth_service: FromDishka[ITokenAuth]
+    auth_header: Annotated[str | None, Header(alias="Authorization")] = None,
+    x_refresh_token: Annotated[str | None, Header(alias="X-Refresh-Token")] = None,
+    auth_service: FromDishka[ITokenAuth] = None
 ):
-    access_token = credentials.credentials
-    await auth_service.revoke_specific_session(access_token)
+    if not auth_header or not x_refresh_token:
+        raise HTTPException(status_code=401, detail="Missing tokens in headers")
+    auth_header = auth_header.replace('Bearer ','')
+    await auth_service.revoke_specific_session(auth_header, x_refresh_token)
     return {"detail": "Successfully logged out from current device"}
 
 @router.post("/logout-all")
@@ -225,26 +229,25 @@ async def update_user():
 @inject
 async def get_current_user_profile(
     payload: CurrentUserPayload,
-    #token: Annotated[str | None, Header(alias="Authorization")] = None,
-    #payload: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
-    #user_repo: FromDishka[IUserRepository] = None
+    uow: FromDishka[IUnitOfWork]
 ):
     user_id = payload.get("sub")
-    #user = await user_repo.get_by_id(int(user_id))
-    return {"user_id": user_id, "status": "active"}
-
-#@router.get("users")
+    async with uow:
+        result = await uow.users.get_user_by_id(user_id)
+        if result:
+            return result
+        else:
+            return HTTPException(status_code=status.HTPP_404_NOT_FOUND, detail="User not found")
 
 @router.get("/users/{username}", response_model=UserSearchResponse)
 @inject
-async def get_user(
+async def get_user_by_username(
     payload: CurrentUserPayload,
     username: str,
     uow: FromDishka[IUnitOfWork] = None,
     ):
     async with uow:
         result = await uow.users.get_by_username(username)
-        print(result)
         if result:
             return result
         else:
@@ -256,14 +259,14 @@ async def delete_user(user_id: str):
     pass
 
 
-@router.post('token-test')
-@inject
-async def token_test(
-    user_id: int,
-    auth_service: FromDishka[ITokenAuth],
-    ):
-    tokens = await auth_service.set_tokens(user_id)
-    return tokens
+# @router.post('token-test')
+# @inject
+# async def token_test(
+#     user_id: int,
+#     auth_service: FromDishka[ITokenAuth],
+#     ):
+#     tokens = await auth_service.set_tokens(user_id)
+#     return tokens
     
 
 

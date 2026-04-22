@@ -165,26 +165,14 @@ class OAuthRepositoryRemote extends OAuthRepository {
   @override
   Future<Result<void>> logout() async { //сделать нормально, согласно архитектуре mvvm, сделать бэкенд т.е.
     try {
-      _log.info('Starting logout process...');
-      _log.fine('Signing out from Firebase...');
-      await _auth.signOut();
-      
-      _log.fine('Calling auth service logout method...');
       await _authService.logout();
-      
-      _log.fine('Clearing all tokens from secure storage...');
-      await TokenStorage.clear();
-      
-      _isAuthenticated = false;
-      _log.info('User logged out successfully, setting _isAuthenticated = false');
-      
+      await _auth.signOut();
       return Result.ok(null);
     } on Exception catch (error) {
-      _log.severe("Error during logout: $error");
-      _isAuthenticated = false;
       return Result.error(error);
     } finally {
-      _log.fine('Logout process completed, notifying listeners');
+      await TokenStorage.clear();
+      _isAuthenticated = false;
       notifyListeners();
     }
   }

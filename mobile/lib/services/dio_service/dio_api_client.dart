@@ -184,21 +184,28 @@ class AuthInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) async {
     try {
-      final accessToken = await _secureStorage.read(
-        key: 'access_token',
-      );
-
-      if (accessToken != null && accessToken.isNotEmpty) {
-        //options.headers['Authorization'] = 'Bearer $accessToken';
-        if (options.headers['Authorization'] == null) {
-          options.headers['Authorization'] = 'Bearer $accessToken';
-        }
-        options.headers['Accept'] = 'application/json';
-        options.headers['Content-Type'] = 'application/json';   
-        _log.info('Auth token added to request: ${options.path}');
-      } else {
-        _log.warning('No access token found in secure storage for: ${options.path}');
+      final accessToken = await _secureStorage.read(key: 'access_token');
+      final refreshToken = await _secureStorage.read(key: 'refresh_token');
+      
+      if (accessToken != null) {
+        options.headers['Authorization'] = 'Bearer $accessToken';
       }
+      if (refreshToken != null && options.path.contains("/auth/logout")) {
+        options.headers['X-Refresh-Token'] = refreshToken;
+      }
+      // if (accessToken != null && accessToken.isNotEmpty) {
+      //   //options.headers['Authorization'] = 'Bearer $accessToken';
+      //   // if (options.headers['Authorization'] == null) {
+      //   //   options.headers['Authorization'] = 'Bearer $accessToken';
+      //   // }
+      //   options.headers['Accept'] = 'application/json';
+      //   options.headers['Content-Type'] = 'application/json';   
+      //   _log.info('Auth token added to request: ${options.path}');
+      // } else {
+      //   _log.warning('No access token found in secure storage for: ${options.path}');
+      // }
+      options.headers['Accept'] = 'application/json'; 
+      options.headers['Content-Type'] = 'application/json'; 
     } catch (e) {
       _log.severe('Error reading access token from secure storage', e);
     }
@@ -213,12 +220,10 @@ class AuthInterceptor extends Interceptor {
     if (err.response?.statusCode == 401 && !err.requestOptions.path.contains('/auth/refresh')) {
 
       final oldRefreshToken = await TokenStorage.getRefreshToken();
-      final oldAccessToken = await TokenStorage.getAccessToken();
       final response = await _dio.post(
         "/auth/refresh", 
         options: Options(
           headers: {
-            "Authorization": "$oldAccessToken",
             'X-Refresh-Token': oldRefreshToken,
           }
         )
@@ -230,7 +235,7 @@ class AuthInterceptor extends Interceptor {
         await TokenStorage.saveTokens(newAccessToken, newRefreshToken);
       }
       final opts = err.requestOptions;
-      opts.headers['Authorization'] = 'Bearer $newAccessToken';
+      opts.headers['Authorization'] = '$newAccessToken';
       final cloneReq = await _dio.request(
         opts.path,
         options: Options(method: opts.method, headers: opts.headers),

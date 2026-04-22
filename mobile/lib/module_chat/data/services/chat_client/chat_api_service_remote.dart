@@ -21,7 +21,6 @@ class ChatApiServiceRemote implements ChatApiService {
   Future<Result<List<UserSearchSnippet>>> getUserDataFromUsername(String username) async {
     final request = await _dioClient.dio.get("/auth/users/$username");
     if (request.statusCode == 200) {
-      print(request.data);
       return Result.ok(request.data);
     }
     return const Result.error(HttpException("User not found"));

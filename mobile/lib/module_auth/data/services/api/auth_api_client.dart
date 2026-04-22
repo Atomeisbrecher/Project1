@@ -84,7 +84,7 @@ class AuthService {
     // }
   }
 
-  Future<Null> logout() async {
+  Future<void> logout() async {
     // _appAuth.endSession(
     //   EndSessionRequest(
     //     idTokenHint: 'TokenHint',
@@ -93,8 +93,13 @@ class AuthService {
     //   ),
     // );
     //#TODO Доделать правильную реализацию этого говна, правда используется OpaqueToken а не тот, что у меня был изначально.
-    await TokenStorage.clear();
-    await WebSocketServiceRemote(_dioClient).disconnect();
+    try {
+      await _dioClient.dio.post("/auth/logout");
+      await WebSocketServiceRemote(_dioClient).disconnect();
+      return;
+    } catch (e) {
+      return;
+    }
   }
 
   Future<UserApiModel> register({

@@ -7,7 +7,7 @@ from fastapi import APIRouter, status
 from fastapi.security import HTTPAuthorizationCredentials
 import redis.asyncio as redis
 
-from api_auth.presentation.routing import CurrentUserPayload
+from api_auth.presentation.auth_api import CurrentUserPayload
 from api_chat.presentation.chat_helpers import redis_listener, redis_to_ws_stream, ws_to_logic_stream
 from api_chat.application.commands import SendMessageCommand
 from api_chat.application.queries import SyncMessagesCommand

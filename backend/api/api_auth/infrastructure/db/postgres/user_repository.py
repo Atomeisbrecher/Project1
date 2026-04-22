@@ -25,8 +25,10 @@ class PGUserRepository(IUserRepository):
         logger.debug(f"Found: {result}")
         return result.scalar_one_or_none()
 
-    async def get_by_user_id(self, user_id: str) -> UserEntity | None:
-        pass
+    async def get_user_by_id(self, user_id: int) -> UserEntity | None:
+        stmt = select(UserORM).where(UserORM.id == int(user_id))
+        result = await self.session.execute(stmt)
+        return result.scalar_one_or_none()
 
     async def create_user(self, user: UserCreate) -> UserEntity:
         """Создает пользователя из UserCreate DTO и возвращает UserEntity"""
