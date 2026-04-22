@@ -8,3 +8,10 @@ class TokenResponse(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "Bearer"
+
+
+class UserSearchResponse(BaseModel):
+    id: int
+    username: str
+    #avatar_url: str | None = None
+    #status: str | None = None

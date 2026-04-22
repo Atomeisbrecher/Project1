@@ -15,8 +15,8 @@ from api_auth.domain.token_entity import TokenData
 from api_auth.application.interactors.register import RegisterUser, RegisterUserCommand
 from api_auth.domain.entities import UserCreate
 from api_auth.application.interactors.exchange_code_for_token import ExchangeCodeForToken
-from api_auth.domain.interfaces import ITokenAuth, ITokenProvider, IUserRepository
-from api_auth.presentation.dtos import RefreshRequest, TokenResponse
+from api_auth.domain.interfaces import ITokenAuth, ITokenProvider, IUnitOfWork, IUserRepository
+from api_auth.presentation.dtos import RefreshRequest, TokenResponse, UserSearchResponse
 router = APIRouter()
 logger = logging.getLogger(__name__)
 
@@ -233,12 +233,22 @@ async def get_current_user_profile(
     #user = await user_repo.get_by_id(int(user_id))
     return {"user_id": user_id, "status": "active"}
 
-@router.get("users")
+#@router.get("users")
 
-@router.get("/users/{user_id}")
-async def get_user(user_id: str):
-    #TODO реализовать эндпоинт для получения информации о конкретном пользователе
-    pass
+@router.get("/users/{username}", response_model=UserSearchResponse)
+@inject
+async def get_user(
+    payload: CurrentUserPayload,
+    username: str,
+    uow: FromDishka[IUnitOfWork] = None,
+    ):
+    async with uow:
+        result = await uow.users.get_by_username(username)
+        print(result)
+        if result:
+            return result
+        else:
+            return HTTPException(status_code=status.HTPP_404_NOT_FOUND, detail="User not found")
 
 @router.delete("/users/{user_id}")
 async def delete_user(user_id: str):

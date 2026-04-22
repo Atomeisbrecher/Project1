@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop/firebase_options.dart';
-import 'package:shop/module%20chat/data/services/websocket%20service/websocket_service_remote.dart';
 import 'package:shop/routing/router.dart';
 import 'package:provider/provider.dart';
 import 'main_development.dart' as development;

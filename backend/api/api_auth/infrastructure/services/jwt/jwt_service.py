@@ -1,3 +1,5 @@
+import logging
+
 import uuid6
 #import uuid4
 import jwt
@@ -11,7 +13,7 @@ from auth_config import settings
 
 from api_auth.domain.entities import UserEntity
 
-
+logger = logging.getLogger("my_app")
 TOKEN_TYPE_FIELD = "type"
 
 class TokenProvider(ITokenProvider):   
@@ -49,11 +51,13 @@ class TokenProvider(ITokenProvider):
             token: str | bytes,
             public_key: str = settings.auth_jwt.public_key_path.read_text(),
             algorithm: str = settings.auth_jwt.algorithm,
+            verify_exp: bool = True
     ) -> dict:
         decoded = jwt.decode(
             token,
             public_key,
             algorithms=algorithm,
+            options={"verify_exp": verify_exp}
         )
         return decoded
 
@@ -75,12 +79,14 @@ class TokenProvider(ITokenProvider):
             expire_timedelta=expire_timedelta,
             )         
 
-    def extract_payload(self, token: str) -> dict | None:
+    def extract_payload(self, token: str, verify_exp: bool = True) -> dict | None:
         """Публичный метод для безопасного извлечения данных из токена"""
         try:
-            return self._decode_jwt(token)
+            return self._decode_jwt(token, verify_exp=verify_exp)
         except jwt.PyJWTError as e:
-            raise HTTPException(status_code=401, detail="Invalid token")
+            raise HTTPException(status_code=401, detail="Invalid Token")
+        except jwt.InvalidTokenError:
+            return HTTPException(status_code=401, detail="Invalid Token")
 
     def create_access_token(self, data: dict, jti: str) -> str:
         data["jti"] = jti
@@ -119,15 +125,9 @@ class TokenAuth(ITokenAuth):
             "sub": str(user_id),
         }
 
-        access_token = self.token_provider.create_access_token(
-            data,
-            jti=access_jti
-            )
-        refresh_token = self.token_provider.create_refresh_token(
-            data,
-            jti=refresh_jti
-            )
-        
+        access_token = self.token_provider.create_access_token(data, jti=access_jti)
+        refresh_token = self.token_provider.create_refresh_token(data, jti=refresh_jti)
+
         payload = self.token_provider.extract_payload(refresh_token)
         expire_seconds = int(payload["exp"] - payload["iat"])
 
@@ -137,7 +137,6 @@ class TokenAuth(ITokenAuth):
             refresh_jti=refresh_jti,
             expire_seconds=expire_seconds
             )
-        
 
         result = TokenData(
             access_token=access_token,
@@ -149,23 +148,22 @@ class TokenAuth(ITokenAuth):
         pass
     
     async def rotate_tokens(self, user_id: int, old_access_token: str, old_refresh_token: str) -> TokenData:
-        old_access_payload = self.token_provider.extract_payload(old_access_token)
+        old_access_payload = self.token_provider.extract_payload(old_access_token, verify_exp = False)
         old_refresh_payload = self.token_provider.extract_payload(old_refresh_token)
 
         if not old_access_payload or not old_refresh_payload:
             raise HTTPException(status_code=401, detail="Invalid token")
 
         old_storage_value = f"{old_access_payload['jti']}:{old_refresh_payload['jti']}"
-
         new_access_jti = str(uuid6.uuid6())
         new_refresh_jti = str(uuid6.uuid6())
 
-        new_access_token = self.token_provider.create_access_token({"sub": str(user_id), "jti": new_access_jti})
-        new_refresh_token = self.token_provider.create_refresh_token({"sub": str(user_id), "jti": new_refresh_jti})
+        new_access_token = self.token_provider.create_access_token(data={"sub": str(user_id) }, jti = new_access_jti)
+        new_refresh_token = self.token_provider.create_refresh_token(data={"sub": str(user_id) }, jti = new_refresh_jti)
 
         new_storage_value = f"{new_access_jti}:{new_refresh_jti}"
 
-        expire_seconds = self.get_expire_seconds(new_refresh_token)
+        expire_seconds = self.get_expire_seconds(token=new_refresh_token, verify_exp=False)
 
         await self.token_storage.rotate_session(user_id, old_storage_value, new_storage_value, expire_seconds)
 
@@ -206,8 +204,8 @@ class TokenAuth(ITokenAuth):
     async def revoke_specific_token_by_user_id(self, user_id: int, token: TokenData) -> None:
         await self.token_storage.revoke_specific_token_by_user_id(user_id, token)
 
-    def get_expire_seconds(self, token: TokenData) -> int | None:
-        payload = self.token_provider.extract_payload(token.access_token)
+    def get_expire_seconds(self, token: str, verify_exp: bool = True) -> int | None:
+        payload = self.token_provider.extract_payload(token, verify_exp = verify_exp)
         if payload:
             exp = payload.get("exp")
             iat = payload.get("iat")

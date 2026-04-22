@@ -6,12 +6,13 @@ import 'package:shop/module_auth/data/repository/auth/auth_repository.dart';
 import 'package:shop/module_auth/domain/use_cases/google_sign_in.dart';
 import 'package:shop/module_auth/ui/pages/login/login_screen.dart';
 import 'package:shop/module_auth/ui/pages/login/view_models/login_viewmodel.dart';
+import 'package:shop/module_auth/ui/pages/logout/view_models/logout_viewmodel.dart';
 import 'package:shop/module_auth/ui/pages/sign_in/sign_in.dart';
 import 'package:shop/module_auth/ui/pages/sign_in/view_models/sign_in_viewmodel.dart';
 import 'package:shop/module_auth/ui/pages/welcome_screen/welcome_screen.dart';
+import 'package:shop/module_chat/data/repository/chat_repo/chat_repository.dart';
+import 'package:shop/module_chat/data/repository/message_repo/message_repository.dart';
 import 'package:shop/module_chat/domain/chat/chat.dart';
-import 'package:shop/module_chat/domain/chat/chat_repository.dart';
-import 'package:shop/module_chat/domain/message/message_repository.dart';
 import 'package:shop/module_chat/domain/use_cases/get_chats.dart';
 import 'package:shop/module_chat/domain/use_cases/search_chats.dart';
 import 'package:shop/module_chat/domain/use_cases/sync_chats.dart';
@@ -22,10 +23,9 @@ import 'package:shop/module_chat/domain/use_cases/delete_message.dart';
 import 'package:shop/module_chat/domain/use_cases/forward_message.dart';
 import 'package:shop/module_chat/ui/pages/chat_list/view_models/chat_list_viewmodel.dart';
 import 'package:shop/module_chat/ui/pages/chat_detail/view_models/chat_detail_viewmodel.dart';
-import 'package:shop/module_products/ui/pages/home_page/home_screen.dart';
 import 'package:shop/module_chat/ui/pages/chat_list/chat_list_screen.dart';
 import 'package:shop/module_chat/ui/pages/chat_detail/chat_detail_screen.dart';
-import 'package:shop/module_profile/ui/pages/my_profile/my_profile.dart';
+import 'package:shop/module_products/ui/pages/home%20page/home_screen.dart';
 import 'package:shop/routing/routes.dart';
 
 GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) => GoRouter(
@@ -68,7 +68,8 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
                 getChatsUseCase: GetChatsUseCase(chatRepository: chatRepository),
                 searchChatsUseCase: SearchChatsUseCase(chatRepository: chatRepository),
                 syncChatsUseCase: SyncChatsUseCase(chatRepository: chatRepository)
-              )
+              ),
+              logOutViewModel: LogoutViewModel(oAuthRepository: oAuthRepository),
             );
           },
           routes: [

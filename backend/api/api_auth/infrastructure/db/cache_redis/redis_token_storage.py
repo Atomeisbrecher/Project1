@@ -1,5 +1,6 @@
 from datetime import datetime, time, timezone
 import json
+import logging
 
 from fastapi import HTTPException, status
 from api_auth.domain.entities import CodeData
@@ -8,7 +9,7 @@ import redis.asyncio as redis
 
 from api_auth.domain.interfaces import ITokenProvider, ITokenStorage
 
-
+logger = logging.getLogger("my_app")
 #TODO сделать public токен в виде opaque, а private простейший почти доверенный JWT
 
 class RedisTokenStorage(ITokenStorage):
@@ -141,7 +142,7 @@ class RedisTokenStorage(ITokenStorage):
         key = self._key(user_id)
         async with self.redis.pipeline(transaction=True) as pipe:
             await pipe.zrem(key, old_value)
-            await pipe.zadd(key, {new_value: time.time()})
+            await pipe.zadd(key, {new_value: int(datetime.now().timestamp())})
             await pipe.zremrangebyrank(key, 0, -(self.max_sessions + 1))
             await pipe.expire(key, expire_seconds)
             await pipe.execute()
