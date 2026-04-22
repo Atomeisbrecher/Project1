@@ -1,6 +1,6 @@
 from typing_extensions import Annotated
 
-from fastapi import APIRouter, Depends, Form, HTTPException, Request
+from fastapi import APIRouter, Depends, Form, HTTPException, Header, Request
 from fastapi.responses import RedirectResponse, HTMLResponse
 from dishka.integrations.fastapi import FromDishka, inject
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -15,22 +15,22 @@ from api_auth.domain.token_entity import TokenData
 from api_auth.application.interactors.register import RegisterUser, RegisterUserCommand
 from api_auth.domain.entities import UserCreate
 from api_auth.application.interactors.exchange_code_for_token import ExchangeCodeForToken
-from api_auth.domain.interfaces import ITokenAuth
+from api_auth.domain.interfaces import ITokenAuth, ITokenProvider, IUserRepository
 from api_auth.presentation.dtos import RefreshRequest, TokenResponse
-
 router = APIRouter()
 logger = logging.getLogger(__name__)
+
+
 security_bearer = HTTPBearer()
-
-
 @inject
 async def get_current_user_payload(
     credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
-    auth_service: FromDishka[ITokenAuth]
+    auth_service: FromDishka[ITokenProvider]
 ) -> dict:
     try:
         # validate_token выбросит HTTPException(401), если токен невалиден или отозван
-        payload = await auth_service.validate_token(credentials.credentials)
+        #payload = await auth_service.validate_token(credentials.credentials)
+        payload = auth_service.extract_payload(credentials.credentials)
         return payload
     except HTTPException:
         raise
@@ -109,15 +109,38 @@ async def post_token(
 @router.post("/refresh", response_model=TokenResponse)
 @inject
 async def refresh_tokens(
+    auth_header: Annotated[str | None, Header(alias="Authorization")] = None,
+    x_refresh_token: Annotated[str | None, Header()] = None,
+    auth_service: FromDishka[ITokenAuth] = None,
+    #token_provider: FromDishka[ITokenProvider] = None,
+):
+    if not auth_header or not x_refresh_token:
+        raise HTTPException(status_code=401, detail="Missing tokens in headers")
+    old_access = auth_header
+    old_refresh = x_refresh_token
+    old_payload = auth_service.token_provider.extract_payload(old_refresh)
+    user_id = int(old_payload.get("sub"))
+    new_tokens = await auth_service.rotate_tokens(
+        user_id,
+        old_access_token=old_access,
+        old_refresh_token=old_refresh
+    )
+    return new_tokens
+
+
+#TODO Везде при работе с защищенными эндпоинтами надо сделать проверку их в белом списке.
+@router.post("/refresh", response_model=TokenResponse)
+@inject
+async def refresh_tokens(
     request_data: RefreshRequest,
-    credentials: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
     auth_service: FromDishka[ITokenAuth],
+    token: str = Depends(HTTPBearer(auto_error=False))
 ):
     """Юз-кейс ротации: меняет старую пару токенов на новую."""
-    old_access = credentials.credentials
+    old_access = token
     old_refresh = request_data.refresh_token
     try:
-        old_payload = auth_service.token_provider.extract_payload(old_access)
+        old_payload = auth_service.token_provider.extract_payload(old_refresh)
         user_id = int(old_payload["sub"])
         
         new_tokens = await auth_service.rotate_tokens(user_id, old_access, old_refresh)
@@ -155,6 +178,17 @@ async def register(
         "refresh_token": None,
     }
 
+@router.get("/logout")
+@inject
+async def logout_oidc(
+    id_token_hint: str,
+    post_logout_redirect_uri: str,
+    auth_service: FromDishka[ITokenAuth]
+):
+    await auth_service.revoke_by_id_token(id_token_hint)
+    return RedirectResponse(url=post_logout_redirect_uri)
+
+
 @router.post("/logout")
 @inject
 async def logout(
@@ -188,14 +222,18 @@ async def update_user():
     pass
 
 @router.get("/me")
+@inject
 async def get_current_user_profile(
-    payload: CurrentUserPayload
+    payload: CurrentUserPayload,
+    #token: Annotated[str | None, Header(alias="Authorization")] = None,
+    #payload: Annotated[HTTPAuthorizationCredentials, Depends(security_bearer)],
+    #user_repo: FromDishka[IUserRepository] = None
 ):
     user_id = payload.get("sub")
-
-    user = await user_repo.get_by_id(int(user_id))
-    
+    #user = await user_repo.get_by_id(int(user_id))
     return {"user_id": user_id, "status": "active"}
+
+@router.get("users")
 
 @router.get("/users/{user_id}")
 async def get_user(user_id: str):

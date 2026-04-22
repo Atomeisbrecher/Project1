@@ -22,7 +22,6 @@ Future<void> preloadSVGs(List<String> paths) async {
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await WebSocketServiceRemote().connect();
   await Future.wait([
     Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
