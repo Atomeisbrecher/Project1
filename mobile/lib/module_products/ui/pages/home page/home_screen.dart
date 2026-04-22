@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_offline/flutter_offline.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:shop/module%20auth/ui/pages/login/login_screen.dart';
-import 'package:shop/module%20auth/ui/pages/login/view_models/login_viewmodel.dart';
-import 'package:shop/module%20auth/ui/pages/logout/view_models/logout_viewmodel.dart';
-import 'package:shop/module%20auth/ui/pages/logout/widgets/logout_button.dart';
+import 'package:shop/module_auth/ui/pages/login/login_screen.dart';
+import 'package:shop/module_auth/ui/pages/login/view_models/login_viewmodel.dart';
+import 'package:shop/module_auth/ui/pages/logout/view_models/logout_viewmodel.dart';
+import 'package:shop/module_auth/ui/pages/logout/widgets/logout_button.dart';
 
 import 'package:shop/core/widgets/no_internet.dart';
-import 'package:shop/module%20products/ui/pages/product/product.dart';
+import 'package:shop/module_products/ui/pages/product/product.dart';
 import 'package:shop/routing/routes.dart';
 
 class HomeScreen extends StatefulWidget {
