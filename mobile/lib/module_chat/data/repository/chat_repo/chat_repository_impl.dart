@@ -23,7 +23,7 @@ class UserSearchSnippet {
   }
 }
 
-class ChatRepositoryImpl implements ChatRepository {
+class ChatRepositoryImpl extends ChatRepository {
   ChatRepositoryImpl({
     required ChatApiService chatApiService,
     required ChatCacheService chatCacheService,
@@ -31,17 +31,12 @@ class ChatRepositoryImpl implements ChatRepository {
   })  : _chatApiService = chatApiService,
         _chatCacheService = chatCacheService,
         _webSocketService = webSocketService {
-    _initWebSocketListeners();
   }
 
   final ChatApiService _chatApiService;
   final ChatCacheService _chatCacheService;
   final WebSocketService _webSocketService;
   final _log = Logger('ChatRepository');
-
-  void _initWebSocketListeners() {
-    // Initialize WebSocket listeners for real-time updates
-  }
 
 
 
@@ -93,31 +88,34 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<Result<List<UserSearchSnippet>>> searchChats(String query) async {
+  Future<Result<List<Chat>>> searchChats(String query) async {
+    try {
+      final cachedChats = await _chatCacheService.getCachedChats();
+      final filtered = cachedChats.cast<Chat>().where((chat) {
+        return chat.username.toLowerCase().contains(query.toLowerCase()) ||
+            chat.lastMessage.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+
+      _log.info('Found ${filtered.length} chats matching query: $query');
+      return Result.ok(filtered);
+    } catch (e) {
+      _log.severe('Error searching chats', e);
+      return Result.error(Exception('Error: $e'));
+    }
+  }
+
+  @override
+  Future<Result<List<Chat>>> searchUsersChats(String query) async {
     final username = query.startsWith('@') ? query.substring(1) : query;
     if (username.isEmpty) return Result.ok([]);
     final result = await _chatApiService.getUserDataFromUsername(username);
     switch (result) {
-      case Ok<List<UserSearchSnippet>>():
+      case Ok<List<Chat>>():
+        notifyListeners();
         return Result.ok(result.value);
       case Error():
-        return Result<List<UserSearchSnippet>>.error(result.error);
+        return Result.error(result.error);
     }
-    // try {
-    //   // TODO: Implement search on the server side
-    //   // For now, we'll filter cached chats
-    //   final cachedChats = await _chatCacheService.getCachedChats();
-    //   final filtered = cachedChats.cast<Chat>().where((chat) {
-    //     return chat.username.toLowerCase().contains(query.toLowerCase()) ||
-    //         chat.lastMessage.toLowerCase().contains(query.toLowerCase());
-    //   }).toList();
-
-    //   _log.info('Found ${filtered.length} chats matching query: $query');
-    //   return Result.ok(filtered);
-    // } catch (e) {
-    //   _log.severe('Error searching chats', e);
-    //   return Result.error(Exception('Error: $e'));
-    // }
   }
 
   @override

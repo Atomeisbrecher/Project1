@@ -18,7 +18,7 @@ class ChatListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final timeFormatter = DateFormat('HH:mm');
-    final time = timeFormatter.format(chat.lastMessageTime);
+    final time = 1;//timeFormatter.format(chat.lastMessageTime);
 
     return Dismissible(
       key: ValueKey(chat.id),
@@ -39,17 +39,17 @@ class ChatListItem extends StatelessWidget {
         onTap: onTap,
         leading: CircleAvatar(
           radius: 28.r,
-          backgroundImage: NetworkImage(chat.avatar),
+          backgroundImage: NetworkImage("smth"),//chat.avatar),
         ),
         title: Text(
-          chat.username,
+          "smth",//chat.username,
           style: TextStyle(
             fontSize: 14.sp,
             fontWeight: FontWeight.w600,
           ),
         ),
         subtitle: Text(
-          chat.lastMessage,
+          "smth",//chat.lastMessage,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
@@ -62,13 +62,13 @@ class ChatListItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Text(
-              time,
+              "smth",//time,
               style: TextStyle(
                 fontSize: 12.sp,
                 color: Colors.grey,
               ),
             ),
-            if (chat.unreadCount > 0)
+            if (chat.unreadCount! > 0)
               Container(
                 margin: EdgeInsets.only(top: 4.h),
                 padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 2.h),

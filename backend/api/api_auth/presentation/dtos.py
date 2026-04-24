@@ -11,7 +11,12 @@ class TokenResponse(BaseModel):
 
 
 class UserSearchResponse(BaseModel):
-    id: int
+    id: str
     username: str
+
+    model_config = {
+        "from_attributes": True,
+        "coerce_numbers_to_str": True # Принудительное приведение чисел к строкам
+    }
     #avatar_url: str | None = None
     #status: str | None = None

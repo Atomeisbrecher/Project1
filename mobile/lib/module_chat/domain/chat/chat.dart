@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'chat.freezed.dart';
@@ -7,14 +9,15 @@ part 'chat.g.dart';
 abstract class Chat with _$Chat {
   const factory Chat({
     required String id,
-    required String userId,
+    @Default('3') String userId,
     required String username,
-    required String avatar,
-    required String lastMessage,
+    @Default('') String avatar,
+    @Default('Начать чат...') String lastMessage,
     required DateTime lastMessageTime,
-    required int unreadCount,
+    @Default(0) int unreadCount,
+
     required DateTime lastOnlineTime,
-    required int lastMessageNumber,
+    @Default(0) int lastMessageNumber,
   }) = _Chat;
 
   factory Chat.fromJson(Map<String, Object?> json) => _$ChatFromJson(json);

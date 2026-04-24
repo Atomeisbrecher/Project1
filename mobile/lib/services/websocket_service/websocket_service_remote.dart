@@ -38,16 +38,6 @@ class WebSocketServiceRemote implements WebSocketService {
   Future<dynamic> connect() async {
     _reconnectTimer?.cancel();
     if (_isConnected) return;
-    print("WS: Попытка вызвать GET /auth/me...");
-    try {
-      print("Проверка _dio: $_apiClient");
-      final response = await _apiClient.dio.get('/auth/me');
-      print("WS: Ответ от сервера: ${response.statusCode}");
-      return;
-    } catch  (e) {
-      print(e);
-      return;
-    }
     try {
       accessToken = await FlutterSecureStorage().read(key: 'access_token');
       _channel = IOWebSocketChannel.connect(
@@ -83,25 +73,18 @@ class WebSocketServiceRemote implements WebSocketService {
   void _handleDisconnect({dynamic error}) async {
     _isConnected = false;
     _channel = null;
-
-    // Если ошибка похожа на 401 (бэкенд закрыл соединение)
-    // Мы делаем проверочный легкий запрос через Dio.
-    // Если токен протух, AuthInterceptor сам запустит refresh.
     final result;
     if (error != null) {
       print("WS Disconnected with error: $error. Attempting to refresh tokens...");
       try {
-        // Вызываем любой защищенный эндпоинт, например /auth/me или просто /refresh вручную
-        // Это заставит Interceptor обновить токены, если они протухли
-        result = await _apiClient?.dio.get('/auth/me');
+        result = await _apiClient.dio.get('/auth/me');
         print('Result = $result');
       } catch (_) {
-        // Если даже здесь ошибка — значит рефреш-токен тоже сдох, идем на логин
         print("Critical Auth Error: Refresh failed");
         print('Error = $_');
-        return reconnect(); 
       }
     }
+    reconnect();
   }
 
   @override

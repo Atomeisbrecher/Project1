@@ -225,7 +225,7 @@ async def update_user():
     #TODO реализовать эндпоинт для обновления данных пользователя (кроме пароля)
     pass
 
-@router.get("/me")
+@router.get("/me", response_model=UserSearchResponse)
 @inject
 async def get_current_user_profile(
     payload: CurrentUserPayload,
@@ -237,7 +237,7 @@ async def get_current_user_profile(
         if result:
             return result
         else:
-            return HTTPException(status_code=status.HTPP_404_NOT_FOUND, detail="User not found")
+            return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
 @router.get("/users/{username}", response_model=UserSearchResponse)
 @inject
@@ -249,9 +249,10 @@ async def get_user_by_username(
     async with uow:
         result = await uow.users.get_by_username(username)
         if result:
+            print(result)
             return result
         else:
-            return HTTPException(status_code=status.HTPP_404_NOT_FOUND, detail="User not found")
+            return HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
 
 @router.delete("/users/{user_id}")
 async def delete_user(user_id: str):

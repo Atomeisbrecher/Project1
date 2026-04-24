@@ -178,7 +178,6 @@ class TokenAuth(ITokenAuth):
         refresh_payload = self.token_provider.extract_payload(refresh_token)
         a_jti = access_payload["jti"]
         r_jti = refresh_payload["jti"]
-        print(access_payload, refresh_payload)
         if a_jti and r_jti:
             user_id = int(refresh_payload["sub"])
             await self.token_storage.remove_session(

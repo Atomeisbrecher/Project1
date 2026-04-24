@@ -8,14 +8,14 @@ part of 'chat.dart';
 
 _Chat _$ChatFromJson(Map<String, dynamic> json) => _Chat(
       id: json['id'] as String,
-      userId: json['userId'] as String,
+      userId: json['userId'] as String? ?? '3',
       username: json['username'] as String,
-      avatar: json['avatar'] as String,
-      lastMessage: json['lastMessage'] as String,
+      avatar: json['avatar'] as String? ?? '',
+      lastMessage: json['lastMessage'] as String? ?? 'Начать чат...',
       lastMessageTime: DateTime.parse(json['lastMessageTime'] as String),
-      unreadCount: (json['unreadCount'] as num).toInt(),
+      unreadCount: (json['unreadCount'] as num?)?.toInt() ?? 0,
       lastOnlineTime: DateTime.parse(json['lastOnlineTime'] as String),
-      lastMessageNumber: (json['lastMessageNumber'] as num).toInt(),
+      lastMessageNumber: (json['lastMessageNumber'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$ChatToJson(_Chat instance) => <String, dynamic>{

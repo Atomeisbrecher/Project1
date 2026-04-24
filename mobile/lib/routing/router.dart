@@ -15,6 +15,7 @@ import 'package:shop/module_chat/data/repository/message_repo/message_repository
 import 'package:shop/module_chat/domain/chat/chat.dart';
 import 'package:shop/module_chat/domain/use_cases/get_chats.dart';
 import 'package:shop/module_chat/domain/use_cases/search_chats.dart';
+import 'package:shop/module_chat/domain/use_cases/search_users_chats.dart';
 import 'package:shop/module_chat/domain/use_cases/sync_chats.dart';
 import 'package:shop/module_chat/domain/use_cases/get_messages.dart';
 import 'package:shop/module_chat/domain/use_cases/send_message.dart';
@@ -26,6 +27,8 @@ import 'package:shop/module_chat/ui/pages/chat_detail/view_models/chat_detail_vi
 import 'package:shop/module_chat/ui/pages/chat_list/chat_list_screen.dart';
 import 'package:shop/module_chat/ui/pages/chat_detail/chat_detail_screen.dart';
 import 'package:shop/module_products/ui/pages/home%20page/home_screen.dart';
+import 'package:shop/module_profile/ui/pages/my_profile/my_profile.dart';
+import 'package:shop/module_storage/ui/pages/settings_screen.dart';
 import 'package:shop/routing/routes.dart';
 
 GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) => GoRouter(
@@ -34,11 +37,13 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
       redirect: _redirect,
       refreshListenable: oAuthRepository,
       routes: [
+        // Приветственное скрин
         GoRoute(
             path: Routes.welcomeScreen,
             builder: (context, state) {
               return WelcomeScreen();
             }),
+        // Скрин авторизации
         GoRoute(
           path: Routes.loginScreen,
           builder: (context, state) {
@@ -47,12 +52,14 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
             );
           },
         ),
+        // Скрин домашний
         GoRoute(
           path: Routes.homeScreen,
           builder: (context, state) {
             return HomeScreen();
           },
         ),
+        // Скрин регистрации
         GoRoute(
             path: Routes.signInScreen,
             builder: (context, state) {
@@ -60,6 +67,7 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
                 viewModel: SignInViewModel(oAuthRepository: context.read()),
               );
             }),
+        // Скрин чатов
         GoRoute(
           path: UserRoutes.chatsScreen,
           builder: (context, state) {
@@ -67,11 +75,13 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
               viewModel: ChatListViewModel(
                 getChatsUseCase: GetChatsUseCase(chatRepository: chatRepository),
                 searchChatsUseCase: SearchChatsUseCase(chatRepository: chatRepository),
-                syncChatsUseCase: SyncChatsUseCase(chatRepository: chatRepository)
+                syncChatsUseCase: SyncChatsUseCase(chatRepository: chatRepository),
+                searchUsersChatsUseCase: SearchUsersChatsUseCase(chatRepository: chatRepository)
               ),
               logOutViewModel: LogoutViewModel(oAuthRepository: oAuthRepository),
             );
           },
+          // Скрин конкретного чата
           routes: [
             GoRoute(
               path: ':chatId',
@@ -92,20 +102,20 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
             ),
           ],
         ),
+        // Скрин профиля
         GoRoute(
           path: UserRoutes.profileScreen,
           builder: (context, state) {
-            return AboutDialog(); //MyProfile();
+            return MyProfileScreen(
+              logOutViewModel: LogoutViewModel(oAuthRepository: oAuthRepository),
+            );
           },
         ),
         GoRoute(
           path: UserRoutes.settingsScreen,
           builder: (context, state) {
-            return Scaffold(
-              appBar: AppBar(title: const Text('Settings')),
-              body: const Center(
-                child: Text('Settings Screen'),
-              ),
+            return SettingsScreen(
+              logOutViewModel: LogoutViewModel(oAuthRepository: oAuthRepository),
             );
           },
         ),

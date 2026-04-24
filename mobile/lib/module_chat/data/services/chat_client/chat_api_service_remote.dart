@@ -18,11 +18,20 @@ class ChatApiServiceRemote implements ChatApiService {
   }) : _dioClient = dioClient ?? DioApiClient();
 
   @override
-  Future<Result<List<UserSearchSnippet>>> getUserDataFromUsername(String username) async {
-    final request = await _dioClient.dio.get("/auth/users/$username");
-    if (request.statusCode == 200) {
-      return Result.ok(request.data);
+  Future<Result<List<Chat>>> getUserDataFromUsername(String username) async {
+    final response = await _dioClient.dio.get("/auth/users/$username");
+    if (response.statusCode == 200) {
+      //фейкую информацию пока что
+      final Map<String, dynamic> completeJson = {
+        'lastMessageTime': DateTime.now().toIso8601String(),
+        'lastOnlineTime': DateTime.now().toIso8601String(),
+        ...response.data
+      };
+      List<Chat> data = [Chat.fromJson(completeJson)];
+      //final chats = data.map((json) => Chat.fromJson(json)).toList();
+      return Result.ok(data);
     }
+    
     return const Result.error(HttpException("User not found"));
   }
 

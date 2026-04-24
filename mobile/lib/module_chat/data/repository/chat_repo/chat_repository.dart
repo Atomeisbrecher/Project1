@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
+import 'package:shop/module_chat/data/repository/chat_repo/chat_repository_impl.dart';
 import 'package:shop/module_chat/domain/chat/chat.dart';
 import 'package:shop/utils/result.dart';
 
-abstract class ChatRepository {
+abstract class ChatRepository extends ChangeNotifier {
   // Get all chats for the current user
   Future<Result<List<Chat>>> getChats({int offset = 0, int limit = 20});
 
@@ -9,8 +11,9 @@ abstract class ChatRepository {
   Future<Result<List<Chat>>> syncChats();
 
   // Search chats
-  Future<Result<List<dynamic>>> searchChats(String query);
+  Future<Result<List<Chat>>> searchChats(String query);
 
+  Future<Result<List<Chat>>> searchUsersChats(String query);
   // Archive chat
   Future<Result<void>> archiveChat(String chatId);
 

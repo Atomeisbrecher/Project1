@@ -33,7 +33,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     super.initState();
     _messageController = TextEditingController();
     _loadMessages();
-    _initializeFakeMessages();
+    //_initializeFakeMessages();
   }
 
   @override
@@ -45,16 +45,16 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
   void _loadMessages() {
     // widget.viewModel.loadMessages.execute(widget.chat.id);
     // widget.viewModel.loadMessages.addListener(_onMessagesLoaded);
-    _initializeFakeMessages();
+    //_initializeFakeMessages();
   }
 
   void _onMessagesLoaded() {
-    // final result = widget.viewModel.loadMessages.result;
-    // if (result != null && result is Ok) {
-    //   setState(() {
-    //     _messages = result.value;
-    //   });
-    // }
+    final result = widget.viewModel.loadMessages.result;
+    if (result != null && result is Ok) {
+      setState(() {
+        _messages = result.value;
+      });
+    }
     
   }
 
@@ -228,6 +228,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 80.w,
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,11 +243,14 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             ),
           ],
         ),
-        leading: Padding(
-          padding: EdgeInsets.all(8.w),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage(widget.chat.avatar),
-          ),
+        leading: Row(
+          children: [
+            const BackButton(),
+            CircleAvatar(
+              radius: 18.r,
+              backgroundImage: NetworkImage(widget.chat.avatar),
+            ),
+          ],
         ),
       ),
       body: Column(

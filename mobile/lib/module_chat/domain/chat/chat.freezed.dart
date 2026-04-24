@@ -375,33 +375,38 @@ extension ChatPatterns on Chat {
 class _Chat implements Chat {
   const _Chat(
       {required this.id,
-      required this.userId,
+      this.userId = '3',
       required this.username,
-      required this.avatar,
-      required this.lastMessage,
+      this.avatar = '',
+      this.lastMessage = 'Начать чат...',
       required this.lastMessageTime,
-      required this.unreadCount,
+      this.unreadCount = 0,
       required this.lastOnlineTime,
-      required this.lastMessageNumber});
+      this.lastMessageNumber = 0});
   factory _Chat.fromJson(Map<String, dynamic> json) => _$ChatFromJson(json);
 
   @override
   final String id;
   @override
+  @JsonKey()
   final String userId;
   @override
   final String username;
   @override
+  @JsonKey()
   final String avatar;
   @override
+  @JsonKey()
   final String lastMessage;
   @override
   final DateTime lastMessageTime;
   @override
+  @JsonKey()
   final int unreadCount;
   @override
   final DateTime lastOnlineTime;
   @override
+  @JsonKey()
   final int lastMessageNumber;
 
   /// Create a copy of Chat

@@ -5,7 +5,7 @@ import 'package:shop/utils/result.dart';
 abstract class ChatApiService {
   // Fetch chats from API
 
-  Future<Result<List<UserSearchSnippet>>> getUserDataFromUsername(String username);
+  Future<Result<List<Chat>>> getUserDataFromUsername(String username);
 
   Future<Result<List<Chat>>> fetchChats({int offset = 0, int limit = 20});
 
