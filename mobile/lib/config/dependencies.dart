@@ -53,12 +53,12 @@ List<SingleChildWidget> get providersRemote {
     Provider<ChatCacheService>(
       create: (context) => ChatCacheServiceImpl(),
     ),
-    Provider<ChatRepository>(
+    ChangeNotifierProvider(
       create: (context) => ChatRepositoryImpl(
         chatApiService: context.read(),
         chatCacheService: context.read(),
         webSocketService: context.read(),
-      ),
+      ) as ChatRepository,
     ),
     Provider<MessageRepository>(
       create: (context) => MessageRepositoryImpl(
