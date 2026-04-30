@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:shop/module_chat/domain/message/message.dart';
 import 'package:shop/module_chat/data/services/message_service/message_api_service.dart';
@@ -75,35 +77,49 @@ class MessageApiServiceRemote implements MessageApiService {
     }
   }
 
+  // @override
+  // Future<Result<Message>> sendMessage(String chatId, String text, {String? replyToMessageId}) async {
+  //   try {
+  //     _log.info('Sending message to chat: $chatId');
+
+  //     final body = {
+  //       'text': text,
+  //       if (replyToMessageId != null) 'replyToMessageId': replyToMessageId,
+  //     };
+
+  //     final Map<String, dynamic> response =
+  //         await _dioClient.post<Map<String, dynamic>>(
+  //       '/chats/$chatId/messages',
+  //       body,
+  //       fromJson: (data) => data as Map<String, dynamic>,
+  //     );
+
+  //     final message = Message.fromJson(response);
+
+  //     _log.info('Successfully sent message: ${message.id}');
+  //     return Result.ok(message);
+  //   } on DioException catch (e) {
+  //     _log.severe('Dio error sending message: ${e.message}');
+  //     return Result.error(Exception('Failed to send message: ${e.message}'));
+  //   } catch (e) {
+  //     _log.severe('Error sending message', e);
+  //     return Result.error(Exception('Failed to send message: $e'));
+  //   }
+  // }
+
   @override
-  Future<Result<Message>> sendMessage(String chatId, String text,
-      {String? replyToMessageId}) async {
+  Future<Result<Message>> sendMessage(String chatId, String text, {String? replyToMessageId}) async {
     try {
-      _log.info('Sending message to chat: $chatId');
-
-      final body = {
+      final response = await _dioClient.dio.post("/chats/$chatId/message", data: {
         'text': text,
-        if (replyToMessageId != null) 'replyToMessageId': replyToMessageId,
-      };
-
-      final Map<String, dynamic> response =
-          await _dioClient.post<Map<String, dynamic>>(
-        '/chats/$chatId/messages',
-        body,
-        fromJson: (data) => data as Map<String, dynamic>,
-      );
-
-      final message = Message.fromJson(response);
-
-      _log.info('Successfully sent message: ${message.id}');
-      return Result.ok(message);
-    } on DioException catch (e) {
-      _log.severe('Dio error sending message: ${e.message}');
-      return Result.error(Exception('Failed to send message: ${e.message}'));
+      });
+      final Map<String, dynamic> json = response.data;
+      if (response.statusCode == 200) return Result.ok(Message.fromJson(json));
     } catch (e) {
-      _log.severe('Error sending message', e);
-      return Result.error(Exception('Failed to send message: $e'));
+      return Result.error(HttpException("Message wasn't sent: $e"));
     }
+    // Possible null catcher
+    return Result.error(HttpException("Message send error"));
   }
 
   @override

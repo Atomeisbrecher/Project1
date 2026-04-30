@@ -21,6 +21,8 @@ router = APIRouter()
 logger = logging.getLogger(__name__)
 
 
+#TODO для удобства лучше вынести в отдельный файл эндпоинты для работы с юзером и под другим тегом
+
 security_bearer = HTTPBearer()
 @inject
 async def get_current_user_payload(

@@ -1,4 +1,5 @@
 import asyncio
+import datetime
 from typing import Annotated, Optional
 
 from fastapi import Cookie, Depends, FastAPI, Header, Query, Request, WebSocket, WebSocketDisconnect, WebSocketException
@@ -14,6 +15,7 @@ from api_chat.application.queries import SyncMessagesCommand
 from api_auth.domain.interfaces import ITokenProvider
 from api_auth.infrastructure.services.jwt.jwt_service import TokenProvider
 from api_chat.domain.interfaces import IRedisStreamService
+from api_chat.presentation.chat_dto import MessageRequest
 
 router = APIRouter()
 
@@ -41,19 +43,22 @@ async def sync_messages(
     messages = await command.execute(chat_id=chat_id, last_message_id=last_message_id)
     return {"messages": messages}
 
-@router.websocket("ws/{chat_id}/messages")
+@router.post("/{chat_id}/message")
 @inject
 async def send_message(
     chat_id: str,
-    text: str,
+    request: MessageRequest,
     payload: CurrentUserPayload,
-    command: FromDishka[SendMessageCommand]
+    redis: FromDishka[IRedisStreamService]
 ):
-    await command.execute(
-        sender_id=int(payload["sub"]),
-        chat_id=chat_id,
-        text=text
-    )
+    print(payload)
+    msg_data = {
+        "text": request.text,
+        "sender_id": payload.get("sub"),
+        "timestamp": datetime.datetime.now().timestamp(),
+    }
+    print(msg_data)
+    message_id = await redis.send_message(chat_id, msg_data["text"], msg_data["sender_id"])
     return {"status": "sent"}
 
 

@@ -1,7 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:shop/module_chat/domain/message/message.dart';
 import 'package:shop/utils/result.dart';
 
-abstract class MessageRepository {
+abstract class MessageRepository extends ChangeNotifier {
   // Get messages for a chat
   Future<Result<List<Message>>> getMessages(String chatId,
       {int offset = 0, int limit = 50});
@@ -10,9 +11,10 @@ abstract class MessageRepository {
   Future<Result<List<Message>>> syncMessages(String chatId,
       {required int fromMessageNumber});
 
+  Stream<Message> get messagesStream;
+
   // Send message
-  Future<Result<Message>> sendMessage(String chatId, String text,
-      {String? replyToMessageId});
+  Future<Result<Message>> sendMessage(String chatId, String text, {String? replyToMessageId});
 
   // Edit message
   Future<Result<Message>> editMessage(

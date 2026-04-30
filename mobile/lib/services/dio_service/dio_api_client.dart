@@ -193,17 +193,6 @@ class AuthInterceptor extends Interceptor {
       if (refreshToken != null && options.path.contains("/auth/logout")) {
         options.headers['X-Refresh-Token'] = refreshToken;
       }
-      // if (accessToken != null && accessToken.isNotEmpty) {
-      //   //options.headers['Authorization'] = 'Bearer $accessToken';
-      //   // if (options.headers['Authorization'] == null) {
-      //   //   options.headers['Authorization'] = 'Bearer $accessToken';
-      //   // }
-      //   options.headers['Accept'] = 'application/json';
-      //   options.headers['Content-Type'] = 'application/json';   
-      //   _log.info('Auth token added to request: ${options.path}');
-      // } else {
-      //   _log.warning('No access token found in secure storage for: ${options.path}');
-      // }
       options.headers['Accept'] = 'application/json'; 
       options.headers['Content-Type'] = 'application/json'; 
     } catch (e) {

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:shop/module_chat/domain/message/message.dart';
 import 'package:shop/module_chat/data/repository/message_repo/message_repository.dart';
 import 'package:shop/module_chat/data/services/message_service/message_api_service.dart';
@@ -5,7 +7,7 @@ import 'package:shop/services/websocket_service/websocket_service.dart';
 import 'package:shop/utils/result.dart';
 import 'package:logging/logging.dart';
 
-class MessageRepositoryImpl implements MessageRepository {
+class MessageRepositoryImpl extends MessageRepository {
   MessageRepositoryImpl({
     required MessageApiService messageApiService,
     required WebSocketService webSocketService,
@@ -15,6 +17,11 @@ class MessageRepositoryImpl implements MessageRepository {
   final MessageApiService _messageApiService;
   final WebSocketService _webSocketService;
   final _log = Logger('MessageRepository');
+
+  final StreamController<Message> _messageStreamController = StreamController<Message>.broadcast();
+
+  @override
+  Stream<Message> get messagesStream => _messageStreamController.stream;
 
   @override
   Future<Result<List<Message>>> getMessages(String chatId,
@@ -57,23 +64,52 @@ class MessageRepositoryImpl implements MessageRepository {
     }
   }
 
+  // @override
+  // Future<Result<Message>> sendMessage(String chatId, String text,
+  //     {String? replyToMessageId}) async {
+  //   try {
+  //     final result = await _messageApiService.sendMessage(chatId, text,
+  //         replyToMessageId: replyToMessageId);
+  //     switch (result) {
+  //       case Ok<Message>():
+  //         _log.info('Message sent to chat: $chatId');
+  //         return result;
+  //       case Error():
+  //         _log.warning('Failed to send message to API');
+  //         return Result.error(Exception('Failed to send message'));
+  //     }
+  //   } catch (e) {
+  //     _log.severe('Error sending message', e);
+  //     return Result.error(Exception('Error: $e'));
+  //   }
+  // }
+
   @override
   Future<Result<Message>> sendMessage(String chatId, String text,
       {String? replyToMessageId}) async {
-    try {
-      final result = await _messageApiService.sendMessage(chatId, text,
-          replyToMessageId: replyToMessageId);
-      switch (result) {
-        case Ok<Message>():
-          _log.info('Message sent to chat: $chatId');
-          return result;
-        case Error():
-          _log.warning('Failed to send message to API');
-          return Result.error(Exception('Failed to send message'));
-      }
-    } catch (e) {
-      _log.severe('Error sending message', e);
-      return Result.error(Exception('Error: $e'));
+    print(chatId);
+    print(text);
+    final tempMessage = Message(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      senderId: '1',
+      chatId: chatId,
+      text: text,
+      timestamp: DateTime.now(),
+      status: MessageStatus.sending,
+      messageNumber: 0,
+    );
+
+    final response = await _messageApiService.sendMessage(
+      chatId,
+      text,
+      replyToMessageId: replyToMessageId,
+    );
+
+    switch (response) {
+      case Ok<Message>():
+        return Result.ok(response.value);
+      case Error<Message>():
+        return Result.error(response.error);
     }
   }
 
@@ -172,5 +208,9 @@ class MessageRepositoryImpl implements MessageRepository {
       // Implementation depends on your WebSocket event format
       return event as Message;
     });
+  }
+
+  void dispose() {
+    _messageStreamController.close();
   }
 }

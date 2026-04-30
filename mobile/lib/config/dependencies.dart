@@ -60,7 +60,7 @@ List<SingleChildWidget> get providersRemote {
         webSocketService: context.read(),
       ) as ChatRepository,
     ),
-    Provider<MessageRepository>(
+    ChangeNotifierProvider<MessageRepository>(
       create: (context) => MessageRepositoryImpl(
         messageApiService: context.read(),
         webSocketService: context.read(),

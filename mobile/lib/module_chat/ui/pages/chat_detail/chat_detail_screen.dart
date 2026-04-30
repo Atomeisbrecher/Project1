@@ -116,8 +116,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     final text = _messageController.text;
     _messageController.clear();
 
-    // widget.viewModel.sendMessage.execute(widget.chat.id, text);
-    // widget.viewModel.sendMessage.addListener(_onMessageSent);
+    widget.viewModel.sendMessage.execute(widget.chat.id, text);
+    print(widget..chat.id);
+    widget.viewModel.sendMessage.addListener(_onMessageSent);
         // Create a local message
     final newMessage = Message(
       id: DateTime.now().millisecondsSinceEpoch.toString(),

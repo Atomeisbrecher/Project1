@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import AsyncGenerator
 
 import redis.asyncio as redis
@@ -16,7 +17,15 @@ class RedisStreamService:
         }
         await self.client.xadd(stream_key, data, maxlen=1000, approximate=True)
 
-
+    async def send_message(self, chat_id: str, text: str, sender_id: int):
+        msg_data = {
+            "text": text,
+            "sender_id": sender_id,
+            "timestamp": datetime.now().timestamp(),
+        }
+        message_id = await self.client.xadd(f"user_events:{chat_id}", msg_data)
+        return message_id
+    
     async def listen_stream(self, user_id: int, last_message_id: str = "$") -> AsyncGenerator[list, None]:
         """
         Генератор, который слушает новые сообщения.
