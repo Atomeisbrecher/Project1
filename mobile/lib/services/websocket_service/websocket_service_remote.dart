@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shop/module_chat/domain/message/message.dart';
 import 'package:shop/services/dio_service/dio_api_client.dart';
 import 'package:shop/services/websocket_service/websocket_service.dart';
 import 'package:logging/logging.dart';
@@ -10,17 +11,7 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:web_socket_channel/status.dart' as status;
 import 'package:web_socket_channel/io.dart';
 
-// WebSocket implementation using custom WebSocket protocol
-// This should be implemented to connect to your backend via WebSocket/Redis pub-sub
 class WebSocketServiceRemote implements WebSocketService {
-  // static final WebSocketServiceRemote _instance = WebSocketServiceRemote._internal();
-
-  // factory WebSocketServiceRemote() => _instance;
-  // WebSocketServiceRemote._internal();
-  
-  // static DioApiClient? _dio;
-  // static void setClient(DioApiClient client) => _dio = client;
-  // final client = _dio;
   final DioApiClient _apiClient;
   WebSocketServiceRemote(this._apiClient);
 
@@ -32,6 +23,8 @@ class WebSocketServiceRemote implements WebSocketService {
 
   //Stream, передаёт сообщения в репозитории
   final _messageController = StreamController<dynamic>.broadcast();
+
+  @override
   Stream<dynamic> get messages => _messageController.stream;
 
   @override

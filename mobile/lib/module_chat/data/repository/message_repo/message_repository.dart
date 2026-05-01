@@ -3,6 +3,17 @@ import 'package:shop/module_chat/domain/message/message.dart';
 import 'package:shop/utils/result.dart';
 
 abstract class MessageRepository extends ChangeNotifier {
+
+  Future<void> cacheMessage(String chatId, Message message);
+
+  Future<List<Message>> getCachedMessages(String chatId);
+
+  int? getLastMessageNumber(String chatId);
+
+  Future<void> saveLastMessageNumber(String chatId, int messageNumber);
+
+  Future<void> clearCache(String chatId);
+
   // Get messages for a chat
   Future<Result<List<Message>>> getMessages(String chatId,
       {int offset = 0, int limit = 50});

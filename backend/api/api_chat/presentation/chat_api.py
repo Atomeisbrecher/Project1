@@ -61,8 +61,22 @@ async def send_message(
     message_id = await redis.send_message(chat_id, msg_data["text"], msg_data["sender_id"])
     return {"status": "sent"}
 
-
-
+@router.get("/")
+@inject
+async def get_chats(
+    offset: int,
+    limit: int,
+):
+    return {"chats": []}
+    
+@router.get("/{chat_id}/messages")
+@inject
+async def get_messages(
+    chat_id: str,
+    offset: int,
+    limit: int,
+):
+    return {"messages": []}
 
 
 

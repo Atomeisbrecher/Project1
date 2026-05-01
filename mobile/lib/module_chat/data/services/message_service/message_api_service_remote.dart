@@ -17,8 +17,7 @@ class MessageApiServiceRemote implements MessageApiService {
   }) : _dioClient = dioClient ?? DioApiClient();
 
   @override
-  Future<Result<List<Message>>> fetchMessages(String chatId,
-      {int offset = 0, int limit = 50}) async {
+  Future<Result<List<Message>>> fetchMessages(String chatId, {int offset = 0, int limit = 50}) async {
     try {
       _log.info(
           'Fetching messages for chat: $chatId (offset: $offset, limit: $limit)');
@@ -114,6 +113,9 @@ class MessageApiServiceRemote implements MessageApiService {
         'text': text,
       });
       final Map<String, dynamic> json = response.data;
+      print(response.statusCode);
+      print(json);
+      print(Message.fromJson(json));
       if (response.statusCode == 200) return Result.ok(Message.fromJson(json));
     } catch (e) {
       return Result.error(HttpException("Message wasn't sent: $e"));

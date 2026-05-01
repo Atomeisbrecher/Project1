@@ -8,8 +8,6 @@ class SendMessageUseCase {
 
   final MessageRepository _messageRepository;
 
-  Future<Result<Message>> call(String chatId, String text,
-          {String? replyToMessageId}) =>
-      _messageRepository.sendMessage(chatId, text,
-          replyToMessageId: replyToMessageId);
+  Future<Result<Message>> call(String chatId, String text, {String? replyToMessageId}) => 
+    _messageRepository.sendMessage(chatId, text, replyToMessageId: replyToMessageId);
 }

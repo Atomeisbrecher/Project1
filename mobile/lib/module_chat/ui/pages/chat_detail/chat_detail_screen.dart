@@ -25,15 +25,13 @@ class ChatDetailScreen extends StatefulWidget {
 
 class _ChatDetailScreenState extends State<ChatDetailScreen> {
   late TextEditingController _messageController;
-  List<Message> _messages = [];
   String? _replyingToMessageId;
 
   @override
   void initState() {
     super.initState();
     _messageController = TextEditingController();
-    _loadMessages();
-    //_initializeFakeMessages();
+    widget.viewModel.loadMessages.execute(widget.chat.id);
   }
 
   @override
@@ -42,107 +40,16 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     super.dispose();
   }
 
-  void _loadMessages() {
-    // widget.viewModel.loadMessages.execute(widget.chat.id);
-    // widget.viewModel.loadMessages.addListener(_onMessagesLoaded);
-    //_initializeFakeMessages();
-  }
-
-  void _onMessagesLoaded() {
-    final result = widget.viewModel.loadMessages.result;
-    if (result != null && result is Ok) {
-      setState(() {
-        _messages = result.value;
-      });
-    }
-    
-  }
-
-  void _initializeFakeMessages() {
-    setState(() {
-      _messages = [
-        Message(
-          id: '1',
-          chatId: widget.chat.id,
-          senderId: 'user_1',
-          text: 'Hey! How are you doing?',
-          timestamp: DateTime.now().subtract(const Duration(hours: 1)),
-          status: MessageStatus.read,
-          messageNumber: 1,
-        ),
-        Message(
-          id: '2',
-          chatId: widget.chat.id,
-          senderId: 'current_user',
-          text: 'Hi! I\'m doing great, thanks for asking!',
-          timestamp: DateTime.now().subtract(const Duration(minutes: 50)),
-          status: MessageStatus.read,
-          messageNumber: 2,
-        ),
-        Message(
-          id: '3',
-          chatId: widget.chat.id,
-          senderId: 'user_1',
-          text: 'That\'s awesome! Want to grab coffee later?',
-          timestamp: DateTime.now().subtract(const Duration(minutes: 40)),
-          status: MessageStatus.read,
-          messageNumber: 3,
-        ),
-        Message(
-          id: '4',
-          chatId: widget.chat.id,
-          senderId: 'current_user',
-          text: 'Sure! What time works for you?',
-          timestamp: DateTime.now().subtract(const Duration(minutes: 30)),
-          status: MessageStatus.read,
-          messageNumber: 4,
-        ),
-        Message(
-          id: '5',
-          chatId: widget.chat.id,
-          senderId: 'user_1',
-          text: 'How about 3 PM at the coffee shop downtown?',
-          timestamp: DateTime.now().subtract(const Duration(minutes: 20)),
-          status: MessageStatus.read,
-          messageNumber: 5,
-        ),
-      ];
-    });
-  }
-
   void _sendMessage() {
     if (_messageController.text.isEmpty) return;
 
-    final text = _messageController.text;
+    final text = _messageController.text.trim();
     _messageController.clear();
 
     widget.viewModel.sendMessage.execute(widget.chat.id, text);
-    print(widget..chat.id);
-    widget.viewModel.sendMessage.addListener(_onMessageSent);
-        // Create a local message
-    final newMessage = Message(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      chatId: widget.chat.id,
-      senderId: 'current_user',
-      text: text,
-      timestamp: DateTime.now(),
-      status: MessageStatus.sent,
-      messageNumber: _messages.length + 1,
-    );
 
-    setState(() {
-      _messages.add(newMessage);
-      _replyingToMessageId = null;
-    });
-  }
-
-  void _onMessageSent() {
-    final result = widget.viewModel.sendMessage.result;
-    if (result != null && result is Ok) {
-      setState(() {
-        _messages.add(result.value);
-        _replyingToMessageId = null;
-      });
+    if (_replyingToMessageId != null) {
+      setState(() => _replyingToMessageId = null);
     }
   }
 
@@ -230,6 +137,26 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
     return Scaffold(
       appBar: AppBar(
         leadingWidth: 80.w,
+        leading: Row(
+          children: [
+            const BackButton(),
+            CircleAvatar(
+              radius: 18.r,
+              backgroundColor: Colors.blueAccent,
+              foregroundImage: widget.chat.avatar.isNotEmpty 
+                  ? NetworkImage(widget.chat.avatar) 
+                  : null,
+              child: Text(
+                widget.chat.username[0].toUpperCase(),
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -244,32 +171,32 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             ),
           ],
         ),
-        leading: Row(
-          children: [
-            const BackButton(),
-            CircleAvatar(
-              radius: 18.r,
-              backgroundImage: NetworkImage(widget.chat.avatar),
-            ),
-          ],
-        ),
       ),
       body: Column(
         children: [
           // Messages list
           Expanded(
-            child: _messages.isEmpty
-                ? Center(
+            child: ListenableBuilder(
+              listenable: widget.viewModel,
+              builder: (context, _) {
+                if (widget.viewModel.loadMessages.running && widget.viewModel.messages.isEmpty) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                
+                if (widget.viewModel.messages.isEmpty) {
+                  return Center(
                     child: Text(
                       'No messages yet',
                       style: TextStyle(fontSize: 14.sp, color: Colors.grey),
                     ),
-                  )
-                : ListView.builder(
+                  );
+                }
+
+                return ListView.builder(
                     reverse: true,
-                    itemCount: _messages.length,
+                    itemCount: widget.viewModel.messages.length,
                     itemBuilder: (context, index) {
-                      final message = _messages[_messages.length - 1 - index];
+                      final message = widget.viewModel.messages[index];
                       return MessageItem(
                         message: message,
                         onEdit: () => _editMessage(message),
@@ -278,10 +205,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                         onForward: () => _forwardMessage(message),
                       );
                     },
-                  ),
+                  );
+                }
+            ),
           ),
 
-          // Reply preview
           if (_replyingToMessageId != null)
             Container(
               padding: EdgeInsets.all(8.w),

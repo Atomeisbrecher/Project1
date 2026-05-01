@@ -31,15 +31,6 @@ List<SingleChildWidget> get providersRemote {
     Provider<TokenStorage>(create: (context) => TokenStorage()),
     Provider<DioApiClient>(create: (context) => DioApiClient(secureStorage: context.read())),
     Provider<WebSocketService>(create: (context) => WebSocketServiceRemote(context.read())),
-    ChangeNotifierProvider(
-      create: (context) =>
-          OAuthRepositoryRemote(
-                authService: context.read(),
-                secureStorage: context.read(),
-                webSocketServiceRemote: context.read(),
-              )
-              as OAuthRepository,
-    ),
     Provider<ChatApiService>(
       create: (context) => ChatApiServiceRemote(
         dioClient: context.read(),
@@ -54,6 +45,15 @@ List<SingleChildWidget> get providersRemote {
       create: (context) => ChatCacheServiceImpl(),
     ),
     ChangeNotifierProvider(
+      create: (context) =>
+          OAuthRepositoryRemote(
+                authService: context.read(),
+                secureStorage: context.read(),
+                webSocketServiceRemote: context.read(),
+              )
+              as OAuthRepository,
+    ),
+    ChangeNotifierProvider(
       create: (context) => ChatRepositoryImpl(
         chatApiService: context.read(),
         chatCacheService: context.read(),
@@ -64,6 +64,7 @@ List<SingleChildWidget> get providersRemote {
       create: (context) => MessageRepositoryImpl(
         messageApiService: context.read(),
         webSocketService: context.read(),
+        chatCacheService: context.read(),
       ),
     ),
   ];

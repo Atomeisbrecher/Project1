@@ -37,7 +37,7 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
       redirect: _redirect,
       refreshListenable: oAuthRepository,
       routes: [
-        // Приветственное скрин
+        // Приветственный скрин
         GoRoute(
             path: Routes.welcomeScreen,
             builder: (context, state) {
@@ -96,6 +96,8 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
                     editMessageUseCase: EditMessageUseCase(messageRepository: messageRepository),
                     deleteMessageUseCase: DeleteMessageUseCase(messageRepository: messageRepository),
                     forwardMessageUseCase: ForwardMessageUseCase(messageRepository: messageRepository),
+                    messageRepository: messageRepository,
+                    chatId: chat.id,
                   ),
                 );
               },

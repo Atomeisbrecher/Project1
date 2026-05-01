@@ -36,12 +36,8 @@ class ChatApiServiceRemote implements ChatApiService {
   }
 
   @override
-  Future<Result<List<Chat>>> fetchChats(
-      {int offset = 0, int limit = 20}) async {
-    try {
-      _log.info('Fetching chats from API (offset: $offset, limit: $limit)');
-
-      final List<dynamic> data = await _dioClient.get<List<dynamic>>(
+  Future<Result<List<Chat>>> fetchChats({int offset = 0, int limit = 20}) async {
+    final List<dynamic> data = await _dioClient.get<List<dynamic>>(
         '/chats',
         queryParameters: {
           'offset': offset.toString(),
@@ -49,20 +45,13 @@ class ChatApiServiceRemote implements ChatApiService {
         },
         fromJson: (data) => data as List<dynamic>,
       );
-
-      final chats = data
+    if (data.isEmpty) {
+      return const Result.ok([]);
+    }
+    final chats = data
           .map((chatData) => Chat.fromJson(chatData as Map<String, dynamic>))
           .toList();
-
-      _log.info('Successfully fetched ${chats.length} chats');
-      return Result.ok(chats);
-    } on DioException catch (e) {
-      _log.severe('Dio error fetching chats: ${e.message}');
-      return Result.error(Exception('Failed to fetch chats: ${e.message}'));
-    } catch (e) {
-      _log.severe('Error fetching chats', e);
-      return Result.error(Exception('Failed to fetch chats: $e'));
-    }
+    return Result.ok(chats);
   }
 
   @override

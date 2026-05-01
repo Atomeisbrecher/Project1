@@ -1,9 +1,11 @@
+import 'package:shop/module_chat/domain/message/message.dart';
 import 'package:shop/services/dio_service/dio_api_client.dart';
 
 abstract class WebSocketService {
   final DioApiClient _apiClient;
   WebSocketService(this._apiClient);
 
+  Stream<dynamic> get messages;
   // Connect to WebSocket
   Future<void> connect();
 
