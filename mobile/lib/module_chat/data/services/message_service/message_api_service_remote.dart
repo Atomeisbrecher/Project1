@@ -114,14 +114,14 @@ class MessageApiServiceRemote implements MessageApiService {
       });
       final Map<String, dynamic> json = response.data;
       print(response.statusCode);
-      print(json);
+      print("json = $json");
       print(Message.fromJson(json));
       if (response.statusCode == 200) return Result.ok(Message.fromJson(json));
     } catch (e) {
-      return Result.error(HttpException("Message wasn't sent: $e"));
+      return Result.error(Exception("Message wasn't sent: $e"));
     }
     // Possible null catcher
-    return Result.error(HttpException("Message send error"));
+    return Result.error(Exception("Message null send error"));
   }
 
   @override

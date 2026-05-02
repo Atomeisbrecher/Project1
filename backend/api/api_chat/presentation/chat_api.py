@@ -1,6 +1,8 @@
 import asyncio
 import datetime
+from time import time
 from typing import Annotated, Optional
+import uuid
 
 from fastapi import Cookie, Depends, FastAPI, Header, Query, Request, WebSocket, WebSocketDisconnect, WebSocketException
 from dishka.integrations.fastapi import FromDishka, inject
@@ -51,15 +53,24 @@ async def send_message(
     payload: CurrentUserPayload,
     redis: FromDishka[IRedisStreamService]
 ):
-    print(payload)
+    message_id = str(uuid.uuid4())
+    timestamp = datetime.datetime.now().isoformat()
+    message_number = int(time() * 1000)
     msg_data = {
+        "id": str(message_id),
+        "chat_id": str(chat_id),
+        "sender_id": str(payload.get("sub")),
         "text": request.text,
-        "sender_id": payload.get("sub"),
-        "timestamp": datetime.datetime.now().timestamp(),
+        "timestamp": timestamp,
+        "status": "sent",
+        "message_number": message_number,
+        "reply_to_message_id": request.reply_to_message_id or "",
+        "edited_at": "",
     }
-    print(msg_data)
-    message_id = await redis.send_message(chat_id, msg_data["text"], msg_data["sender_id"])
-    return {"status": "sent"}
+    #await db.messages.add(message_data)
+    # user_event:{chat_id} (chatid == user_id)
+    await redis.send_message(msg_data)
+    return msg_data
 
 @router.get("/")
 @inject

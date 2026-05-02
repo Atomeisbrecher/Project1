@@ -15,13 +15,19 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Message {
   String get id;
+  @JsonKey(name: 'chat_id')
   String get chatId;
+  @JsonKey(name: 'sender_id')
   String get senderId;
   String get text;
   DateTime get timestamp;
+  @JsonKey(name: 'status')
   MessageStatus get status;
+  @JsonKey(name: 'message_number')
   int get messageNumber;
+  @JsonKey(name: 'reply_to_message_id')
   String? get replyToMessageId;
+  @JsonKey(name: 'edited_at')
   String? get editedAt;
 
   /// Create a copy of Message
@@ -73,14 +79,14 @@ abstract mixin class $MessageCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String chatId,
-      String senderId,
+      @JsonKey(name: 'chat_id') String chatId,
+      @JsonKey(name: 'sender_id') String senderId,
       String text,
       DateTime timestamp,
-      MessageStatus status,
-      int messageNumber,
-      String? replyToMessageId,
-      String? editedAt});
+      @JsonKey(name: 'status') MessageStatus status,
+      @JsonKey(name: 'message_number') int messageNumber,
+      @JsonKey(name: 'reply_to_message_id') String? replyToMessageId,
+      @JsonKey(name: 'edited_at') String? editedAt});
 }
 
 /// @nodoc
@@ -241,14 +247,14 @@ extension MessagePatterns on Message {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             String id,
-            String chatId,
-            String senderId,
+            @JsonKey(name: 'chat_id') String chatId,
+            @JsonKey(name: 'sender_id') String senderId,
             String text,
             DateTime timestamp,
-            MessageStatus status,
-            int messageNumber,
-            String? replyToMessageId,
-            String? editedAt)?
+            @JsonKey(name: 'status') MessageStatus status,
+            @JsonKey(name: 'message_number') int messageNumber,
+            @JsonKey(name: 'reply_to_message_id') String? replyToMessageId,
+            @JsonKey(name: 'edited_at') String? editedAt)?
         $default, {
     required TResult orElse(),
   }) {
@@ -287,14 +293,14 @@ extension MessagePatterns on Message {
   TResult when<TResult extends Object?>(
     TResult Function(
             String id,
-            String chatId,
-            String senderId,
+            @JsonKey(name: 'chat_id') String chatId,
+            @JsonKey(name: 'sender_id') String senderId,
             String text,
             DateTime timestamp,
-            MessageStatus status,
-            int messageNumber,
-            String? replyToMessageId,
-            String? editedAt)
+            @JsonKey(name: 'status') MessageStatus status,
+            @JsonKey(name: 'message_number') int messageNumber,
+            @JsonKey(name: 'reply_to_message_id') String? replyToMessageId,
+            @JsonKey(name: 'edited_at') String? editedAt)
         $default,
   ) {
     final _that = this;
@@ -331,14 +337,14 @@ extension MessagePatterns on Message {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             String id,
-            String chatId,
-            String senderId,
+            @JsonKey(name: 'chat_id') String chatId,
+            @JsonKey(name: 'sender_id') String senderId,
             String text,
             DateTime timestamp,
-            MessageStatus status,
-            int messageNumber,
-            String? replyToMessageId,
-            String? editedAt)?
+            @JsonKey(name: 'status') MessageStatus status,
+            @JsonKey(name: 'message_number') int messageNumber,
+            @JsonKey(name: 'reply_to_message_id') String? replyToMessageId,
+            @JsonKey(name: 'edited_at') String? editedAt)?
         $default,
   ) {
     final _that = this;
@@ -365,34 +371,40 @@ extension MessagePatterns on Message {
 class _Message implements Message {
   const _Message(
       {required this.id,
-      required this.chatId,
-      required this.senderId,
+      @JsonKey(name: 'chat_id') required this.chatId,
+      @JsonKey(name: 'sender_id') required this.senderId,
       required this.text,
       required this.timestamp,
-      required this.status,
-      required this.messageNumber,
-      this.replyToMessageId,
-      this.editedAt});
+      @JsonKey(name: 'status') required this.status,
+      @JsonKey(name: 'message_number') required this.messageNumber,
+      @JsonKey(name: 'reply_to_message_id') this.replyToMessageId,
+      @JsonKey(name: 'edited_at') this.editedAt});
   factory _Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
 
   @override
   final String id;
   @override
+  @JsonKey(name: 'chat_id')
   final String chatId;
   @override
+  @JsonKey(name: 'sender_id')
   final String senderId;
   @override
   final String text;
   @override
   final DateTime timestamp;
   @override
+  @JsonKey(name: 'status')
   final MessageStatus status;
   @override
+  @JsonKey(name: 'message_number')
   final int messageNumber;
   @override
+  @JsonKey(name: 'reply_to_message_id')
   final String? replyToMessageId;
   @override
+  @JsonKey(name: 'edited_at')
   final String? editedAt;
 
   /// Create a copy of Message
@@ -450,14 +462,14 @@ abstract mixin class _$MessageCopyWith<$Res> implements $MessageCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String chatId,
-      String senderId,
+      @JsonKey(name: 'chat_id') String chatId,
+      @JsonKey(name: 'sender_id') String senderId,
       String text,
       DateTime timestamp,
-      MessageStatus status,
-      int messageNumber,
-      String? replyToMessageId,
-      String? editedAt});
+      @JsonKey(name: 'status') MessageStatus status,
+      @JsonKey(name: 'message_number') int messageNumber,
+      @JsonKey(name: 'reply_to_message_id') String? replyToMessageId,
+      @JsonKey(name: 'edited_at') String? editedAt});
 }
 
 /// @nodoc
