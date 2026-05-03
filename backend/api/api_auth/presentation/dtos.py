@@ -13,6 +13,7 @@ class TokenResponse(BaseModel):
 class UserSearchResponse(BaseModel):
     id: str
     username: str
+    picture: str = ''
 
     model_config = {
         "from_attributes": True,

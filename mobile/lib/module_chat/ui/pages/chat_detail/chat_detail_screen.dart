@@ -182,7 +182,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                 if (widget.viewModel.loadMessages.running && widget.viewModel.messages.isEmpty) {
                   return const Center(child: CircularProgressIndicator());
                 }
-                
+                if (widget.viewModel.currentUserId.isEmpty) {
+                  return const Scaffold(
+                    body: Center(child: CircularProgressIndicator()),
+                  );
+                }
                 if (widget.viewModel.messages.isEmpty) {
                   return Center(
                     child: Text(
@@ -197,8 +201,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     itemCount: widget.viewModel.messages.length,
                     itemBuilder: (context, index) {
                       final message = widget.viewModel.messages[index];
+                      final bool isMe = (message.senderId == widget.viewModel.currentUserId);
                       return MessageItem(
                         message: message,
+                        isMe: isMe,
                         onEdit: () => _editMessage(message),
                         onDelete: () => _deleteMessage(message),
                         onReply: () => _replyToMessage(message),

@@ -16,6 +16,10 @@ import 'package:shop/module_chat/data/services/chat_client/chat_api_service.dart
 import 'package:shop/module_chat/data/services/chat_client/chat_api_service_remote.dart';
 import 'package:shop/module_chat/data/services/message_service/message_api_service.dart';
 import 'package:shop/module_chat/data/services/message_service/message_api_service_remote.dart';
+import 'package:shop/module_profile/data/repository/user/user_repository.dart';
+import 'package:shop/module_profile/data/repository/user/user_repository_remote.dart';
+import 'package:shop/module_profile/data/services/shared_preferences_service.dart';
+import 'package:shop/module_profile/data/services/user_api_service.dart';
 import 'package:shop/services/dio_service/dio_api_client.dart';
 import 'package:shop/services/websocket_service/websocket_service.dart';
 import 'package:shop/services/websocket_service/websocket_service_remote.dart';
@@ -31,6 +35,9 @@ List<SingleChildWidget> get providersRemote {
     Provider<TokenStorage>(create: (context) => TokenStorage()),
     Provider<DioApiClient>(create: (context) => DioApiClient(secureStorage: context.read())),
     Provider<WebSocketService>(create: (context) => WebSocketServiceRemote(context.read())),
+    Provider(create: (context) => SharedPreferencesService(SharedPreferences.getInstance())),
+    Provider<UserApiService> (create: (context) => UserApiService(context.read())),
+    Provider<UserRepository> (create: (context) => UserRepositoryRemote(context.read(), context.read()),),
     Provider<ChatApiService>(
       create: (context) => ChatApiServiceRemote(
         dioClient: context.read(),

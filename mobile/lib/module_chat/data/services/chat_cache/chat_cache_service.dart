@@ -1,4 +1,5 @@
 import 'package:shop/module_chat/domain/message/message.dart';
+import 'package:shop/utils/result.dart';
 
 abstract class ChatCacheService {
 
@@ -11,7 +12,7 @@ abstract class ChatCacheService {
 
   Future<void> cacheMessage(String chatId, Message message);
 
-  Future<List<Message>> getCachedMessages(String chatId);
+  Future<Result<List<Message>>> getCachedMessages(String chatId);
   // Get last message number for a chat from cache
   int? getLastMessageNumber(String chatId);
 

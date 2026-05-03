@@ -5,6 +5,7 @@ import 'package:shop/module_chat/domain/message/message.dart';
 
 class MessageItem extends StatefulWidget {
   final Message message;
+  final bool isMe;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
   final VoidCallback onReply;
@@ -13,6 +14,7 @@ class MessageItem extends StatefulWidget {
   const MessageItem({
     super.key,
     required this.message,
+    required this.isMe,
     required this.onEdit,
     required this.onDelete,
     required this.onReply,
@@ -79,15 +81,15 @@ class _MessageItemState extends State<MessageItem> {
     return GestureDetector(
       onLongPress: () => _showContextMenu(context),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: widget.isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
           children: [
             Container(
               constraints: BoxConstraints(maxWidth: 250.w),
               padding: EdgeInsets.all(12.w),
               decoration: BoxDecoration(
-                color: Colors.blue,
+                color: widget.isMe ?Colors.blue : Colors.black,
                 borderRadius: BorderRadius.circular(12.r),
               ),
               child: Column(
@@ -111,8 +113,10 @@ class _MessageItemState extends State<MessageItem> {
                           fontSize: 12.sp,
                         ),
                       ),
-                      SizedBox(width: 4.w),
-                      _buildStatusIcon(),
+                      if (widget.isMe) ...[
+                        SizedBox(width: 4.w),
+                        _buildStatusIcon(),
+                      ]
                     ],
                   ),
                 ],

@@ -43,14 +43,12 @@ class ChatRepositoryImpl extends ChatRepository {
   @override
   Future<Result<List<Chat>>> getChats({int offset = 0, int limit = 20}) async {
     try {
-      // Try to get from cache first
       final cachedChats = await _chatCacheService.getCachedChats();
       if (cachedChats.isNotEmpty) {
         _log.info('Loaded chats from cache');
         return Result.ok(cachedChats.cast<Chat>());
       }
 
-      // If not in cache, fetch from API
       final result = await _chatApiService.fetchChats(offset: offset, limit: limit);
       switch (result) {
         case Ok<List<Chat>>():
@@ -62,7 +60,7 @@ class ChatRepositoryImpl extends ChatRepository {
           return Result.ok([]);
       }
     } catch (e) {
-      _log.severe('Error loading chats', e);
+      _log.severe('Error loading chats $e', e);
       return Result.error(Exception('Error: $e'));
     }
   }

@@ -27,6 +27,7 @@ import 'package:shop/module_chat/ui/pages/chat_detail/view_models/chat_detail_vi
 import 'package:shop/module_chat/ui/pages/chat_list/chat_list_screen.dart';
 import 'package:shop/module_chat/ui/pages/chat_detail/chat_detail_screen.dart';
 import 'package:shop/module_products/ui/pages/home%20page/home_screen.dart';
+import 'package:shop/module_profile/data/repository/user/user_repository.dart';
 import 'package:shop/module_profile/ui/pages/my_profile/my_profile.dart';
 import 'package:shop/module_storage/ui/pages/settings_screen.dart';
 import 'package:shop/routing/routes.dart';
@@ -88,6 +89,7 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
               builder: (context, state) {
                 final chat = state.extra as Chat;
                 final messageRepository = context.read<MessageRepository>();
+                final userRepository = context.read<UserRepository>();
                 return ChatDetailScreen(
                   chat: chat,
                   viewModel: ChatDetailViewModel(
@@ -96,6 +98,7 @@ GoRouter router(OAuthRepository oAuthRepository, ChatRepository chatRepository) 
                     editMessageUseCase: EditMessageUseCase(messageRepository: messageRepository),
                     deleteMessageUseCase: DeleteMessageUseCase(messageRepository: messageRepository),
                     forwardMessageUseCase: ForwardMessageUseCase(messageRepository: messageRepository),
+                    userRepository: userRepository,
                     messageRepository: messageRepository,
                     chatId: chat.id,
                   ),

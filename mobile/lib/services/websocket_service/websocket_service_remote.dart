@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -17,15 +18,15 @@ class WebSocketServiceRemote implements WebSocketService {
 
   bool _isConnected = false;
   late String? accessToken;
-  late WebSocketChannel? _channel;
+  late WebSocketChannel? _messageChannel;
   Timer? _reconnectTimer;
   int _retries = 1;
 
   //Stream, передаёт сообщения в репозитории
-  final _messageController = StreamController<dynamic>.broadcast();
+  final _messageController = StreamController<Message>.broadcast();
 
   @override
-  Stream<dynamic> get messages => _messageController.stream;
+  Stream<Message> get messages => _messageController.stream;
 
   @override
   Future<dynamic> connect() async {
@@ -33,21 +34,26 @@ class WebSocketServiceRemote implements WebSocketService {
     if (_isConnected) return;
     try {
       accessToken = await FlutterSecureStorage().read(key: 'access_token');
-      _channel = IOWebSocketChannel.connect(
+
+      _messageChannel = IOWebSocketChannel.connect(
         Uri.parse("ws://10.0.2.2:8000/chats/ws"),
         headers: {
           'access-token': '$accessToken',
           'Connection': 'Upgrade',
           'Upgrade': 'websocket',
         }
-        );
+      );
 
-      _channel!.stream.listen(
-        (message) {
+      _messageChannel!.stream.listen(
+        (data) {
           _isConnected = true;
           _retries = 1;
-          _messageController.add(message);
+
+          final Map<String, dynamic> json = jsonDecode(data);
+          final message = Message.fromJson(json['data'] ?? json);
           print(message);
+          _messageController.add(message);
+
         },
         onDone: () {
           print("WS: Connection closed by server (onDone)");
@@ -65,7 +71,7 @@ class WebSocketServiceRemote implements WebSocketService {
 
   void _handleDisconnect({dynamic error}) async {
     _isConnected = false;
-    _channel = null;
+    _messageChannel = null;
     final result;
     if (error != null) {
       print("WS Disconnected with error: $error. Attempting to refresh tokens...");
@@ -84,7 +90,7 @@ class WebSocketServiceRemote implements WebSocketService {
   Future<void> disconnect() async {
     try {
       _reconnectTimer?.cancel();
-      _channel?.sink.close(status.goingAway);
+      _messageChannel?.sink.close(status.goingAway);
       _isConnected = false;
     } catch (e) {
       rethrow;
@@ -106,7 +112,7 @@ class WebSocketServiceRemote implements WebSocketService {
   @override
   void sendMessage(String message) {
     if (_isConnected) {
-      _channel?.sink.add(message);
+      _messageChannel?.sink.add(message);
     } else {
     }
   }
@@ -139,7 +145,7 @@ class WebSocketServiceRemote implements WebSocketService {
   void ping() {
     if (_isConnected) {
       // TODO: Send a ping message to keep connection alive
-      _channel?.sink.add('ping');
+      _messageChannel?.sink.add('ping');
     }
   }
 

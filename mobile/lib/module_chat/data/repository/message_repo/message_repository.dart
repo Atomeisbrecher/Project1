@@ -6,7 +6,7 @@ abstract class MessageRepository extends ChangeNotifier {
 
   Future<void> cacheMessage(String chatId, Message message);
 
-  Future<List<Message>> getCachedMessages(String chatId);
+  Future<Result<List<Message>>> getCachedMessages(String chatId);
 
   int? getLastMessageNumber(String chatId);
 

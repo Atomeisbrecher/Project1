@@ -14,6 +14,7 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$User {
+  String get id;
   String get username;
   String get picture;
 
@@ -32,6 +33,7 @@ mixin _$User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is User &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.picture, picture) || other.picture == picture));
@@ -39,11 +41,11 @@ mixin _$User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, username, picture);
+  int get hashCode => Object.hash(runtimeType, id, username, picture);
 
   @override
   String toString() {
-    return 'User(username: $username, picture: $picture)';
+    return 'User(id: $id, username: $username, picture: $picture)';
   }
 }
 
@@ -52,7 +54,7 @@ abstract mixin class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) _then) =
       _$UserCopyWithImpl;
   @useResult
-  $Res call({String username, String picture});
+  $Res call({String id, String username, String picture});
 }
 
 /// @nodoc
@@ -67,10 +69,15 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? username = null,
     Object? picture = null,
   }) {
     return _then(_self.copyWith(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _self.username
           : username // ignore: cast_nullable_to_non_nullable
@@ -176,13 +183,13 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(String username, String picture)? $default, {
+    TResult Function(String id, String username, String picture)? $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _User() when $default != null:
-        return $default(_that.username, _that.picture);
+        return $default(_that.id, _that.username, _that.picture);
       case _:
         return orElse();
     }
@@ -203,12 +210,12 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(String username, String picture) $default,
+    TResult Function(String id, String username, String picture) $default,
   ) {
     final _that = this;
     switch (_that) {
       case _User():
-        return $default(_that.username, _that.picture);
+        return $default(_that.id, _that.username, _that.picture);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -228,12 +235,12 @@ extension UserPatterns on User {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(String username, String picture)? $default,
+    TResult? Function(String id, String username, String picture)? $default,
   ) {
     final _that = this;
     switch (_that) {
       case _User() when $default != null:
-        return $default(_that.username, _that.picture);
+        return $default(_that.id, _that.username, _that.picture);
       case _:
         return null;
     }
@@ -243,9 +250,12 @@ extension UserPatterns on User {
 /// @nodoc
 @JsonSerializable()
 class _User implements User {
-  const _User({required this.username, required this.picture});
+  const _User(
+      {required this.id, required this.username, required this.picture});
   factory _User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
+  @override
+  final String id;
   @override
   final String username;
   @override
@@ -271,6 +281,7 @@ class _User implements User {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _User &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.picture, picture) || other.picture == picture));
@@ -278,11 +289,11 @@ class _User implements User {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, username, picture);
+  int get hashCode => Object.hash(runtimeType, id, username, picture);
 
   @override
   String toString() {
-    return 'User(username: $username, picture: $picture)';
+    return 'User(id: $id, username: $username, picture: $picture)';
   }
 }
 
@@ -292,7 +303,7 @@ abstract mixin class _$UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$UserCopyWithImpl;
   @override
   @useResult
-  $Res call({String username, String picture});
+  $Res call({String id, String username, String picture});
 }
 
 /// @nodoc
@@ -307,10 +318,15 @@ class __$UserCopyWithImpl<$Res> implements _$UserCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
+    Object? id = null,
     Object? username = null,
     Object? picture = null,
   }) {
     return _then(_User(
+      id: null == id
+          ? _self.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String,
       username: null == username
           ? _self.username
           : username // ignore: cast_nullable_to_non_nullable

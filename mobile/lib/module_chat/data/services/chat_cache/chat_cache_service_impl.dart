@@ -2,6 +2,7 @@ import 'package:shop/module_chat/data/services/chat_cache/chat_cache_service.dar
 import 'package:shop/module_chat/domain/chat/chat.dart';
 import 'package:logging/logging.dart';
 import 'package:shop/module_chat/domain/message/message.dart';
+import 'package:shop/utils/result.dart';
 
 // later hive boxes or smth, key component of the whole system perfomance
 // TODO: implement Hive or other local storage Service
@@ -23,12 +24,13 @@ class ChatCacheServiceImpl implements ChatCacheService {
   ChatCacheServiceImpl() {
     _messageNumberCache = <String, int>{};
     _chatCache = <Chat>[];
-    _messageCache = <String, Message>{};
+    _messageCache;
   }
 
 
-  late Map<String, Message> _messageCache;
+  final Map<String, List<Message>> _messageCache = {};
   late Map<String, int> _messageNumberCache;
+  
   late List<Chat> _chatCache;
   final _log = Logger('ChatCacheServiceImpl');
 
@@ -46,18 +48,32 @@ class ChatCacheServiceImpl implements ChatCacheService {
 
   @override
   Future<void> cacheMessage(String chatId, Message message) async {
-    _messageCache[chatId] = message;
+    if (!_messageCache.containsKey(chatId)) {
+      _messageCache[chatId] = [];
+    }
+
+    final currentMessages = _messageCache[chatId]!;
+
+    if (currentMessages.any((m) => m.id == message.id)) {
+      final index = currentMessages.indexWhere((m) => m.id == message.id);
+      currentMessages[index] = message;
+      return;
+    }
+    currentMessages.insert(0, message);
+
+    if (currentMessages.length > 100) {
+      currentMessages.removeLast();
+    }
   }
 
   @override
-  Future<List<Message>> getCachedMessages(String chatId) async {
-    final message = _messageCache[chatId];
-    if (message == null) {
-      _log.info('No cached messages found for chat $chatId');
-      return [];
+  Future<Result<List<Message>>> getCachedMessages(String chatId) async {
+    if (!_messageCache.containsKey(chatId)) return Result.ok([]);
+    try {
+      return Result.ok(_messageCache[chatId]!);
+    } on Exception catch (e) {
+      return Result.error(Exception("Error getting cached messages: $e"));
     }
-    _log.info('Retrieved cached message for chat $chatId: ${message.id}');
-    return [message];
   }
 
   @override

@@ -112,11 +112,7 @@ class MessageApiServiceRemote implements MessageApiService {
       final response = await _dioClient.dio.post("/chats/$chatId/message", data: {
         'text': text,
       });
-      final Map<String, dynamic> json = response.data;
-      print(response.statusCode);
-      print("json = $json");
-      print(Message.fromJson(json));
-      if (response.statusCode == 200) return Result.ok(Message.fromJson(json));
+      if (response.statusCode == 200) return Result.ok(Message.fromJson(response.data));
     } catch (e) {
       return Result.error(Exception("Message wasn't sent: $e"));
     }

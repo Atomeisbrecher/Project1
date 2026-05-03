@@ -8,14 +8,14 @@ part of 'message.dart';
 
 _Message _$MessageFromJson(Map<String, dynamic> json) => _Message(
       id: json['id'] as String,
-      chatId: json['chat_id'] as String,
-      senderId: json['sender_id'] as String,
+      chatId: _forceString(json['chat_id']),
+      senderId: _forceString(json['sender_id']),
       text: json['text'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
       status: $enumDecode(_$MessageStatusEnumMap, json['status']),
-      messageNumber: (json['message_number'] as num).toInt(),
-      replyToMessageId: json['reply_to_message_id'] as String?,
-      editedAt: json['edited_at'] as String?,
+      messageNumber: _forceInt(json['message_number']),
+      replyToMessageId: _forceStringNullable(json['reply_to_message_id']),
+      editedAt: _forceStringNullable(json['edited_at']),
     );
 
 Map<String, dynamic> _$MessageToJson(_Message instance) => <String, dynamic>{

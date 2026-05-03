@@ -9,7 +9,7 @@ class MessageRepositoryDev extends MessageRepository {
     throw UnimplementedError();
   }
 
-  Future<List<Message>> getCachedMessages(String chatId) {
+  Future<Result<List<Message>>> getCachedMessages(String chatId) {
     throw UnimplementedError();
   }
 

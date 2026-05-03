@@ -23,8 +23,11 @@ import 'package:logging/logging.dart';
 // TODO: implement message translation, to allow users to translate messages into different languages and improve accessibility
 // TODO: implement message encryption, to allow users to send secure messages and improve privacy
 // TODO: implement message notifications, to allow users to receive notifications for new messages
-// TODO: implement caching strategies
 // TODO: implement error handling and retry mechanisms, to improve reliability and user experience
+
+// TODO: implement caching strategies and logic here later on, cache service will handle local DB
+
+
 
 class MessageRepositoryImpl extends MessageRepository {
   MessageRepositoryImpl({
@@ -53,7 +56,7 @@ class MessageRepositoryImpl extends MessageRepository {
 
   void _initListenToMessage() {
     _webSocketService.messages.listen((message) {
-      _log.info('Received new message from WebSocket: ${message.id}');
+      _log.info('Received new message from WebSocket');
       _messageStreamController.add(message);
       _updateLocalCache(message);
       notifyListeners();
@@ -66,7 +69,7 @@ class MessageRepositoryImpl extends MessageRepository {
   }
 
   @override
-  Future<List<Message>> getCachedMessages(String chatId) async {
+  Future<Result<List<Message>>> getCachedMessages(String chatId) async {
     return await _chatCacheService.getCachedMessages(chatId);
   }
 
@@ -87,15 +90,18 @@ class MessageRepositoryImpl extends MessageRepository {
 
   @override
   Future<Result<List<Message>>> getMessages(String chatId, {int offset = 0, int limit = 50}) async {
+    // TODO: Orchestrize "smart" remote data fetching and local cache fetching
     try {
-      final result = await _messageApiService.fetchMessages(chatId,
-          offset: offset, limit: limit);
-      switch (result) {
+      final cached = await _chatCacheService.getCachedMessages(chatId);
+      final result = await _messageApiService.fetchMessages(chatId, offset: offset, limit: limit);
+      switch (cached) {
         case Ok<List<Message>>():
-          _log.info('Loaded ${result.value.length} messages for chat: $chatId');
+          //_log.info('Loaded ${result.value.length} messages for chat: $chatId');
+          return cached;
           return result;
         case Error():
           _log.warning('Failed to load messages from API, returning empty list');
+          print("fail");
           return Result.ok([]);
       }
     } catch (e) {
@@ -145,16 +151,6 @@ class MessageRepositoryImpl extends MessageRepository {
 
   @override
   Future<Result<Message>> sendMessage(String chatId, String text, {String? replyToMessageId}) async {
-    // final tempMessage = Message(
-    //   id: DateTime.now().millisecondsSinceEpoch.toString(),
-    //   senderId: '1',
-    //   chatId: chatId,
-    //   text: text,
-    //   timestamp: DateTime.now(),
-    //   status: MessageStatus.sending,
-    //   messageNumber: 0,
-    // );
-
     final response = await _messageApiService.sendMessage(
       chatId,
       text,
@@ -163,7 +159,7 @@ class MessageRepositoryImpl extends MessageRepository {
 
     switch (response) {
       case Ok<Message>():
-        print('Message sent successfully: ${response.value.id}');
+        print('Message sent successfully: ${response.value}');
         return Result.ok(response.value);
       case Error<Message>():
         print('Failed to send message: ${response.error}');

@@ -69,7 +69,8 @@ async def send_message(
     }
     #await db.messages.add(message_data)
     # user_event:{chat_id} (chatid == user_id)
-    await redis.send_message(msg_data)
+    if (msg_data["chat_id"] != msg_data["sender_id"]):
+        await redis.send_message(msg_data)
     return msg_data
 
 @router.get("/")
@@ -111,7 +112,6 @@ async def websocket_endpoint(
     stream_service: FromDishka[IRedisStreamService],
 ):
     payload = token_provider.extract_payload(credentials)
-    print(payload)
     if payload is None:
         raise WebSocketException(code=status.WS_1008_POLICY_VIOLATION)
     user_id = payload.get('sub')
@@ -122,6 +122,8 @@ async def websocket_endpoint(
             
     except WebSocketDisconnect:
         print(f"User {user_id} disconnected")
+    finally:
+        await websocket.close()
 
 
     # Очередь — это наш локальный Event Loop для этого сокета
