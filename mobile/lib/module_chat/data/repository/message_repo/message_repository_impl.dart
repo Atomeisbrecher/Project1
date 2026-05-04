@@ -110,9 +110,8 @@ class MessageRepositoryImpl extends MessageRepository {
     }
   }
 
-  @override
-  Future<Result<List<Message>>> syncMessages(String chatId,
-      {required int fromMessageNumber}) async {
+  @override // Fetch database data and local Cache. Sync it all and avoid data duplication
+  Future<Result<List<Message>>> syncMessages(String chatId, {required int fromMessageNumber}) async {
     try {
       final result = await _messageApiService.syncMessages(chatId, fromMessageNumber: fromMessageNumber);
       switch (result) {

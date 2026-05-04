@@ -130,8 +130,6 @@ async def refresh_tokens(
     )
     return new_tokens
 
-
-#TODO Везде при работе с защищенными эндпоинтами надо сделать проверку их в белом списке.
 @router.post("/refresh", response_model=TokenResponse)
 @inject
 async def refresh_tokens(
@@ -153,7 +151,6 @@ async def refresh_tokens(
         )
     except Exception as e:
         raise HTTPException(status_code=401, detail=f"Refresh failed: {str(e)}")
-
 
 @router.post("/register")
 @inject
@@ -180,17 +177,6 @@ async def register(
         "access_token": None,
         "refresh_token": None,
     }
-
-# @router.get("/logout")
-# @inject
-# async def logout_oidc(
-#     id_token_hint: str,
-#     post_logout_redirect_uri: str,
-#     auth_service: FromDishka[ITokenAuth]
-# ):
-#     await auth_service.revoke_by_id_token(id_token_hint)
-#     return RedirectResponse(url=post_logout_redirect_uri)
-
 
 @router.post("/logout")
 @inject
@@ -261,15 +247,6 @@ async def delete_user(user_id: str):
     #TODO реализовать эндпоинт для удаления пользователя по id, который будет требовать аутентификацию и проверку прав доступа.
     pass
 
-
-# @router.post('token-test')
-# @inject
-# async def token_test(
-#     user_id: int,
-#     auth_service: FromDishka[ITokenAuth],
-#     ):
-#     tokens = await auth_service.set_tokens(user_id)
-#     return tokens
     
 
 

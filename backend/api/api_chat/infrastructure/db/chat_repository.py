@@ -1,4 +1,4 @@
-from backend.api.api_chat.infrastructure.db.orm import MessageORM
+from orm.orm import MessageORM
 from sqlalchemy.ext.asyncio import AsyncSession
 
 

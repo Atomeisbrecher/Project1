@@ -1,14 +1,8 @@
-from collections.abc import AsyncGenerator
-
-from sqlalchemy import select
-
 from api_auth.infrastructure.db.postgres.user_repository import PGUserRepository
 from api_auth.domain.interfaces import IUnitOfWork
 from sqlalchemy.ext.asyncio import AsyncSession
 
 import logging
-
-from api_auth.infrastructure.db.postgres.orm import UserORM
 
 logger = logging.getLogger(__name__)
 class SQLAlchemyUnitOfWork(IUnitOfWork):

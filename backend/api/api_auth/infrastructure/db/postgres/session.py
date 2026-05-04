@@ -5,7 +5,7 @@ import logging
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker, AsyncEngine
 import asyncio
 
-from api_auth.infrastructure.db.postgres.orm import Base
+from orm.orm import Base
 
 logger = logging.getLogger(__name__)
 

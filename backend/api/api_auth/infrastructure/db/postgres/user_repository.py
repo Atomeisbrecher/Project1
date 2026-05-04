@@ -3,7 +3,7 @@ from sqlite3 import IntegrityError
 from sqlalchemy import select
 
 from api_auth.domain.interfaces import IUserRepository
-from api_auth.infrastructure.db.postgres.orm import UserORM
+from orm.orm import UserORM
 from api_auth.domain.entities import UserEntity, UserCreate
 from sqlalchemy.ext.asyncio import AsyncSession
 import logging

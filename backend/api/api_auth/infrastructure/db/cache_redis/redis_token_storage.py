@@ -10,7 +10,6 @@ import redis.asyncio as redis
 from api_auth.domain.interfaces import ITokenProvider, ITokenStorage
 
 logger = logging.getLogger("my_app")
-#TODO сделать public токен в виде opaque, а private простейший почти доверенный JWT
 
 class RedisTokenStorage(ITokenStorage):
     def __init__(self, client: redis.Redis, token_provider: ITokenProvider):
@@ -36,88 +35,6 @@ class RedisTokenStorage(ITokenStorage):
         data = CodeData(user_id=user_id, challenge=challenge)
         key = f"auth_code:{code}"
         await self.redis.setex(key, code_ttl, data.to_json())
-
-    # async def create_session(self, user_id: int, token: TokenData):
-    #     #user_session:{user_id} = jti, code_ttl = expire_seconds
-    #     data = self.token_provider._decode_jwt(token)
-    #     token_type = data.get("type")
-    #     jti = data.get("jti")
-    #     expire_timestamp = data.get("exp")
-    #     iat = data.get("iat")
-    #     key = f"user_sessions:{user_id}"
-
-    #     expiration_time = int(expire_timestamp - iat)
-    #     async with self.redis.pipeline(transaction = True) as pipe:
-
-    #         if token_type == "refresh":
-    #             await pipe.zadd(key, {jti: expiration_time})
-    #             await pipe.zremrangebyrank(key, 0, -(MAX_SESSIONS + 1))
-    #             await pipe.expire(key, expiration_time)
-
-    #         await pipe.setex(f"allowlist:{jti}", expiration_time, "1")
-    #         await pipe.execute()
-    
-    # async def is_session_valid(self, user_id: int, jti: str) -> bool:
-    #     score = await redis.zscore(f"user_sessions:{user_id}", jti)
-    #     if score is None:
-    #         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Session expired or limit reached")
-    #     return True
-
-    
-    # async def rotate_session(
-    #         self,
-    #         user_id: int,
-    #         old_access_token: TokenData,
-    #         old_refresh_token: TokenData, 
-    #         new_access_token: TokenData,
-    #         new_refresh_token: TokenData
-    #         ) -> dict:
-    #     key = f"user_sessions:{user_id}"
-    #     old_access_jti = self.token_provider._decode_jwt(old_access_token).get("jti")
-    #     old_refresh_jti = self.token_provider._decode_jwt(old_refresh_token).get("jti")
-    #     new_access_jti = self.token_provider._decode_jwt(new_access_token).get("jti")
-    #     new_refresh_jti = self.token_provider._decode_jwt(new_refresh_token).get("jti")
-
-    #     old_value = f"{old_access_jti}:{old_refresh_jti}"
-    #     new_value = f"{new_access_jti}:{new_refresh_jti}"
-        
-    #     async with self.redis.pipeline(transaction=True) as pipe:
-    #         await pipe.zrem(key, old_value)
-            
-    #         await pipe.zadd(key, {new_value: time()})
-            
-    #         await pipe.zremrangebyrank(key, 0, -11)
-            
-    #         await pipe.execute()
-
-    # async def revoke_specific_token_by_user_id(self, user_id: int, token: TokenData) -> dict:
-    #     key = f"user_sessions:{user_id}"
-    #     jti = self.token_provider._decode_jwt(token).get("jti")
-    #     result = await redis.zrem(key, jti)
-    #     await self.redis.delete(f"allowlist:{jti}")
-    #     if result == 0:
-    #         return {"status": "already_revoked"}
-    #     return {"status": "success"}
-    
-    # async def revoke_specific_session_by_user_id(self, user_id: int, access_token: TokenData, refresh_token: TokenData) -> dict:
-    #     key = f"user_sessions:{user_id}"
-    #     self.revoke_specific_token_by_user_id(user_id, refresh_token)
-    #     self.revoke_specific_token_by_user_id(user_id, access_token)
-    #     return {"status": "success"}
-
-    # async def revoke_all_sessions_by_user_id(self, user_id: int) -> dict:
-    #     key = f"user_sessions:{user_id}"
-    #     all_jtis = await self.redis.zrange(key, 0, -1)
-    #     if not all_jtis:
-    #         return {"status": "no_sessions"}
-    #     async with self.redis.pipeline(transaction=True) as pipe:
-    #         for jti in all_jtis:
-    #             await pipe.delete(f"allowlist:{jti}")
-
-    #         await pipe.delete(key)
-    #         await pipe.execute()
-    #     return {"status": "all_sessions_revoked"}
-
 
 
     def _key(self, user_id: int) -> str:

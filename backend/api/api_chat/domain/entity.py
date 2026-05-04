@@ -4,8 +4,9 @@ from dataclasses import dataclass
 
 @dataclass
 class MessageModel():
-    msg_id: int
     chat_id: int
+    message_id: int
     sender_id: int
     text: str
+    attachments: str
     timestamp: str

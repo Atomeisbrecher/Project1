@@ -1,5 +1,5 @@
 from pathlib import Path
-from pydantic import BaseModel, Field
+from pydantic import Field
 from sqlalchemy import URL
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
