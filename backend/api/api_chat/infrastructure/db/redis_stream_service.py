@@ -3,7 +3,9 @@ from typing import AsyncGenerator
 
 import redis.asyncio as redis
 
+# TODO: можно использовать встроенную очередь для передачи данных на запись в БД и на получение юзером сообщений через WebSocket
 
+# NOTE: реализует стриминг данных из вебсокетов
 class RedisStreamService:
     def __init__(self, client: redis.Redis):
         self.client = client

@@ -1,7 +1,7 @@
 from orm.orm import MessageORM
 from sqlalchemy.ext.asyncio import AsyncSession
 
-
+# NOTE: Репозиторий для работы с постоянным хранилищем данных
 class ChatRepository:
     def __init__(self, session: AsyncSession):
         self.session = session

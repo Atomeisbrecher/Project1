@@ -45,6 +45,7 @@ async def sync_messages(
     messages = await command.execute(chat_id=chat_id, last_message_id=last_message_id)
     return {"messages": messages}
 
+# TODO: Сообщения всё же можно напрямую прокидывать через websocket, эндпоинт ниже
 @router.post("/{chat_id}/message")
 @inject
 async def send_message(
@@ -92,6 +93,42 @@ async def get_messages(
 
 
 
+#one-to-one
+@router.get("/{user_id}/{receiver_id}")
+@inject
+async def get_messages(
+    user: CurrentUserPayload
+):
+    pass
+
+@router.get("/{chat_id}")
+@inject
+async def get_chats(
+    user: CurrentUserPayload
+):
+    pass
+
+#group
+@router.post("/group/create")
+@inject
+async def create_group_chat():
+    pass
+
+@router.post("/group/{group_id}/add")
+@inject
+async def add_group_member():
+    pass
+
+@router.post("/group/{group_id}/remove")
+@inject
+async def remove_group_member():
+    pass
+
+@router.get("/group/{group_id}/messages")
+@inject
+async def get_group_messages():
+    pass
+
 async def get_cookie_or_token(
     websocket: WebSocket,
     session: Annotated[str | None, Cookie()] = None,
@@ -125,33 +162,10 @@ async def websocket_endpoint(
     finally:
         await websocket.close()
 
-
-    # Очередь — это наш локальный Event Loop для этого сокета
-    #event_queue = asyncio.Queue()
-    #pubsub = await manager.subscribe(user_id)
-    #listen_task = asyncio.create_task(redis_listener(pubsub, event_queue))
-    
-    # try:
-    #     while True:
-    #         async with asyncio.TaskGroup() as tg:
-    #             tg.create_task(redis_to_ws_stream(websocket, pubsub))
-    #             tg.create_task(ws_to_logic_stream(websocket))
-    #         done, pending = await asyncio.wait(
-    #             [
-    #                 asyncio.create_task(event_queue.get()),
-    #                 asyncio.create_task(websocket.receive_text())
-    #             ],
-    #             return_when=asyncio.FIRST_COMPLETED
-    #         )
-            
-    #         for task in done:
-    #             result = task.result()
-    #             if isinstance(result, str):
-    #                 await websocket.send_text(result)
-                
-    # except WebSocketDisconnect:
-    #     listen_task.cancel()
-    # finally:
-    #     await pubsub.unsubscribe(f"user_stream_{user_id}")
-    #Короче ТЗ ещё очень сильно нужно доработать для нормально функционирующей системы
-    
+@router.websocket("/ws/messages/send")
+@inject
+async def send_message(
+    websocket: WebSocket,
+    credentials: Annotated[str, Depends(get_cookie_or_token)]
+):
+    pass
